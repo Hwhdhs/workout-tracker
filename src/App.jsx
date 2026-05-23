@@ -26,56 +26,56 @@ const muscleIcon = {
 // ─── MANSOOR'S PLAN ───────────────────────────────────────────────────────────
 const mansoorPlan = {
   "Push 1": {
-    day: "Mon", color: "#FF4D4D",
+    day: "Mon", color: "#C9A84C",
     exercises: [
-      { name: "Flat Machine Chest Press", target: "MID CHEST", sets: 4, defaultReps: 12 },
-      { name: "Panatta Upper Pec Flye", target: "UPPER CHEST", sets: 3, defaultReps: 15 },
-      { name: "Vertical Pec Fly", target: "LOWER CHEST", sets: 3, defaultReps: 15 },
-      { name: "Neutral Grip Machine Shoulder Press", target: "FRONT DELTS", sets: 3, defaultReps: 12 },
-      { name: "Machine Lateral Raise", target: "SIDE DELTS", sets: 3, defaultReps: 15 },
-      { name: "Tricep Dip Machine", target: "TRICEPS", sets: 3, defaultReps: 12 },
-      { name: "Cable Overhead Extension (Rope)", target: "TRICEPS LONG HEAD", sets: 3, defaultReps: 12 },
-      { name: "Hip Abductor", target: "OUTER THIGH", sets: 3, defaultReps: 15 },
-      { name: "Standing Calf Raise", target: "CALVES", sets: 3, defaultReps: 20 },
+      { name: "Flat Machine Chest Press",          target: "MID CHEST",        sets: 4, defaultReps: 12, type: "compound",  affects: ["Triceps", "Front Delts"] },
+      { name: "Panatta Upper Pec Flye",            target: "UPPER CHEST",      sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Vertical Pec Fly",                  target: "LOWER CHEST",      sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Neutral Grip Machine Shoulder Press", target: "FRONT DELTS",   sets: 3, defaultReps: 12, type: "compound",  affects: ["Triceps", "Upper Chest"] },
+      { name: "Machine Lateral Raise",             target: "SIDE DELTS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Tricep Dip Machine",                target: "TRICEPS",          sets: 3, defaultReps: 12, type: "compound",  affects: ["Chest", "Front Delts"] },
+      { name: "Cable Overhead Extension (Rope)",   target: "TRICEPS LONG HEAD",sets: 3, defaultReps: 12, type: "isolation" },
+      { name: "Hip Abductor",                      target: "OUTER THIGH",      sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Standing Calf Raise",               target: "CALVES",           sets: 3, defaultReps: 20, type: "isolation" },
     ],
   },
   "Pull 1": {
-    day: "Tue", color: "#4D9FFF",
+    day: "Tue", color: "#B8964A",
     exercises: [
-      { name: "Lat Pulldown (V-bar)", target: "LATS WIDTH", sets: 4, defaultReps: 12 },
-      { name: "Seated Cable Row", target: "MID BACK", sets: 3, defaultReps: 12 },
-      { name: "Machine Rear Delt Flye", target: "REAR DELTS", sets: 3, defaultReps: 15 },
-      { name: "DB Shrugs", target: "TRAPS", sets: 3, defaultReps: 15 },
-      { name: "ROC-IT Biceps Curl", target: "BICEPS", sets: 3, defaultReps: 15 },
-      { name: "Machine Preacher Curl", target: "BICEPS PEAK", sets: 3, defaultReps: 12 },
-      { name: "Romanian Deadlift", target: "HAMSTRINGS", sets: 3, defaultReps: 12 },
-      { name: "Gluteus Standing Machine", target: "GLUTES", sets: 3, defaultReps: 12 },
+      { name: "Lat Pulldown (V-bar)",              target: "LATS WIDTH",       sets: 4, defaultReps: 12, type: "compound",  affects: ["Biceps", "Rear Delts"] },
+      { name: "Seated Cable Row",                  target: "MID BACK",         sets: 3, defaultReps: 12, type: "compound",  affects: ["Biceps", "Rear Delts"] },
+      { name: "Machine Rear Delt Flye",            target: "REAR DELTS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "DB Shrugs",                         target: "TRAPS",            sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "ROC-IT Biceps Curl",                target: "BICEPS",           sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Machine Preacher Curl",             target: "BICEPS PEAK",      sets: 3, defaultReps: 12, type: "isolation" },
+      { name: "Romanian Deadlift",                 target: "HAMSTRINGS",       sets: 3, defaultReps: 12, type: "compound",  affects: ["Glutes", "Lower Back"] },
+      { name: "Gluteus Standing Machine",          target: "GLUTES",           sets: 3, defaultReps: 12, type: "isolation" },
     ],
   },
   "Push 2": {
-    day: "Thu", color: "#FF8C4D",
+    day: "Thu", color: "#D4B86A",
     exercises: [
-      { name: "Panatta Inclined Chest Press Circular", target: "UPPER CHEST", sets: 3, defaultReps: 12 },
-      { name: "Straight Arm Chest Flye", target: "MID CHEST", sets: 3, defaultReps: 15 },
-      { name: "Cable Lateral Raise", target: "SIDE DELTS", sets: 3, defaultReps: 15 },
-      { name: "Cable Front Raise", target: "FRONT DELTS", sets: 3, defaultReps: 12 },
-      { name: "Rope Pushdown", target: "TRICEPS", sets: 3, defaultReps: 15 },
-      { name: "Seated Overhead Tricep Machine", target: "TRICEPS LONG HEAD", sets: 3, defaultReps: 12 },
-      { name: "Leg Extension", target: "QUADS", sets: 3, defaultReps: 15 },
-      { name: "Leg Press", target: "QUADS & GLUTES", sets: 3, defaultReps: 12 },
+      { name: "Panatta Inclined Chest Press Circular", target: "UPPER CHEST", sets: 3, defaultReps: 12, type: "compound",  affects: ["Front Delts", "Triceps"] },
+      { name: "Straight Arm Chest Flye",           target: "MID CHEST",        sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Cable Lateral Raise",               target: "SIDE DELTS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Cable Front Raise",                 target: "FRONT DELTS",      sets: 3, defaultReps: 12, type: "isolation" },
+      { name: "Rope Pushdown",                     target: "TRICEPS",          sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Seated Overhead Tricep Machine",    target: "TRICEPS LONG HEAD",sets: 3, defaultReps: 12, type: "isolation" },
+      { name: "Leg Extension",                     target: "QUADS",            sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Leg Press",                         target: "QUADS & GLUTES",   sets: 3, defaultReps: 12, type: "compound",  affects: ["Hamstrings", "Calves"] },
     ],
   },
   "Pull 2": {
-    day: "Fri", color: "#4DFFB8",
+    day: "Fri", color: "#A07840",
     exercises: [
-      { name: "Fixed Pulldown", target: "LATS WIDTH", sets: 3, defaultReps: 15 },
-      { name: "Reverse Pec Deck", target: "REAR DELTS", sets: 3, defaultReps: 15 },
-      { name: "Oxygen Rear Delt Machine", target: "REAR DELTS", sets: 3, defaultReps: 15 },
-      { name: "Hyperextension", target: "LOWER BACK", sets: 3, defaultReps: 15 },
-      { name: "Rope Hammer Curl", target: "BICEPS & BRACHIALIS", sets: 3, defaultReps: 15 },
-      { name: "Panatta Alternate Arm Curl", target: "BICEPS", sets: 3, defaultReps: 12 },
-      { name: "Lying Leg Curl", target: "HAMSTRINGS", sets: 3, defaultReps: 15 },
-      { name: "Hack Squat", target: "QUADS & GLUTES", sets: 2, defaultReps: 12 },
+      { name: "Fixed Pulldown",                    target: "LATS WIDTH",       sets: 3, defaultReps: 15, type: "compound",  affects: ["Biceps", "Rear Delts"] },
+      { name: "Reverse Pec Deck",                  target: "REAR DELTS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Oxygen Rear Delt Machine",          target: "REAR DELTS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Hyperextension",                    target: "LOWER BACK",       sets: 3, defaultReps: 15, type: "compound",  affects: ["Glutes", "Hamstrings"] },
+      { name: "Rope Hammer Curl",                  target: "BICEPS & BRACHIALIS", sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Panatta Alternate Arm Curl",        target: "BICEPS",           sets: 3, defaultReps: 12, type: "isolation" },
+      { name: "Lying Leg Curl",                    target: "HAMSTRINGS",       sets: 3, defaultReps: 15, type: "isolation" },
+      { name: "Hack Squat",                        target: "QUADS & GLUTES",   sets: 2, defaultReps: 12, type: "compound",  affects: ["Glutes", "Hamstrings"] },
     ],
   },
 };
@@ -250,6 +250,9 @@ function MansoorTracker() {
   const [activeExercise, setActiveExercise] = useState(null);
   const [saved, setSaved] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [editingDate, setEditingDate] = useState(null);   // day key being date-edited
+  const [editingName, setEditingName] = useState(null);   // day key being name-edited
+  const [tempVal, setTempVal] = useState("");
 
   useEffect(() => {
     const load = async () => {
@@ -285,6 +288,17 @@ function MansoorTracker() {
   const isComplete = (n) => { const ex = workout.exercises.find(e => e.name === n); return Array.from({ length: ex.sets }).every((_, i) => getLog(n, i, "weight") && getLog(n, i, "reps")); };
   const totalComplete = workout.exercises.filter(e => isComplete(e.name)).length;
 
+  // ── Previous week reference ────────────────────────────────────────────────
+  const prevWeekNum = parseInt(selectedWeek.split(" ")[1]) - 1;
+  const prevWeek = prevWeekNum > 0 ? `Week ${prevWeekNum}` : null;
+  const getPrevLog = (e, s, f) => prevWeek ? (logs[`${prevWeek}|${selectedDay}|${e}|${s}`]?.[f] || "") : "";
+
+  // ── Custom dates & names (stored in logs with __ prefix so they sync) ──────
+  const getDate = (day) => logs[`__date|${selectedWeek}|${day}`] || mansoorWeekDates[selectedWeek]?.[day] || "";
+  const getName = (day) => logs[`__name|${day}`] || day;
+  const commitDate = (day) => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${day}`]: tempVal })); setEditingDate(null); };
+  const commitName = (day) => { setLogs(p => ({ ...p, [`__name|${day}`]: tempVal })); setEditingName(null); };
+
   if (!loaded) return <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontFamily: "monospace", fontSize: 14, letterSpacing: 2 }}>LOADING...</div>;
 
   return (
@@ -305,11 +319,46 @@ function MansoorTracker() {
         {WEEKS.map(w => <button key={w} onClick={() => setSelectedWeek(w)} style={{ flex: 1, padding: "6px 0", background: selectedWeek === w ? workout.color : "#1a1a1a", color: selectedWeek === w ? "#000" : "#666", border: "none", borderRadius: 6, fontSize: 11, letterSpacing: 2, cursor: "pointer", fontFamily: "'Bebas Neue', sans-serif" }}>{w}</button>)}
       </div>
       <div style={{ padding: "12px 16px 0", display: "flex", gap: 8, overflowX: "auto" }}>
-        {Object.entries(mansoorPlan).map(([day, data]) => (
-          <button key={day} onClick={() => { setSelectedDay(day); setActiveExercise(null); }} style={{ flexShrink: 0, padding: "8px 14px", background: selectedDay === day ? data.color : "#1a1a1a", color: selectedDay === day ? "#000" : "#555", border: `1px solid ${selectedDay === day ? data.color : "#2a2a2a"}`, borderRadius: 8, fontSize: 12, letterSpacing: 1, cursor: "pointer", fontFamily: "'Bebas Neue', sans-serif" }}>
-            {day}<div style={{ fontSize: 9, fontFamily: "monospace", opacity: 0.7 }}>{mansoorWeekDates[selectedWeek]?.[day]}</div>
-          </button>
-        ))}
+        {Object.entries(mansoorPlan).map(([day, data]) => {
+          const isActive = selectedDay === day;
+          const displayName = getName(day);
+          const displayDate = getDate(day);
+          return (
+            <div key={day} style={{ flexShrink: 0, position: "relative" }}>
+              <button onClick={() => { setSelectedDay(day); setActiveExercise(null); setEditingDate(null); setEditingName(null); }}
+                style={{ padding: "8px 14px", background: isActive ? data.color : "#1a1a1a", color: isActive ? "#000" : "#555", border: `1px solid ${isActive ? data.color : "#2a2a2a"}`, borderRadius: 8, fontSize: 12, letterSpacing: 1, cursor: "pointer", fontFamily: "'Bebas Neue', sans-serif", display: "block", textAlign: "left", minWidth: 80 }}>
+                {/* Workout name row */}
+                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  {editingName === day ? (
+                    <input autoFocus value={tempVal} onChange={e => setTempVal(e.target.value)}
+                      onBlur={() => commitName(day)}
+                      onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") commitName(day); if (e.key === "Escape") setEditingName(null); }}
+                      onClick={e => e.stopPropagation()}
+                      style={{ width: 70, background: "#000", border: "1px solid #fff", borderRadius: 4, color: "#fff", fontSize: 11, padding: "2px 4px", fontFamily: "monospace" }} />
+                  ) : (
+                    <span>{displayName}</span>
+                  )}
+                  <span onClick={e => { e.stopPropagation(); setTempVal(displayName); setEditingName(day); setEditingDate(null); }}
+                    style={{ fontSize: 9, opacity: isActive ? 0.6 : 0.3, cursor: "pointer", lineHeight: 1 }}>✎</span>
+                </div>
+                {/* Date row */}
+                <div style={{ fontSize: 9, fontFamily: "monospace", opacity: 0.7, marginTop: 2, display: "flex", alignItems: "center", gap: 3 }}>
+                  {editingDate === day ? (
+                    <input autoFocus value={tempVal} onChange={e => setTempVal(e.target.value)}
+                      onBlur={() => commitDate(day)}
+                      onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") commitDate(day); if (e.key === "Escape") setEditingDate(null); }}
+                      onClick={e => e.stopPropagation()}
+                      style={{ width: 80, background: "#000", border: "1px solid #aaa", borderRadius: 4, color: "#fff", fontSize: 9, padding: "2px 4px", fontFamily: "monospace" }} />
+                  ) : (
+                    <span>{displayDate}</span>
+                  )}
+                  <span onClick={e => { e.stopPropagation(); setTempVal(displayDate); setEditingDate(day); setEditingName(null); }}
+                    style={{ fontSize: 8, opacity: 0.5, cursor: "pointer" }}>✎</span>
+                </div>
+              </button>
+            </div>
+          );
+        })}
       </div>
       <div style={{ padding: "16px 16px 0" }}>
         {workout.exercises.map((exercise, idx) => {
@@ -321,7 +370,15 @@ function MansoorTracker() {
                 <div style={{ width: 28, height: 28, borderRadius: "50%", background: done ? workout.color : "#1e1e1e", color: done ? "#000" : "#444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, flexShrink: 0 }}>{done ? "✓" : idx + 1}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 14, letterSpacing: 1, lineHeight: 1.2 }}>{exercise.name}</div>
-                  <div style={{ fontSize: 9, color: workout.color, letterSpacing: 2, fontFamily: "monospace", marginTop: 3 }}>{exercise.target} • {exercise.sets} SETS • {exercise.defaultReps} REPS</div>
+                  <div style={{ fontSize: 9, color: workout.color, letterSpacing: 2, fontFamily: "monospace", marginTop: 3 }}>
+                    {exercise.target} • {exercise.sets} × {exercise.defaultReps}
+                  </div>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", marginTop: 2, display: "flex", alignItems: "center", gap: 4 }}>
+                    <span style={{ background: exercise.type === "compound" ? "#60A5FA22" : "#A3E63522", color: exercise.type === "compound" ? "#60A5FA" : "#A3E635", padding: "1px 6px", borderRadius: 3, letterSpacing: 1 }}>
+                      {exercise.type === "compound" ? "COMPOUND" : "ISOLATION"}
+                    </span>
+                    {exercise.affects && <span style={{ color: "#555", letterSpacing: 1 }}>+{exercise.affects.join(" · ")}</span>}
+                  </div>
                 </div>
                 <div style={{ color: "#444", fontSize: 16, transition: "transform 0.2s", transform: expanded ? "rotate(180deg)" : "rotate(0deg)", flexShrink: 0 }}>v</div>
               </div>
@@ -334,16 +391,34 @@ function MansoorTracker() {
                   </div>
                   {Array.from({ length: exercise.sets }).map((_, setIdx) => {
                     const w = getLog(exercise.name, setIdx, "weight"); const r = getLog(exercise.name, setIdx, "reps"); const setDone = w && r;
+                    const prevW = getPrevLog(exercise.name, setIdx, "weight"); const prevR = getPrevLog(exercise.name, setIdx, "reps");
                     const inp = { background: "#1a1a1a", border: `1px solid ${setDone ? workout.color + "66" : "#2a2a2a"}`, borderRadius: 8, color: "#fff", padding: "10px", fontSize: 16, fontFamily: "'Bebas Neue', sans-serif", textAlign: "center", outline: "none", width: "100%", boxSizing: "border-box" };
                     return (
-                      <div key={setIdx} style={{ display: "grid", gridTemplateColumns: "36px 1fr 1fr", gap: 8, marginBottom: 8, alignItems: "center" }}>
-                        <div style={{ textAlign: "center", fontSize: 13, color: setDone ? workout.color : "#444", fontFamily: "monospace" }}>{setDone ? "✓" : setIdx + 1}</div>
-                        <input type="number" placeholder="kg" value={w} onChange={e => updateLog(exercise.name, setIdx, "weight", e.target.value)} style={inp} />
-                        <input type="number" placeholder="reps" value={r} onChange={e => updateLog(exercise.name, setIdx, "reps", e.target.value)} style={inp} />
+                      <div key={setIdx} style={{ marginBottom: 10 }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 1fr", gap: 8, alignItems: "center" }}>
+                          <div style={{ textAlign: "center", fontSize: 13, color: setDone ? workout.color : "#444", fontFamily: "monospace" }}>{setDone ? "✓" : setIdx + 1}</div>
+                          <input type="number" placeholder="kg" value={w} onChange={e => updateLog(exercise.name, setIdx, "weight", e.target.value)} style={inp} />
+                          <input type="number" placeholder="reps" value={r} onChange={e => updateLog(exercise.name, setIdx, "reps", e.target.value)} style={inp} />
+                        </div>
+                        {prevW && prevR && (
+                          <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 1fr", gap: 8, marginTop: 3 }}>
+                            <div />
+                            <div style={{ textAlign: "center", fontSize: 9, color: "#444", fontFamily: "monospace", letterSpacing: 1 }}>{prevWeek}: {prevW}kg</div>
+                            <div style={{ textAlign: "center", fontSize: 9, color: "#444", fontFamily: "monospace", letterSpacing: 1 }}>{prevR} reps</div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
-                  <div style={{ marginTop: 8, padding: "8px 12px", background: "#0d0d0d", borderRadius: 8, fontSize: 10, color: "#444", fontFamily: "monospace", letterSpacing: 1 }}>TARGET: {exercise.sets} x {exercise.defaultReps} REPS • +2.5-5KG EACH WEEK</div>
+                  <div style={{ marginTop: 8, padding: "8px 12px", background: "#0d0d0d", borderRadius: 8, fontSize: 10, color: "#444", fontFamily: "monospace", letterSpacing: 1 }}>
+                    TARGET: {exercise.sets} × {exercise.defaultReps} REPS
+                    {prevWeek && (() => {
+                      const topSet = Array.from({ length: exercise.sets }).reduce((best, _, i) => {
+                        const pw = parseFloat(getPrevLog(exercise.name, i, "weight")); return (!isNaN(pw) && pw > best) ? pw : best;
+                      }, 0);
+                      return topSet > 0 ? <span style={{ color: "#666" }}> • {prevWeek} TOP: {topSet}kg</span> : null;
+                    })()}
+                  </div>
                 </div>
               )}
             </div>
@@ -356,7 +431,7 @@ function MansoorTracker() {
           <div style={{ fontSize: 11, color: "#888", fontFamily: "monospace", marginTop: 6 }}>SAUNA - COLD PLUNGE - SAUNA</div>
         </div>
       )}
-      <div style={{ margin: "16px 16px 0", padding: "12px 16px", background: "#1a0f00", border: "1px solid #FF8C4D44", borderRadius: 10, fontSize: 10, color: "#FF8C4D", fontFamily: "monospace", letterSpacing: 1, lineHeight: 1.8 }}>
+      <div style={{ margin: "16px 16px 0", padding: "12px 16px", background: "#1a1500", border: "1px solid #C9A84C44", borderRadius: 10, fontSize: 10, color: "#C9A84C", fontFamily: "monospace", letterSpacing: 1, lineHeight: 1.8 }}>
         TENNIS ELBOW: HOOKS ON PULLS • ANKLE STRAPS ON CABLES • NEUTRAL GRIP • STOP IF SHARP PAIN
       </div>
     </div>
