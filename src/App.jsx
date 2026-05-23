@@ -167,6 +167,8 @@ const STRETCHES = [
   { muscle: "Calves",      duration: "30 secs each" },
   { muscle: "Hip Flexors", duration: "30 secs each" },
 ];
+
+const mansoorWeekDates = {
   "Week 1": { "Push 1": "Mon · May 18", "Pull 1": "Tue · May 19", "Push 2": "Thu · May 21", "Pull 2": "Fri · May 22" },
   "Week 2": { "Push 1": "Mon · May 25", "Pull 1": "Tue · May 26", "Push 2": "Thu · May 28", "Pull 2": "Fri · May 29" },
   "Week 3": { "Push 1": "Mon · Jun 1",  "Pull 1": "Tue · Jun 2",  "Push 2": "Thu · Jun 4",  "Pull 2": "Fri · Jun 5"  },
