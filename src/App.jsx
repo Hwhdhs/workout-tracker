@@ -242,6 +242,55 @@ const pariWeekDates = {
 
 const WEEKS = ["Week 1", "Week 2", "Week 3", "Week 4"];
 
+// ─── CALENDAR PICKER ─────────────────────────────────────────────────────────
+function CalendarPicker({ color, onSelect, onClose }) {
+  const today = new Date();
+  const [viewMonth, setViewMonth] = useState(today.getMonth());
+  const [viewYear,  setViewYear]  = useState(today.getFullYear());
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const dayLabels  = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+  const firstDay   = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+  const prevMonth = () => viewMonth === 0 ? (setViewMonth(11), setViewYear(y => y - 1)) : setViewMonth(m => m - 1);
+  const nextMonth = () => viewMonth === 11 ? (setViewMonth(0),  setViewYear(y => y + 1)) : setViewMonth(m => m + 1);
+
+  const pick = (day) => {
+    const d = new Date(viewYear, viewMonth, day);
+    const dn = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getDay()];
+    const mn = monthNames[viewMonth].slice(0, 3);
+    onSelect(`${dn} · ${mn} ${day}`);
+  };
+
+  return (
+    <div onClick={e => e.stopPropagation()} style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, zIndex: 200, background: "#181818", border: `1px solid ${color}55`, borderRadius: 12, padding: "12px 10px", width: 210, boxShadow: "0 8px 24px #00000088" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+        <button onClick={prevMonth} style={{ background: "none", border: "none", color: "#aaa", cursor: "pointer", fontSize: 18, lineHeight: 1, padding: "0 4px" }}>‹</button>
+        <div style={{ fontSize: 11, color: "#fff", fontFamily: "monospace", letterSpacing: 2 }}>{monthNames[viewMonth].slice(0,3).toUpperCase()} {viewYear}</div>
+        <button onClick={nextMonth} style={{ background: "none", border: "none", color: "#aaa", cursor: "pointer", fontSize: 18, lineHeight: 1, padding: "0 4px" }}>›</button>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2, marginBottom: 4 }}>
+        {dayLabels.map(d => <div key={d} style={{ textAlign: "center", fontSize: 9, color: "#555", fontFamily: "monospace", padding: "2px 0" }}>{d}</div>)}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 }}>
+        {Array.from({ length: firstDay }, (_, i) => <div key={`e${i}`} />)}
+        {Array.from({ length: daysInMonth }, (_, i) => {
+          const day = i + 1;
+          const isToday = day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear();
+          return (
+            <button key={day} onClick={() => pick(day)} style={{ background: isToday ? color + "33" : "none", border: isToday ? `1px solid ${color}66` : "1px solid transparent", color: "#ccc", cursor: "pointer", fontSize: 11, fontFamily: "monospace", padding: "5px 0", borderRadius: 5, textAlign: "center", transition: "background 0.1s" }}
+              onMouseEnter={e => e.currentTarget.style.background = color + "55"}
+              onMouseLeave={e => e.currentTarget.style.background = isToday ? color + "33" : "none"}>
+              {day}
+            </button>
+          );
+        })}
+      </div>
+      <div onClick={onClose} style={{ marginTop: 10, textAlign: "center", fontSize: 9, color: "#555", fontFamily: "monospace", cursor: "pointer", letterSpacing: 2, paddingTop: 8, borderTop: "1px solid #2a2a2a" }}>CANCEL</div>
+    </div>
+  );
+}
+
 // ─── MANSOOR TRACKER ─────────────────────────────────────────────────────────
 function MansoorTracker() {
   const [selectedWeek, setSelectedWeek] = useState("Week 1");
@@ -250,8 +299,8 @@ function MansoorTracker() {
   const [activeExercise, setActiveExercise] = useState(null);
   const [saved, setSaved] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [editingDate, setEditingDate] = useState(null);   // day key being date-edited
-  const [editingName, setEditingName] = useState(null);   // day key being name-edited
+  const [editingDate, setEditingDate] = useState(null);
+  const [editingExName, setEditingExName] = useState(null); // original exercise name being renamed
   const [tempVal, setTempVal] = useState("");
 
   useEffect(() => {
@@ -295,9 +344,11 @@ function MansoorTracker() {
 
   // ── Custom dates & names (stored in logs with __ prefix so they sync) ──────
   const getDate = (day) => logs[`__date|${selectedWeek}|${day}`] || mansoorWeekDates[selectedWeek]?.[day] || "";
-  const getName = (day) => logs[`__name|${day}`] || day;
   const commitDate = (day) => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${day}`]: tempVal })); setEditingDate(null); };
-  const commitName = (day) => { setLogs(p => ({ ...p, [`__name|${day}`]: tempVal })); setEditingName(null); };
+
+  // ── Exercise name overrides (per week + day + original name) ──────────────
+  const getExName = (orig) => logs[`__exname|${selectedWeek}|${selectedDay}|${orig}`] || orig;
+  const commitExName = (orig) => { setLogs(p => ({ ...p, [`__exname|${selectedWeek}|${selectedDay}|${orig}`]: tempVal.trim() || orig })); setEditingExName(null); };
 
   if (!loaded) return <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontFamily: "monospace", fontSize: 14, letterSpacing: 2 }}>LOADING...</div>;
 
@@ -321,41 +372,25 @@ function MansoorTracker() {
       <div style={{ padding: "12px 16px 0", display: "flex", gap: 8, overflowX: "auto" }}>
         {Object.entries(mansoorPlan).map(([day, data]) => {
           const isActive = selectedDay === day;
-          const displayName = getName(day);
           const displayDate = getDate(day);
           return (
             <div key={day} style={{ flexShrink: 0, position: "relative" }}>
-              <button onClick={() => { setSelectedDay(day); setActiveExercise(null); setEditingDate(null); setEditingName(null); }}
+              <button onClick={() => { setSelectedDay(day); setActiveExercise(null); setEditingDate(null); setEditingExName(null); }}
                 style={{ padding: "8px 14px", background: isActive ? data.color : "#1a1a1a", color: isActive ? "#000" : "#555", border: `1px solid ${isActive ? data.color : "#2a2a2a"}`, borderRadius: 8, fontSize: 12, letterSpacing: 1, cursor: "pointer", fontFamily: "'Bebas Neue', sans-serif", display: "block", textAlign: "left", minWidth: 80 }}>
-                {/* Workout name row */}
-                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                  {editingName === day ? (
-                    <input autoFocus value={tempVal} onChange={e => setTempVal(e.target.value)}
-                      onBlur={() => commitName(day)}
-                      onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") commitName(day); if (e.key === "Escape") setEditingName(null); }}
-                      onClick={e => e.stopPropagation()}
-                      style={{ width: 70, background: "#000", border: "1px solid #fff", borderRadius: 4, color: "#fff", fontSize: 11, padding: "2px 4px", fontFamily: "monospace" }} />
-                  ) : (
-                    <span>{displayName}</span>
-                  )}
-                  <span onClick={e => { e.stopPropagation(); setTempVal(displayName); setEditingName(day); setEditingDate(null); }}
-                    style={{ fontSize: 9, opacity: isActive ? 0.6 : 0.3, cursor: "pointer", lineHeight: 1 }}>✎</span>
-                </div>
-                {/* Date row */}
+                <div>{day}</div>
                 <div style={{ fontSize: 9, fontFamily: "monospace", opacity: 0.7, marginTop: 2, display: "flex", alignItems: "center", gap: 3 }}>
-                  {editingDate === day ? (
-                    <input autoFocus value={tempVal} onChange={e => setTempVal(e.target.value)}
-                      onBlur={() => commitDate(day)}
-                      onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") commitDate(day); if (e.key === "Escape") setEditingDate(null); }}
-                      onClick={e => e.stopPropagation()}
-                      style={{ width: 80, background: "#000", border: "1px solid #aaa", borderRadius: 4, color: "#fff", fontSize: 9, padding: "2px 4px", fontFamily: "monospace" }} />
-                  ) : (
-                    <span>{displayDate}</span>
-                  )}
-                  <span onClick={e => { e.stopPropagation(); setTempVal(displayDate); setEditingDate(day); setEditingName(null); }}
+                  <span>{displayDate}</span>
+                  <span onClick={e => { e.stopPropagation(); setEditingDate(editingDate === day ? null : day); }}
                     style={{ fontSize: 8, opacity: 0.5, cursor: "pointer" }}>✎</span>
                 </div>
               </button>
+              {editingDate === day && (
+                <CalendarPicker
+                  color={data.color}
+                  onSelect={val => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${day}`]: val })); setEditingDate(null); }}
+                  onClose={() => setEditingDate(null)}
+                />
+              )}
             </div>
           );
         })}
@@ -369,7 +404,22 @@ function MansoorTracker() {
               <div onClick={() => setActiveExercise(expanded ? null : exercise.name)} style={{ padding: "14px 16px", display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }}>
                 <div style={{ width: 28, height: 28, borderRadius: "50%", background: done ? workout.color : "#1e1e1e", color: done ? "#000" : "#444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, flexShrink: 0 }}>{done ? "✓" : idx + 1}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, letterSpacing: 1, lineHeight: 1.2 }}>{exercise.name}</div>
+                  <div style={{ fontSize: 14, letterSpacing: 1, lineHeight: 1.2, display: "flex", alignItems: "center", gap: 6 }}>
+                    {editingExName === exercise.name ? (
+                      <input autoFocus value={tempVal}
+                        onChange={e => setTempVal(e.target.value)}
+                        onBlur={() => commitExName(exercise.name)}
+                        onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") commitExName(exercise.name); if (e.key === "Escape") setEditingExName(null); }}
+                        onClick={e => e.stopPropagation()}
+                        style={{ flex: 1, background: "#1a1a1a", border: `1px solid ${workout.color}`, borderRadius: 6, color: "#fff", fontSize: 13, padding: "4px 8px", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: 1, outline: "none" }} />
+                    ) : (
+                      <>
+                        <span>{getExName(exercise.name)}</span>
+                        <span onClick={e => { e.stopPropagation(); setTempVal(getExName(exercise.name)); setEditingExName(exercise.name); }}
+                          style={{ fontSize: 11, color: "#444", cursor: "pointer", flexShrink: 0 }}>✎</span>
+                      </>
+                    )}
+                  </div>
                   <div style={{ fontSize: 9, color: workout.color, letterSpacing: 2, fontFamily: "monospace", marginTop: 3 }}>
                     {exercise.target} • {exercise.sets} × {exercise.defaultReps}
                   </div>
