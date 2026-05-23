@@ -80,7 +80,93 @@ const mansoorPlan = {
   },
 };
 
-const mansoorWeekDates = {
+// ─── MANSOOR PLAN V2 (Week 2+) ───────────────────────────────────────────────
+const mansoorPlanV2 = {
+  "Push 1": {
+    day: "Mon", color: "#C9A84C",
+    exercises: [
+      { name: "Incline Press",               target: "UPPER CHEST",        sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Front Delts","Triceps"] },
+      { name: "Upper Chest Flye",            target: "UPPER CHEST",        sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Shoulder Press (neutral)",    target: "FRONT DELTS",        sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Triceps","Upper Chest"] },
+      { name: "Lateral Raise",               target: "SIDE DELTS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Tricep Dip",                  target: "TRICEPS",            sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Chest","Front Delts"] },
+      { name: "Overhead Extension",          target: "TRICEPS LONG HEAD",  sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Leg Extension (warm up)",     target: "QUADS",              sets: 2, defaultReps: "15",    type: "warmup" },
+      { name: "Squat",                       target: "QUADS & GLUTES",     sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Hamstrings","Calves"] },
+      { name: "Hip Abductor",                target: "OUTER THIGH",        sets: 3, defaultReps: "15",    type: "isolation" },
+      { name: "Standing Calf Raise",         target: "CALVES",             sets: 3, defaultReps: "15-20", type: "finisher" },
+    ],
+  },
+  "Pull 1": {
+    day: "Tue", color: "#B8964A",
+    exercises: [
+      { name: "Lat Pulldown (close/neutral)",target: "LATS",               sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Biceps","Rear Delts"] },
+      { name: "Row (close/neutral)",         target: "MID BACK",           sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Biceps","Rear Delts"] },
+      { name: "Bicep Curl (supinated)",      target: "BICEPS PEAK",        sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Hammer Curl",                 target: "BRACHIALIS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Rear Delt Flye",              target: "REAR DELTS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Shrugs",                      target: "TRAPS",              sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Leg Curl (warm up)",          target: "HAMSTRINGS",         sets: 2, defaultReps: "15",    type: "warmup" },
+      { name: "Romanian Deadlift",           target: "HAMSTRINGS & GLUTES",sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Glutes","Lower Back"] },
+      { name: "Hip Adductor",                target: "INNER THIGH",        sets: 3, defaultReps: "15",    type: "isolation" },
+      { name: "Hyperextension",              target: "LOWER BACK",         sets: 3, defaultReps: "15",    type: "finisher",  affects: ["Glutes","Hamstrings"] },
+    ],
+  },
+  "Push 2": {
+    day: "Thu", color: "#D4B86A",
+    exercises: [
+      { name: "Flat Press",                  target: "MID CHEST",          sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Triceps","Front Delts"] },
+      { name: "Lower Chest Flye",            target: "LOWER CHEST",        sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Shoulder Press (wide grip)",  target: "FRONT & SIDE DELTS", sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Triceps"] },
+      { name: "Lateral Raise",               target: "SIDE DELTS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Tricep Pushdown",             target: "TRICEPS LATERAL",    sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Overhead Extension",          target: "TRICEPS LONG HEAD",  sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Leg Extension (warm up)",     target: "QUADS",              sets: 2, defaultReps: "15",    type: "warmup" },
+      { name: "Hack Squat",                  target: "QUADS & GLUTES",     sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Glutes","Hamstrings"], note: "knee braces!" },
+      { name: "Glute Kickback",              target: "GLUTES",             sets: 3, defaultReps: "15",    type: "isolation" },
+      { name: "Seated Calf Raise",           target: "CALVES",             sets: 3, defaultReps: "15-20", type: "finisher" },
+    ],
+  },
+  "Pull 2": {
+    day: "Fri", color: "#A07840",
+    exercises: [
+      { name: "Lat Pulldown (wide grip)",    target: "LATS",               sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Biceps","Rear Delts"] },
+      { name: "Row (wide grip)",             target: "UPPER BACK",         sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Biceps","Rear Delts"] },
+      { name: "Bicep Curl (supinated)",      target: "BICEPS PEAK",        sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Hammer Curl",                 target: "BRACHIALIS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Rear Delt Flye",              target: "REAR DELTS",         sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Shrugs",                      target: "TRAPS",              sets: 3, defaultReps: "12-15", type: "isolation" },
+      { name: "Leg Curl (warm up)",          target: "HAMSTRINGS",         sets: 2, defaultReps: "15",    type: "warmup" },
+      { name: "Leg Press",                   target: "QUADS & GLUTES",     sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Hamstrings","Calves"] },
+      { name: "Hip Thrust",                  target: "GLUTES",             sets: 4, defaultReps: "8-12",  type: "compound",  affects: ["Hamstrings"] },
+      { name: "Hyperextension",              target: "LOWER BACK",         sets: 3, defaultReps: "15",    type: "finisher",  affects: ["Glutes","Hamstrings"] },
+    ],
+  },
+};
+
+const REST_TIMES  = { compound: 150, isolation: 75, warmup: 52, finisher: 52 };
+const REST_LABELS = { compound: "2–3 MIN", isolation: "60–90 SEC", warmup: "45–60 SEC", finisher: "45–60 SEC" };
+
+const WARMUP_ITEMS = [
+  { label: "Treadmill incline 10",       detail: "5 mins" },
+  { label: "Arm circles",                detail: "1 min" },
+  { label: "Hip flexor stretch",         detail: "1 min" },
+  { label: "Wrist flexor stretch",       detail: "1 min" },
+  { label: "Light set on first exercise",detail: "50% weight · 1 set" },
+];
+
+const STRETCHES = [
+  { muscle: "Chest",       duration: "30 secs" },
+  { muscle: "Shoulders",   duration: "30 secs each" },
+  { muscle: "Triceps",     duration: "30 secs each" },
+  { muscle: "Lats",        duration: "30 secs each" },
+  { muscle: "Biceps",      duration: "30 secs each" },
+  { muscle: "Quads",       duration: "30 secs each" },
+  { muscle: "Hamstrings",  duration: "30 secs" },
+  { muscle: "Glutes",      duration: "30 secs each" },
+  { muscle: "Calves",      duration: "30 secs each" },
+  { muscle: "Hip Flexors", duration: "30 secs each" },
+];
   "Week 1": { "Push 1": "Mon · May 18", "Pull 1": "Tue · May 19", "Push 2": "Thu · May 21", "Pull 2": "Fri · May 22" },
   "Week 2": { "Push 1": "Mon · May 25", "Pull 1": "Tue · May 26", "Push 2": "Thu · May 28", "Pull 2": "Fri · May 29" },
   "Week 3": { "Push 1": "Mon · Jun 1",  "Pull 1": "Tue · Jun 2",  "Push 2": "Thu · Jun 4",  "Pull 2": "Fri · Jun 5"  },
@@ -242,6 +328,87 @@ const pariWeekDates = {
 
 const WEEKS = ["Week 1", "Week 2", "Week 3", "Week 4"];
 
+// ─── WARMUP CHECKLIST ────────────────────────────────────────────────────────
+function WarmUpChecklist({ color, onStart }) {
+  const [checked, setChecked] = useState({});
+  const allDone = WARMUP_ITEMS.every((_, i) => checked[i]);
+  const toggle = (i) => setChecked(p => ({ ...p, [i]: !p[i] }));
+  return (
+    <div style={{ padding: "24px 16px" }}>
+      <div style={{ fontSize: 10, color: "#555", fontFamily: "monospace", letterSpacing: 4, marginBottom: 4 }}>BEFORE YOU START</div>
+      <div style={{ fontSize: 22, letterSpacing: 2, marginBottom: 20 }}>WARM UP</div>
+      {WARMUP_ITEMS.map((item, i) => (
+        <div key={i} onClick={() => toggle(i)} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: "#111", border: `1px solid ${checked[i] ? color + "55" : "#1e1e1e"}`, borderRadius: 12, marginBottom: 8, cursor: "pointer", transition: "border-color 0.2s" }}>
+          <div style={{ width: 24, height: 24, borderRadius: "50%", border: `2px solid ${checked[i] ? color : "#333"}`, background: checked[i] ? color : "none", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, color: "#000", transition: "all 0.2s" }}>{checked[i] ? "✓" : ""}</div>
+          <div>
+            <div style={{ fontSize: 14, letterSpacing: 1, color: checked[i] ? "#555" : "#fff" }}>{item.label}</div>
+            <div style={{ fontSize: 10, color: "#444", fontFamily: "monospace", marginTop: 2 }}>{item.detail}</div>
+          </div>
+        </div>
+      ))}
+      <button onClick={onStart} disabled={!allDone} style={{ width: "100%", marginTop: 16, padding: "16px", background: allDone ? color : "#1a1a1a", color: allDone ? "#000" : "#333", border: "none", borderRadius: 12, fontSize: 16, letterSpacing: 3, cursor: allDone ? "pointer" : "not-allowed", fontFamily: "'Bebas Neue', sans-serif", transition: "all 0.3s" }}>
+        {allDone ? "START SESSION →" : `${Object.values(checked).filter(Boolean).length}/${WARMUP_ITEMS.length} COMPLETE`}
+      </button>
+      <button onClick={onStart} style={{ width: "100%", marginTop: 8, padding: "10px", background: "none", color: "#333", border: "none", fontSize: 10, letterSpacing: 3, cursor: "pointer", fontFamily: "monospace" }}>SKIP WARMUP</button>
+    </div>
+  );
+}
+
+// ─── REST TIMER ───────────────────────────────────────────────────────────────
+function RestTimer({ seconds, color, onDone }) {
+  const [remaining, setRemaining] = useState(seconds);
+  const pct = remaining / seconds;
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  useEffect(() => {
+    if (remaining <= 0) { onDone(); return; }
+    const t = setInterval(() => setRemaining(r => r - 1), 1000);
+    return () => clearInterval(t);
+  }, [remaining]);
+  return (
+    <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 300, background: "#0f0f0f", borderTop: `2px solid ${color}`, padding: "16px 20px", display: "flex", alignItems: "center", gap: 16 }}>
+      <div style={{ width: 52, height: 52, borderRadius: "50%", border: `3px solid ${color}33`, flexShrink: 0, position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <svg style={{ position: "absolute", inset: 0 }} viewBox="0 0 52 52">
+          <circle cx="26" cy="26" r="23" fill="none" stroke={color} strokeWidth="3" strokeDasharray={`${pct * 144.5} 144.5`} strokeLinecap="round" transform="rotate(-90 26 26)" />
+        </svg>
+        <div style={{ fontSize: 11, fontFamily: "monospace", color, fontWeight: 900 }}>{fmt(remaining)}</div>
+      </div>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 9, color: "#555", fontFamily: "monospace", letterSpacing: 3 }}>REST TIMER</div>
+        <div style={{ fontSize: 13, letterSpacing: 2, color: "#fff", marginTop: 2 }}>NEXT SET IN {fmt(remaining)}</div>
+      </div>
+      <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+        <button onClick={() => setRemaining(r => Math.max(0, r - 15))} style={{ background: "#1a1a1a", border: "none", color: "#aaa", borderRadius: 8, padding: "8px 10px", fontSize: 11, fontFamily: "monospace", cursor: "pointer" }}>-15s</button>
+        <button onClick={() => setRemaining(r => r + 15)} style={{ background: "#1a1a1a", border: "none", color: "#aaa", borderRadius: 8, padding: "8px 10px", fontSize: 11, fontFamily: "monospace", cursor: "pointer" }}>+15s</button>
+        <button onClick={onDone} style={{ background: color, border: "none", color: "#000", borderRadius: 8, padding: "8px 14px", fontSize: 11, fontFamily: "'Bebas Neue', sans-serif", letterSpacing: 2, cursor: "pointer" }}>SKIP</button>
+      </div>
+    </div>
+  );
+}
+
+// ─── STRETCH SECTION ─────────────────────────────────────────────────────────
+function StretchSection({ color }) {
+  const [checked, setChecked] = useState({});
+  const done = Object.values(checked).filter(Boolean).length;
+  return (
+    <div style={{ margin: "20px 16px 0", padding: "20px 16px", background: "#111", border: `1px solid ${color}44`, borderRadius: 16 }}>
+      <div style={{ fontSize: 10, color: "#555", fontFamily: "monospace", letterSpacing: 4, marginBottom: 4 }}>POST WORKOUT</div>
+      <div style={{ fontSize: 20, letterSpacing: 2, marginBottom: 16 }}>STRETCHES</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        {STRETCHES.map((s, i) => (
+          <div key={i} onClick={() => setChecked(p => ({ ...p, [i]: !p[i] }))} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: checked[i] ? color + "18" : "#1a1a1a", border: `1px solid ${checked[i] ? color + "55" : "#2a2a2a"}`, borderRadius: 10, cursor: "pointer", transition: "all 0.2s" }}>
+            <div style={{ width: 18, height: 18, borderRadius: "50%", border: `1.5px solid ${checked[i] ? color : "#333"}`, background: checked[i] ? color : "none", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "#000" }}>{checked[i] ? "✓" : ""}</div>
+            <div>
+              <div style={{ fontSize: 11, letterSpacing: 1, color: checked[i] ? "#666" : "#ccc" }}>{s.muscle}</div>
+              <div style={{ fontSize: 9, color: "#444", fontFamily: "monospace" }}>{s.duration}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {done === STRETCHES.length && <div style={{ marginTop: 14, textAlign: "center", fontSize: 11, color: color, fontFamily: "monospace", letterSpacing: 3 }}>ALL DONE 💪</div>}
+    </div>
+  );
+}
+
 // ─── CALENDAR PICKER ─────────────────────────────────────────────────────────
 function CalendarPicker({ color, onSelect, onClose }) {
   const today = new Date();
@@ -301,8 +468,10 @@ function MansoorTracker() {
   const [loaded, setLoaded] = useState(false);
   const [editingDate, setEditingDate] = useState(null);
   const [calendarPos, setCalendarPos] = useState(null);
-  const [editingExName, setEditingExName] = useState(null); // original exercise name being renamed
+  const [editingExName, setEditingExName] = useState(null);
   const [tempVal, setTempVal] = useState("");
+  const [warmupDone, setWarmupDone] = useState(false);
+  const [restTimer, setRestTimer] = useState(null); // { seconds, color }
 
   useEffect(() => {
     const load = async () => {
@@ -331,10 +500,23 @@ function MansoorTracker() {
     save();
   }, [logs, loaded]);
 
-  const workout = mansoorPlan[selectedDay];
+  // ── Reset warmup when switching days ──────────────────────────────────────
+  useEffect(() => { setWarmupDone(false); setActiveExercise(null); setRestTimer(null); }, [selectedDay]);
+
+  const workout = selectedWeek === "Week 1" ? mansoorPlan[selectedDay] : mansoorPlanV2[selectedDay];
   const getKey = (w, d, e, s) => `${w}|${d}|${e}|${s}`;
   const getLog = (e, s, f) => logs[getKey(selectedWeek, selectedDay, e, s)]?.[f] || "";
-  const updateLog = (e, s, f, v) => { const k = getKey(selectedWeek, selectedDay, e, s); setLogs(p => ({ ...p, [k]: { ...p[k], [f]: v } })); };
+  const updateLog = (e, s, f, v) => {
+    const k = getKey(selectedWeek, selectedDay, e, s);
+    const updated = { ...logs, [k]: { ...logs[k], [f]: v } };
+    setLogs(updated);
+    // Trigger rest timer when set is complete
+    const other = f === "weight" ? "reps" : "weight";
+    if (v && updated[k]?.[other]) {
+      const ex = workout.exercises.find(x => x.name === e);
+      setRestTimer({ seconds: REST_TIMES[ex?.type] || 75, color: workout.color });
+    }
+  };
   const isComplete = (n) => { const ex = workout.exercises.find(e => e.name === n); return Array.from({ length: ex.sets }).every((_, i) => getLog(n, i, "weight") && getLog(n, i, "reps")); };
   const totalComplete = workout.exercises.filter(e => isComplete(e.name)).length;
 
@@ -343,13 +525,33 @@ function MansoorTracker() {
   const prevWeek = prevWeekNum > 0 ? `Week ${prevWeekNum}` : null;
   const getPrevLog = (e, s, f) => prevWeek ? (logs[`${prevWeek}|${selectedDay}|${e}|${s}`]?.[f] || "") : "";
 
-  // ── Custom dates & names (stored in logs with __ prefix so they sync) ──────
+  // ── Progressive overload suggestion ───────────────────────────────────────
+  const getPoSuggestion = (exName, exType) => {
+    if (!prevWeek) return null;
+    const ex = workout.exercises.find(e => e.name === exName);
+    if (!ex) return null;
+    const prevSets = Array.from({ length: ex.sets }, (_, i) => ({
+      w: parseFloat(getPrevLog(exName, i, "weight")) || 0,
+      r: parseFloat(getPrevLog(exName, i, "reps")) || 0,
+    }));
+    const topW = Math.max(...prevSets.map(s => s.w));
+    if (topW === 0) return null;
+    const allHit = prevSets.every(s => s.w > 0 && s.r > 0);
+    const inc = exType === "compound" ? 2.5 : 2.5;
+    return { topW, allHit, suggested: allHit ? topW + inc : topW, inc };
+  };
+
+  // ── Custom dates ──────────────────────────────────────────────────────────
   const getDate = (day) => logs[`__date|${selectedWeek}|${day}`] || mansoorWeekDates[selectedWeek]?.[day] || "";
   const commitDate = (day) => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${day}`]: tempVal })); setEditingDate(null); };
 
-  // ── Exercise name overrides (per week + day + original name) ──────────────
+  // ── Exercise name overrides ────────────────────────────────────────────────
   const getExName = (orig) => logs[`__exname|${selectedWeek}|${selectedDay}|${orig}`] || orig;
   const commitExName = (orig) => { setLogs(p => ({ ...p, [`__exname|${selectedWeek}|${selectedDay}|${orig}`]: tempVal.trim() || orig })); setEditingExName(null); };
+
+  // ── Show warmup for fresh sessions only ───────────────────────────────────
+  const hasExistingLogs = workout.exercises.some(ex => Array.from({ length: ex.sets }).some((_, i) => getLog(ex.name, i, "weight")));
+  const showWarmup = !warmupDone && !hasExistingLogs;
 
   if (!loaded) return <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontFamily: "monospace", fontSize: 14, letterSpacing: 2 }}>LOADING...</div>;
 
@@ -402,9 +604,20 @@ function MansoorTracker() {
         </>
       )}
       <div style={{ padding: "16px 16px 0" }}>
+        {showWarmup ? (
+          <WarmUpChecklist color={workout.color} onStart={() => setWarmupDone(true)} />
+        ) : (
+        <>
         {workout.exercises.map((exercise, idx) => {
           const done = isComplete(exercise.name);
           const expanded = activeExercise === exercise.name;
+          const po = getPoSuggestion(exercise.name, exercise.type);
+          const typeBadge = {
+            compound: { bg: "#60A5FA22", color: "#60A5FA", label: "COMPOUND" },
+            isolation:{ bg: "#A3E63522", color: "#A3E635", label: "ISOLATION" },
+            warmup:   { bg: "#94A3B822", color: "#94A3B8", label: "WARM UP" },
+            finisher: { bg: "#FB923C22", color: "#FB923C", label: "FINISHER" },
+          }[exercise.type] || { bg: "#33333322", color: "#888", label: exercise.type?.toUpperCase() };
           return (
             <div key={exercise.name} style={{ marginBottom: 10, border: `1px solid ${done ? workout.color : expanded ? "#333" : "#1e1e1e"}`, borderRadius: 12, overflow: "hidden", background: done ? `${workout.color}11` : "#111" }}>
               <div onClick={() => setActiveExercise(expanded ? null : exercise.name)} style={{ padding: "14px 16px", display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }}>
@@ -427,12 +640,11 @@ function MansoorTracker() {
                     )}
                   </div>
                   <div style={{ fontSize: 9, color: workout.color, letterSpacing: 2, fontFamily: "monospace", marginTop: 3 }}>
-                    {exercise.target} • {exercise.sets} × {exercise.defaultReps}
+                    {exercise.target} • {exercise.sets} × {exercise.defaultReps}{exercise.note ? ` · ${exercise.note}` : ""}
                   </div>
                   <div style={{ fontSize: 9, fontFamily: "monospace", marginTop: 2, display: "flex", alignItems: "center", gap: 4 }}>
-                    <span style={{ background: exercise.type === "compound" ? "#60A5FA22" : "#A3E63522", color: exercise.type === "compound" ? "#60A5FA" : "#A3E635", padding: "1px 6px", borderRadius: 3, letterSpacing: 1 }}>
-                      {exercise.type === "compound" ? "COMPOUND" : "ISOLATION"}
-                    </span>
+                    <span style={{ background: typeBadge.bg, color: typeBadge.color, padding: "1px 6px", borderRadius: 3, letterSpacing: 1 }}>{typeBadge.label}</span>
+                    <span style={{ color: "#444", letterSpacing: 1 }}>{REST_LABELS[exercise.type]}</span>
                     {exercise.affects && <span style={{ color: "#555", letterSpacing: 1 }}>+{exercise.affects.join(" · ")}</span>}
                   </div>
                 </div>
@@ -440,6 +652,18 @@ function MansoorTracker() {
               </div>
               {expanded && (
                 <div style={{ padding: "0 16px 16px", borderTop: "1px solid #1e1e1e" }}>
+                  {/* Progressive overload banner */}
+                  {po && (
+                    <div style={{ margin: "12px 0 8px", padding: "10px 12px", background: po.allHit ? `${workout.color}11` : "#1a1000", border: `1px solid ${po.allHit ? workout.color + "44" : "#2a1800"}`, borderRadius: 8 }}>
+                      <div style={{ fontSize: 9, color: "#555", fontFamily: "monospace", letterSpacing: 2, marginBottom: 4 }}>PROGRESSIVE OVERLOAD</div>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div style={{ fontSize: 10, color: "#666", fontFamily: "monospace" }}>{prevWeek} MAX: {po.topW}kg · {po.allHit ? "✓ ALL REPS HIT" : "✗ NOT COMPLETED"}</div>
+                        <div style={{ fontSize: 12, color: po.allHit ? workout.color : "#888", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: 2 }}>
+                          TARGET: {po.suggested}kg {po.allHit ? `(+${po.inc}kg)` : "(same)"}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 1fr", gap: 8, margin: "12px 0 8px" }}>
                     <div style={{ fontSize: 9, color: "#444", letterSpacing: 2, fontFamily: "monospace", textAlign: "center" }}>SET</div>
                     <div style={{ fontSize: 9, color: "#444", letterSpacing: 2, fontFamily: "monospace", textAlign: "center" }}>KG</div>
@@ -467,29 +691,29 @@ function MansoorTracker() {
                     );
                   })}
                   <div style={{ marginTop: 8, padding: "8px 12px", background: "#0d0d0d", borderRadius: 8, fontSize: 10, color: "#444", fontFamily: "monospace", letterSpacing: 1 }}>
-                    TARGET: {exercise.sets} × {exercise.defaultReps} REPS
-                    {prevWeek && (() => {
-                      const topSet = Array.from({ length: exercise.sets }).reduce((best, _, i) => {
-                        const pw = parseFloat(getPrevLog(exercise.name, i, "weight")); return (!isNaN(pw) && pw > best) ? pw : best;
-                      }, 0);
-                      return topSet > 0 ? <span style={{ color: "#666" }}> • {prevWeek} TOP: {topSet}kg</span> : null;
-                    })()}
+                    TARGET: {exercise.sets} × {exercise.defaultReps} REPS · REST: {REST_LABELS[exercise.type]}
                   </div>
                 </div>
               )}
             </div>
           );
         })}
+        </>
+        )}
       </div>
       {totalComplete === workout.exercises.length && (
-        <div style={{ margin: "20px 16px", padding: "20px", background: `linear-gradient(135deg, ${workout.color}22, ${workout.color}11)`, border: `1px solid ${workout.color}`, borderRadius: 16, textAlign: "center" }}>
-          <div style={{ fontSize: 30, letterSpacing: 3, color: workout.color }}>SESSION COMPLETE</div>
-          <div style={{ fontSize: 11, color: "#888", fontFamily: "monospace", marginTop: 6 }}>SAUNA - COLD PLUNGE - SAUNA</div>
-        </div>
+        <>
+          <div style={{ margin: "20px 16px 0", padding: "20px", background: `linear-gradient(135deg, ${workout.color}22, ${workout.color}11)`, border: `1px solid ${workout.color}`, borderRadius: 16, textAlign: "center" }}>
+            <div style={{ fontSize: 30, letterSpacing: 3, color: workout.color }}>SESSION COMPLETE</div>
+            <div style={{ fontSize: 11, color: "#888", fontFamily: "monospace", marginTop: 6 }}>SAUNA → COLD PLUNGE → SAUNA</div>
+          </div>
+          <StretchSection color={workout.color} />
+        </>
       )}
       <div style={{ margin: "16px 16px 0", padding: "12px 16px", background: "#1a1500", border: "1px solid #C9A84C44", borderRadius: 10, fontSize: 10, color: "#C9A84C", fontFamily: "monospace", letterSpacing: 1, lineHeight: 1.8 }}>
         TENNIS ELBOW: HOOKS ON PULLS • ANKLE STRAPS ON CABLES • NEUTRAL GRIP • STOP IF SHARP PAIN
       </div>
+      {restTimer && <RestTimer seconds={restTimer.seconds} color={restTimer.color} onDone={() => setRestTimer(null)} />}
     </div>
   );
 }
