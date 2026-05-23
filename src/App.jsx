@@ -263,7 +263,7 @@ function CalendarPicker({ color, onSelect, onClose }) {
   };
 
   return (
-    <div onClick={e => e.stopPropagation()} style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, zIndex: 200, background: "#181818", border: `1px solid ${color}55`, borderRadius: 12, padding: "12px 10px", width: 210, boxShadow: "0 8px 24px #00000088" }}>
+    <div onClick={e => e.stopPropagation()} style={{ background: "#181818", border: `1px solid ${color}55`, borderRadius: 12, padding: "12px 10px", width: "100%", boxSizing: "border-box" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
         <button onClick={prevMonth} style={{ background: "none", border: "none", color: "#aaa", cursor: "pointer", fontSize: 18, lineHeight: 1, padding: "0 4px" }}>‹</button>
         <div style={{ fontSize: 11, color: "#fff", fontFamily: "monospace", letterSpacing: 2 }}>{monthNames[viewMonth].slice(0,3).toUpperCase()} {viewYear}</div>
@@ -300,6 +300,7 @@ function MansoorTracker() {
   const [saved, setSaved] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [editingDate, setEditingDate] = useState(null);
+  const [calendarPos, setCalendarPos] = useState(null);
   const [editingExName, setEditingExName] = useState(null); // original exercise name being renamed
   const [tempVal, setTempVal] = useState("");
 
@@ -374,27 +375,32 @@ function MansoorTracker() {
           const isActive = selectedDay === day;
           const displayDate = getDate(day);
           return (
-            <div key={day} style={{ flexShrink: 0, position: "relative" }}>
-              <button onClick={() => { setSelectedDay(day); setActiveExercise(null); setEditingDate(null); setEditingExName(null); }}
+            <div key={day} data-daytab="1" style={{ flexShrink: 0 }}>
+              <button onClick={() => { setSelectedDay(day); setActiveExercise(null); setEditingDate(null); setCalendarPos(null); setEditingExName(null); }}
                 style={{ padding: "8px 14px", background: isActive ? data.color : "#1a1a1a", color: isActive ? "#000" : "#555", border: `1px solid ${isActive ? data.color : "#2a2a2a"}`, borderRadius: 8, fontSize: 12, letterSpacing: 1, cursor: "pointer", fontFamily: "'Bebas Neue', sans-serif", display: "block", textAlign: "left", minWidth: 80 }}>
                 <div>{day}</div>
                 <div style={{ fontSize: 9, fontFamily: "monospace", opacity: 0.7, marginTop: 2, display: "flex", alignItems: "center", gap: 3 }}>
                   <span>{displayDate}</span>
-                  <span onClick={e => { e.stopPropagation(); setEditingDate(editingDate === day ? null : day); }}
+                  <span onClick={e => { e.stopPropagation(); const r = e.currentTarget.closest('[data-daytab]').getBoundingClientRect(); if (editingDate === day) { setEditingDate(null); setCalendarPos(null); } else { setCalendarPos({ top: r.bottom + 6, left: Math.min(r.left, window.innerWidth - 220) }); setEditingDate(day); } }}
                     style={{ fontSize: 8, opacity: 0.5, cursor: "pointer" }}>✎</span>
                 </div>
               </button>
-              {editingDate === day && (
-                <CalendarPicker
-                  color={data.color}
-                  onSelect={val => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${day}`]: val })); setEditingDate(null); }}
-                  onClose={() => setEditingDate(null)}
-                />
-              )}
             </div>
           );
         })}
       </div>
+      {editingDate && calendarPos && (
+        <>
+          <div onClick={() => { setEditingDate(null); setCalendarPos(null); }} style={{ position: "fixed", inset: 0, zIndex: 199 }} />
+          <div style={{ position: "fixed", top: calendarPos.top, left: calendarPos.left, zIndex: 200, width: 216 }}>
+            <CalendarPicker
+              color={mansoorPlan[editingDate]?.color || workout.color}
+              onSelect={val => { setLogs(p => ({ ...p, [`__date|${selectedWeek}|${editingDate}`]: val })); setEditingDate(null); setCalendarPos(null); }}
+              onClose={() => { setEditingDate(null); setCalendarPos(null); }}
+            />
+          </div>
+        </>
+      )}
       <div style={{ padding: "16px 16px 0" }}>
         {workout.exercises.map((exercise, idx) => {
           const done = isComplete(exercise.name);
