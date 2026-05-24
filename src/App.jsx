@@ -10,6 +10,26 @@ const ACCENT = {
   "Rest Day": { accent:"#4DFFB8", dim:"rgba(77,255,184,0.10)",  border:"rgba(77,255,184,0.3)"  },
 };
 
+const PARI_ACCENT = {
+  "Session A": { accent:"#E8A0A0", dim:"rgba(232,160,160,0.12)", border:"rgba(232,160,160,0.3)" },
+  "Session B": { accent:"#C97B7B", dim:"rgba(201,123,123,0.12)", border:"rgba(201,123,123,0.3)" },
+  "Session C": { accent:"#D4A574", dim:"rgba(212,165,116,0.12)", border:"rgba(212,165,116,0.3)" },
+  "Rest Day":  { accent:"#B8896A", dim:"rgba(184,137,106,0.12)", border:"rgba(184,137,106,0.3)" },
+};
+
+const PARI_DAYS = ["Session A","Session B","Session C","Rest Day"];
+
+const PARI_WARMUP_CARDIO = [
+  { id:"c1", label:"Treadmill Walk",  detail:"Incline 5 · 5-10 mins" },
+  { id:"c2", label:"Stationary Bike", detail:"Easy pace · 5-10 mins" },
+  { id:"c3", label:"Stair Climber",   detail:"Comfortable pace · 5-10 mins" },
+];
+const PARI_WARMUP_MOBILITY = [
+  { id:"m1", label:"Hip Circles",       detail:"1 min each side", video:"https://www.youtube.com/results?search_query=hip+circles+warmup+women" },
+  { id:"m2", label:"Arm Swings",        detail:"1 min",           video:"https://www.youtube.com/results?search_query=arm+swings+warmup+women" },
+  { id:"m3", label:"Bodyweight Squats", detail:"10 reps — nice and slow", video:"https://www.youtube.com/results?search_query=bodyweight+squats+women" },
+];
+
 const TYPE_COLOR = {
   compound:  { bg:"rgba(220,80,80,0.15)",   text:"#e57373", label:"COMPOUND"  },
   isolation: { bg:"rgba(100,160,220,0.15)", text:"#7ab3e0", label:"ISOLATION" },
@@ -46,12 +66,21 @@ const REST_DAY_PLAN = [
   { label:"Plank",                         detail:"3 sets · 30-60 secs",              video:"https://www.youtube.com/results?search_query=plank+proper+form" },
   { label:"Leg Raises",                    detail:"3 sets · 15 reps",                 video:"https://www.youtube.com/results?search_query=lying+leg+raises+abs" },
   { label:"Russian Twist",                 detail:"3 sets · 20 reps",                 video:"https://www.youtube.com/results?search_query=russian+twist+obliques" },
-  { label:"Cable Crunch",                  detail:"3 sets · 15 reps",                 video:"https://www.youtube.com/results?search_query=cable+crunch+abs" },
   { label:"Hip Flexor Stretch (Kneeling)", detail:"2 sets · 30 secs each side",       video:"https://www.youtube.com/results?search_query=kneeling+hip+flexor+stretch" },
   { label:"Pigeon Pose",                   detail:"2 sets · 30-60 secs each side",    video:"https://www.youtube.com/results?search_query=pigeon+pose+hip+flexor" },
   { label:"Sauna",                         detail:"15 mins",                           video:null },
   { label:"Cold Plunge",                   detail:"1-2 mins",                          video:null },
   { label:"Sauna",                         detail:"10-15 mins",                        video:null },
+];
+
+const PARI_REST_DAY_PLAN = [
+  { label:"Cardio",                        detail:"20-30 mins · Treadmill, Bike or Steps", video:"https://www.youtube.com/results?search_query=cardio+workout+women" },
+  { label:"Plank",                         detail:"3 sets · 30-60 secs",                   video:"https://www.youtube.com/results?search_query=plank+women" },
+  { label:"Leg Raises",                    detail:"3 sets · 15 reps",                      video:"https://www.youtube.com/results?search_query=lying+leg+raises+women" },
+  { label:"Russian Twist",                 detail:"3 sets · 20 reps",                      video:"https://www.youtube.com/results?search_query=russian+twist+women" },
+  { label:"Hip Flexor Stretch (Kneeling)", detail:"2 sets · 30 secs each side",            video:"https://www.youtube.com/results?search_query=kneeling+hip+flexor+stretch+women" },
+  { label:"Pigeon Pose",                   detail:"2 sets · 30-60 secs each side",         video:"https://www.youtube.com/results?search_query=pigeon+pose+women" },
+  { label:"Full Body Stretch",             detail:"5-10 mins · Take your time",            video:"https://www.youtube.com/results?search_query=full+body+stretch+women" },
 ];
 
 // ─── NEW PPL PLAN (Week 2+) ───────────────────────────────────────────────────
@@ -65,32 +94,32 @@ const PLAN = {
     { id:"p1_6", name:"Overhead Extension",            target:"TRICEPS LONG HEAD",                                      type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=overhead+tricep+extension",     poRef:"Cable Overhead Extension (Rope)",     poRefDay:"Push 1" },
     { id:"p1_7", name:"Leg Extension (Warm Up)",       target:"QUADS",                                                  type:"warmup",    sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=leg+extension",                 poRef:"Leg Extension",                       poRefDay:"Push 2" },
     { id:"p1_8", name:"Squat",                         target:"QUADS & GLUTES",     secondary:"Hamstrings, Lower Back",  type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=squat",                         poRef:"Hack Squat",                          poRefDay:"Pull 2" },
-    { id:"p1_9", name:"Hip Abductor",                  target:"OUTER THIGH",                                            type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+abductor+machine",         poRef:"Hip Abductor",                        poRefDay:"Push 1" },
+    { id:"p1_9", name:"Hip Abductor",                  target:"OUTER THIGH",                                            type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+abductor+machine+women",         poRef:"Hip Abductor",                        poRefDay:"Push 1" },
     { id:"p1_f", name:"Standing Calf Raise",           target:"CALVES",                                                 type:"finisher",  sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=standing+calf+raise",           poRef:"Standing Calf Raise",                 poRefDay:"Push 1" },
   ]},
   "Pull 1": { day:"Tuesday", exercises: [
     { id:"pl1_1", name:"Lat Pulldown (Close/Neutral)", target:"LATS WIDTH",          secondary:"Biceps, Rear Delts",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=lat+pulldown+close+grip",      poRef:"Lat Pulldown (V-bar)",                poRefDay:"Pull 1" },
-    { id:"pl1_2", name:"Row (Close/Neutral Grip)",     target:"MID BACK",            secondary:"Biceps, Rear Delts",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=seated+cable+row",             poRef:"Seated Cable Row",                    poRefDay:"Pull 1" },
+    { id:"pl1_2", name:"Row (Close/Neutral Grip)",     target:"MID BACK",            secondary:"Biceps, Rear Delts",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=seated+cable+row+women",             poRef:"Seated Cable Row",                    poRefDay:"Pull 1" },
     { id:"pl1_3", name:"Bicep Curl (Supinated)",       target:"BICEPS PEAK",                                            type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=bicep+curl+supinated",         poRef:"Machine Preacher Curl",               poRefDay:"Pull 1" },
     { id:"pl1_4", name:"Hammer Curl",                  target:"BRACHIALIS",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=hammer+curl",                   poRef:"ROC-IT Biceps Curl",                  poRefDay:"Pull 1" },
     { id:"pl1_5", name:"Rear Delt Flye",               target:"REAR DELTS",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=rear+delt+fly",                 poRef:"Oxygen Rear Delt Machine",            poRefDay:"Pull 2" },
     { id:"pl1_6", name:"Shrugs",                       target:"TRAPS",                                                  type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=shrugs",                         poRef:"DB Shrugs",                           poRefDay:"Pull 1" },
     { id:"pl1_7", name:"Leg Curl - Lying (Warm Up)",   target:"HAMSTRINGS",                                             type:"warmup",    sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=lying+leg+curl",               poRef:"Lying Leg Curl",                      poRefDay:"Pull 2" },
-    { id:"pl1_8", name:"Romanian Deadlift",            target:"HAMSTRINGS & GLUTES", secondary:"Lower Back, Calves",    type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=romanian+deadlift" },
-    { id:"pl1_9", name:"Hip Adductor",                 target:"INNER THIGH",                                            type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+adductor+machine",         poDefault:30 },
+    { id:"pl1_8", name:"Romanian Deadlift",            target:"HAMSTRINGS & GLUTES", secondary:"Lower Back, Calves",    type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=romanian+deadlift+women" },
+    { id:"pl1_9", name:"Hip Adductor",                 target:"INNER THIGH",                                            type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+adductor+machine+women",         poDefault:30 },
     { id:"pl1_f", name:"Hyperextension",               target:"LOWER BACK",          secondary:"Glutes, Hamstrings",    type:"finisher",  sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hyperextension",               poRef:"Hyperextension",                      poRefDay:"Pull 2" },
   ]},
   "Push 2": { day:"Thursday", exercises: [
     { id:"p2_1", name:"Flat Press",                    target:"MID CHEST",           secondary:"Front Delts, Triceps",   type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=flat+chest+press+machine",    poRef:"Flat Machine Chest Press",            poRefDay:"Push 1" },
     { id:"p2_2", name:"Lower Chest Flye",              target:"LOWER CHEST",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=lower+chest+fly",               poRef:"Vertical Pec Fly",                    poRefDay:"Push 1" },
     { id:"p2_3", name:"Shoulder Press (Wide Grip)",    target:"FRONT & SIDE DELTS",  secondary:"Upper Chest, Triceps",   type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=wide+grip+shoulder+press",    poRef:"Neutral Grip Machine Shoulder Press", poRefDay:"Push 1" },
-    { id:"p2_4", name:"Cable Lateral Raise",           target:"SIDE DELTS",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=cable+lateral+raise",           poRef:"Cable Lateral Raise",                 poRefDay:"Push 2" },
+    { id:"p2_4", name:"Cable Lateral Raise",           target:"SIDE DELTS",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=cable+lateral+raise+women",           poRef:"Cable Lateral Raise",                 poRefDay:"Push 2" },
     { id:"p2_5", name:"Tricep Pushdown",               target:"TRICEPS LATERAL",                                        type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=tricep+pushdown",               poRef:"Rope Pushdown",                       poRefDay:"Push 2" },
     { id:"p2_6", name:"Overhead Extension",            target:"TRICEPS LONG HEAD",                                      type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=overhead+tricep+extension",     poRef:"Seated Overhead Tricep Machine",      poRefDay:"Push 2" },
     { id:"p2_7", name:"Leg Extension (Warm Up)",       target:"QUADS",                                                  type:"warmup",    sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=leg+extension",                 poRef:"Leg Extension",                       poRefDay:"Push 2" },
     { id:"p2_8", name:"Hack Squat",                    target:"QUADS & GLUTES",      secondary:"Glutes, Hamstrings",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=hack+squat",                   poRef:"Hack Squat",                          poRefDay:"Pull 2", note:"KNEE BRACES!" },
-    { id:"p2_9", name:"Glute Kickback",                target:"GLUTES",                                                 type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=glute+kickback",               poRef:"Gluteus Standing Machine",            poRefDay:"Pull 1" },
-    { id:"p2_f", name:"Seated Calf Raise",             target:"CALVES",                                                 type:"finisher",  sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=seated+calf+raise" },
+    { id:"p2_9", name:"Glute Kickback",                target:"GLUTES",                                                 type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=glute+kickback+women",               poRef:"Gluteus Standing Machine",            poRefDay:"Pull 1" },
+    { id:"p2_f", name:"Seated Calf Raise",             target:"CALVES",                                                 type:"finisher",  sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=seated+calf+raise+women" },
   ]},
   "Pull 2": { day:"Friday", exercises: [
     { id:"pl2_1", name:"Lat Pulldown (Wide Grip)",     target:"LATS WIDTH",          secondary:"Biceps, Rear Delts",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=wide+grip+lat+pulldown",      poRef:"Fixed Pulldown",                      poRefDay:"Pull 2" },
@@ -100,7 +129,7 @@ const PLAN = {
     { id:"pl2_5", name:"Rear Delt Flye",               target:"REAR DELTS",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=rear+delt+fly",                 poRef:"Reverse Pec Deck",                    poRefDay:"Pull 2" },
     { id:"pl2_6", name:"Shrugs",                       target:"TRAPS",                                                  type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=shrugs",                         poRef:"DB Shrugs",                           poRefDay:"Pull 1" },
     { id:"pl2_7", name:"Leg Curl - Seated (Warm Up)",  target:"HAMSTRINGS",                                             type:"warmup",    sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=seated+leg+curl",              poRef:"Lying Leg Curl",                      poRefDay:"Pull 2" },
-    { id:"pl2_8", name:"Leg Press",                    target:"QUADS & GLUTES",      secondary:"Hamstrings, Calves",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=leg+press",                    poRef:"Leg Press",                           poRefDay:"Push 2" },
+    { id:"pl2_8", name:"Leg Press",                    target:"QUADS & GLUTES",      secondary:"Hamstrings, Calves",     type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=leg+press+women",                    poRef:"Leg Press",                           poRefDay:"Push 2" },
     { id:"pl2_9", name:"Hip Thrust",                   target:"GLUTES",              secondary:"Hamstrings, Lower Back", type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=hip+thrust" },
     { id:"pl2_f", name:"Hyperextension",               target:"LOWER BACK",          secondary:"Glutes, Hamstrings",    type:"finisher",  sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hyperextension",               poRef:"Hyperextension",                      poRefDay:"Pull 2" },
   ]},
@@ -116,31 +145,31 @@ const mansoorPlan = {
     { id:"m_p1_5", name:"Machine Lateral Raise",               target:"SIDE DELTS",                                          type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=lateral+raise+machine" },
     { id:"m_p1_6", name:"Tricep Dip Machine",                  target:"TRICEPS",            secondary:"Chest, Front Delts",   type:"compound",  sets:3, defaultReps:"12",    video:"https://www.youtube.com/results?search_query=tricep+dip+machine" },
     { id:"m_p1_7", name:"Cable Overhead Extension (Rope)",     target:"TRICEPS LONG HEAD",                                   type:"isolation", sets:3, defaultReps:"12",    video:"https://www.youtube.com/results?search_query=cable+overhead+tricep+extension" },
-    { id:"m_p1_8", name:"Hip Abductor",                        target:"OUTER THIGH",                                         type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+abductor+machine" },
+    { id:"m_p1_8", name:"Hip Abductor",                        target:"OUTER THIGH",                                         type:"isolation", sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+abductor+machine+women" },
     { id:"m_p1_9", name:"Standing Calf Raise",                 target:"CALVES",                                              type:"finisher",  sets:3, defaultReps:"20",    video:"https://www.youtube.com/results?search_query=standing+calf+raise" },
   ]},
   "Pull 1": { exercises: [
     { id:"m_pl1_1", name:"Lat Pulldown (V-bar)",       target:"LATS WIDTH",          secondary:"Biceps, Rear Delts",    type:"compound",  sets:4, defaultReps:"12", video:"https://www.youtube.com/results?search_query=lat+pulldown+v+bar" },
-    { id:"m_pl1_2", name:"Seated Cable Row",            target:"MID BACK",            secondary:"Biceps, Rear Delts",    type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=seated+cable+row" },
+    { id:"m_pl1_2", name:"Seated Cable Row",            target:"MID BACK",            secondary:"Biceps, Rear Delts",    type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=seated+cable+row+women" },
     { id:"m_pl1_3", name:"Machine Rear Delt Flye",      target:"REAR DELTS",                                            type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=rear+delt+fly+machine" },
     { id:"m_pl1_4", name:"DB Shrugs",                   target:"TRAPS",                                                 type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=dumbbell+shrugs" },
     { id:"m_pl1_5", name:"ROC-IT Biceps Curl",          target:"BICEPS",                                                type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=roc-it+bicep+curl" },
     { id:"m_pl1_6", name:"Machine Preacher Curl",       target:"BICEPS PEAK",                                           type:"isolation", sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=preacher+curl+machine" },
-    { id:"m_pl1_7", name:"Romanian Deadlift",           target:"HAMSTRINGS",          secondary:"Glutes, Lower Back",   type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=romanian+deadlift" },
+    { id:"m_pl1_7", name:"Romanian Deadlift",           target:"HAMSTRINGS",          secondary:"Glutes, Lower Back",   type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=romanian+deadlift+women" },
     { id:"m_pl1_8", name:"Gluteus Standing Machine",    target:"GLUTES",                                                type:"isolation", sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=gluteus+standing+machine" },
   ]},
   "Push 2": { exercises: [
     { id:"m_p2_1", name:"Panatta Inclined Chest Press Circular", target:"UPPER CHEST",   secondary:"Front Delts, Triceps", type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=incline+chest+press" },
     { id:"m_p2_2", name:"Straight Arm Chest Flye",               target:"MID CHEST",                                      type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=chest+flye" },
-    { id:"m_p2_3", name:"Cable Lateral Raise",                   target:"SIDE DELTS",                                     type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=cable+lateral+raise" },
+    { id:"m_p2_3", name:"Cable Lateral Raise",                   target:"SIDE DELTS",                                     type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=cable+lateral+raise+women" },
     { id:"m_p2_4", name:"Cable Front Raise",                     target:"FRONT DELTS",                                    type:"isolation", sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=cable+front+raise" },
-    { id:"m_p2_5", name:"Rope Pushdown",                         target:"TRICEPS",                                        type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=rope+pushdown" },
+    { id:"m_p2_5", name:"Rope Pushdown",                         target:"TRICEPS",                                        type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=rope+pushdown+women" },
     { id:"m_p2_6", name:"Seated Overhead Tricep Machine",        target:"TRICEPS LONG HEAD",                              type:"isolation", sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=overhead+tricep+extension+machine" },
     { id:"m_p2_7", name:"Leg Extension",                         target:"QUADS",                                          type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=leg+extension" },
-    { id:"m_p2_8", name:"Leg Press",                             target:"QUADS & GLUTES", secondary:"Hamstrings, Calves", type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=leg+press" },
+    { id:"m_p2_8", name:"Leg Press",                             target:"QUADS & GLUTES", secondary:"Hamstrings, Calves", type:"compound",  sets:3, defaultReps:"12", video:"https://www.youtube.com/results?search_query=leg+press+women" },
   ]},
   "Pull 2": { exercises: [
-    { id:"m_pl2_1", name:"Fixed Pulldown",               target:"LATS WIDTH",          secondary:"Biceps, Rear Delts",  type:"compound",  sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=lat+pulldown" },
+    { id:"m_pl2_1", name:"Fixed Pulldown",               target:"LATS WIDTH",          secondary:"Biceps, Rear Delts",  type:"compound",  sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=lat+pulldown+women" },
     { id:"m_pl2_2", name:"Reverse Pec Deck",             target:"REAR DELTS",                                          type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=reverse+pec+deck" },
     { id:"m_pl2_3", name:"Oxygen Rear Delt Machine",     target:"REAR DELTS",                                          type:"isolation", sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=rear+delt+machine" },
     { id:"m_pl2_4", name:"Hyperextension",               target:"LOWER BACK",          secondary:"Glutes, Hamstrings", type:"compound",  sets:3, defaultReps:"15", video:"https://www.youtube.com/results?search_query=hyperextension" },
@@ -263,52 +292,41 @@ const mansoorWeekDates = {
 };
 
 // ─── PARI PLAN (preserved exactly) ───────────────────────────────────────────
-const muscleColors = {
-  "CARDIO WARMUP":"#888","QUADS & GLUTES":"#E879A0","QUADS":"#E879A0","HAMSTRINGS":"#A78BFA",
-  "HAMSTRINGS & GLUTES":"#A78BFA","GLUTES":"#F472B6","OUTER THIGH & GLUTES":"#FB923C","OUTER THIGH":"#FB923C",
-  "INNER THIGH":"#FBBF24","CALVES":"#34D399","BACK WIDTH":"#60A5FA","BACK":"#60A5FA","MID BACK":"#3B82F6",
-  "SHOULDERS":"#818CF8","CHEST":"#F87171","BICEPS":"#4ADE80","TRICEPS":"#A3E635","SIDE DELTS":"#818CF8",
-};
-const muscleIcon = {
-  "CARDIO WARMUP":"🚶","QUADS & GLUTES":"🦵","QUADS":"🦵","HAMSTRINGS":"🦵","HAMSTRINGS & GLUTES":"🍑",
-  "GLUTES":"🍑","OUTER THIGH & GLUTES":"🍑","OUTER THIGH":"🦵","INNER THIGH":"🦵","CALVES":"🦵",
-  "BACK WIDTH":"💪","BACK":"💪","MID BACK":"💪","SHOULDERS":"💪","CHEST":"💪","BICEPS":"💪",
-  "TRICEPS":"💪","SIDE DELTS":"💪",
-};
 const pariPlan = {
-  "Day 1": { day:"Mon", color:"#E879A0", focus:"Lower Body", description:"Glutes · Quads · Hamstrings · Calves", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Keep incline high, speed moderate. Don't hold the rails. Warmup only." },
-    { name:"Leg Press",             target:"QUADS & GLUTES",    sets:3, defaultReps:15, tip:"Feet shoulder-width. Push through heels. Don't lock knees at the top." },
-    { name:"Leg Extension",         target:"QUADS",             sets:3, defaultReps:15, tip:"Slow and controlled. Squeeze quad at the top for 1 second before lowering." },
-    { name:"Seated Leg Curl",       target:"HAMSTRINGS",        sets:3, defaultReps:15, tip:"Pull heel smoothly. Don't jerk the weight. Feel the back of your thigh working." },
-    { name:"Hip Abductor (Outer)",  target:"OUTER THIGH & GLUTES", sets:3, defaultReps:15, tip:"Open legs slowly. Squeeze glutes at the widest point." },
-    { name:"Hip Adductor (Inner)",  target:"INNER THIGH",       sets:3, defaultReps:15, tip:"Close legs with control. Focus on inner thigh — don't use momentum." },
-    { name:"Seated Calf Raise",     target:"CALVES",            sets:3, defaultReps:20, tip:"Full range every rep. All the way up, all the way down. Slow counts." },
+  "Session A": { focus:"Lower Body + Core", description:"Quads · Hamstrings · Glutes · Calves · Core", exercises: [
+    { id:"a_2", name:"Leg Curl",            target:"HAMSTRINGS",                                      type:"isolation", sets:3, defaultReps:"12-15", tip:"Pull heel smoothly — don't jerk. Feel the back of your thigh working all the way.", video:"https://www.youtube.com/results?search_query=leg+curl+women" },
+    { id:"a_1", name:"Leg Press",           target:"QUADS & GLUTES",  secondary:"Hamstrings, Calves", type:"compound",  sets:3, defaultReps:"12-15", tip:"Feet shoulder-width, push through heels. Don't lock knees at the top. Light weight to start.", video:"https://www.youtube.com/results?search_query=leg+press+women" },
+    { id:"a_3", name:"Hip Abductor",        target:"OUTER THIGH",                                     type:"isolation", sets:3, defaultReps:"15",    tip:"Open legs slowly, squeeze glutes at the widest point. Control both ways.", video:"https://www.youtube.com/results?search_query=hip+abductor+machine+women" },
+    { id:"a_4", name:"Hip Adductor",        target:"INNER THIGH",                                     type:"isolation", sets:3, defaultReps:"15",    tip:"Close legs with control — don't slam them together. Focus on inner thigh.", video:"https://www.youtube.com/results?search_query=hip+adductor+machine+women" },
+    { id:"a_5", name:"Seated Calf Raise",   target:"CALVES",                                          type:"finisher",  sets:3, defaultReps:"15-20", tip:"Full range every rep — all the way up, all the way down. Go slow.", video:"https://www.youtube.com/results?search_query=seated+calf+raise+women" },
+    { id:"a_6", name:"Plank",               target:"CORE",                                            type:"isolation", sets:3, defaultReps:"30 secs", noWeight:true, timedSet:true, tip:"Keep your body in a straight line. Breathe normally. Don't let your hips sag.", video:"https://www.youtube.com/results?search_query=plank+women" },
+    { id:"a_7", name:"Leg Raises",          target:"LOWER ABS",                                       type:"isolation", sets:3, defaultReps:"15",    noWeight:true, tip:"Keep legs straight, lower slowly. Don't let feet touch the floor between reps.", video:"https://www.youtube.com/results?search_query=lying+leg+raises+women" },
   ]},
-  "Day 2": { day:"Wed", color:"#A78BFA", focus:"Upper Body", description:"Back · Shoulders · Chest · Arms", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Same warmup as Day 1 — gets blood flowing before lifting." },
-    { name:"Lat Pulldown (Wide Grip)", target:"BACK WIDTH",     sets:3, defaultReps:15, tip:"Pull bar to upper chest. Lean back slightly. Control the weight on the way up." },
-    { name:"Seated Cable Row",      target:"MID BACK",          sets:3, defaultReps:15, tip:"Sit tall. Pull elbows back, squeeze shoulder blades together. Don't round your back." },
-    { name:"Machine Shoulder Press",target:"SHOULDERS",         sets:3, defaultReps:15, tip:"Press straight up. Don't shrug. Start very light." },
-    { name:"Pec Deck Flye",         target:"CHEST",             sets:3, defaultReps:15, tip:"Squeeze chest at the front. Open arms slowly — feel the stretch." },
-    { name:"Cable Curl",            target:"BICEPS",            sets:3, defaultReps:15, tip:"Keep elbows still at sides. Curl up, lower slowly. No swinging." },
-    { name:"Rope Pushdown",         target:"TRICEPS",           sets:3, defaultReps:15, tip:"Push rope down and slightly outward. Lock elbows at sides throughout." },
+  "Session B": { focus:"Upper Body + Core", description:"Back · Chest · Shoulders · Arms · Core", exercises: [
+    { id:"b_1", name:"Lat Pulldown",        target:"BACK WIDTH",      secondary:"Biceps, Rear Delts", type:"compound",  sets:3, defaultReps:"12-15", tip:"Pull bar to upper chest, lean back slightly. Control the weight on the way up — don't let it snap.", video:"https://www.youtube.com/results?search_query=lat+pulldown+women" },
+    { id:"b_2", name:"Seated Cable Row",    target:"MID BACK",        secondary:"Biceps, Rear Delts", type:"compound",  sets:3, defaultReps:"12-15", tip:"Sit tall, pull elbows back and squeeze shoulder blades together. Don't round your back.", video:"https://www.youtube.com/results?search_query=seated+cable+row+women" },
+    { id:"b_3", name:"Pec Deck Flye",       target:"CHEST",                                           type:"isolation", sets:3, defaultReps:"12-15", tip:"Squeeze chest at the front. Open arms slowly and feel the stretch. Light weight.", video:"https://www.youtube.com/results?search_query=pec+deck+flye+women" },
+    { id:"b_4", name:"Machine Shoulder Press", target:"SHOULDERS",    secondary:"Triceps",            type:"compound",  sets:3, defaultReps:"12-15", tip:"Press straight up, don't shrug. Start very light — shoulders are easy to strain.", video:"https://www.youtube.com/results?search_query=machine+shoulder+press+women" },
+    { id:"b_5", name:"Cable Curl",          target:"BICEPS",                                          type:"isolation", sets:3, defaultReps:"12-15", tip:"Keep elbows still at sides. Curl up, lower slowly. No swinging — let the bicep do the work.", video:"https://www.youtube.com/results?search_query=cable+curl+women" },
+    { id:"b_6", name:"Rope Pushdown",       target:"TRICEPS",                                         type:"finisher",  sets:3, defaultReps:"12-15", tip:"Push rope down and slightly outward. Keep elbows locked at sides throughout.", video:"https://www.youtube.com/results?search_query=rope+pushdown+women" },
+    { id:"b_7", name:"Russian Twist",       target:"OBLIQUES",                                        type:"isolation", sets:3, defaultReps:"20",    noWeight:true, tip:"Sit back at 45°, feet off the floor. Twist side to side — feel your waist working.", video:"https://www.youtube.com/results?search_query=russian+twist+women" },
   ]},
-  "Day 3": { day:"Fri", color:"#34D399", focus:"Full Body", description:"Compound movements · Full body activation", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Warmup walk before full body session. Take it easy here." },
-    { name:"Hack Squat (Light)",    target:"QUADS & GLUTES",    sets:3, defaultReps:12, tip:"Feet hip-width. Lower until thighs are parallel to floor. Push through heels." },
-    { name:"Romanian Deadlift (Light)", target:"HAMSTRINGS & GLUTES", sets:3, defaultReps:12, tip:"Hinge at hips, keep back flat. Feel the stretch in your hamstrings." },
-    { name:"Gluteus Standing Machine", target:"GLUTES",         sets:3, defaultReps:15, tip:"One leg at a time. Kick back and squeeze glute hard at the top." },
-    { name:"Chest Supported Machine Row", target:"BACK",        sets:3, defaultReps:15, tip:"Chest on the pad. Pull handles toward you, squeeze your back muscles." },
-    { name:"Cable Lateral Raise",   target:"SIDE DELTS",        sets:3, defaultReps:15, tip:"Very light weight. Raise arm to shoulder height only. Slow both ways." },
-    { name:"Seated Calf Raise",     target:"CALVES",            sets:3, defaultReps:20, tip:"Full range of motion every rep. Slow and controlled." },
+  "Session C": { focus:"Glutes + Full Body", description:"Glutes · Full body · Core finisher", exercises: [
+    { id:"c_1", name:"Hip Thrust Machine",  target:"GLUTES",          secondary:"Hamstrings",         type:"compound",  sets:3, defaultReps:"12-15", tip:"Drive hips up and squeeze glutes hard at the top. Hold for 1 second. This is your main glute builder.", video:"https://www.youtube.com/results?search_query=hip+thrust+machine+women" },
+    { id:"c_2", name:"Glute Kickback",      target:"GLUTES",                                          type:"isolation", sets:3, defaultReps:"15",    tip:"One leg at a time. Kick back and squeeze the glute hard at the top. Slow and controlled.", video:"https://www.youtube.com/results?search_query=glute+kickback+women" },
+    { id:"c_3", name:"Romanian Deadlift",   target:"HAMSTRINGS",      secondary:"Glutes, Lower Back", type:"compound",  sets:3, defaultReps:"12",    tip:"Light weight only. Hinge at hips, keep back flat. Feel the stretch in your hamstrings as you lower.", video:"https://www.youtube.com/results?search_query=romanian+deadlift+women" },
+    { id:"c_4", name:"Leg Press",           target:"QUADS & GLUTES",  secondary:"Hamstrings",         type:"compound",  sets:3, defaultReps:"12-15", tip:"Place feet higher on the platform to hit glutes more. Push through heels.", video:"https://www.youtube.com/results?search_query=leg+press+glutes+women" },
+    { id:"c_5", name:"Cable Lateral Raise", target:"SIDE DELTS",                                      type:"isolation", sets:3, defaultReps:"15",    tip:"Very light weight. Raise arm to shoulder height only. Slow on the way down.", video:"https://www.youtube.com/results?search_query=cable+lateral+raise+women" },
+    { id:"c_6", name:"Cable Crunch",        target:"ABS",                                             type:"isolation", sets:3, defaultReps:"15",    tip:"Pull down with your abs, not your arms. Round your back as you crunch down.", video:"https://www.youtube.com/results?search_query=cable+crunch+women" },
+    { id:"c_7", name:"Seated Calf Raise",   target:"CALVES",                                          type:"finisher",  sets:3, defaultReps:"15-20", tip:"Full range of motion every rep. Slow and controlled — feel the calf stretch at the bottom.", video:"https://www.youtube.com/results?search_query=seated+calf+raise+women" },
   ]},
 };
+
 const pariWeekDates = {
-  "Week 1":{"Day 1":"Mon · May 18","Day 2":"Wed · May 20","Day 3":"Fri · May 22"},
-  "Week 2":{"Day 1":"Mon · May 25","Day 2":"Wed · May 27","Day 3":"Fri · May 29"},
-  "Week 3":{"Day 1":"Mon · Jun 1", "Day 2":"Wed · Jun 3", "Day 3":"Fri · Jun 5" },
-  "Week 4":{"Day 1":"Mon · Jun 8", "Day 2":"Wed · Jun 10","Day 3":"Fri · Jun 12"},
+  "Week 1":{"Session A":"","Session B":"","Session C":""},
+  "Week 2":{"Session A":"","Session B":"","Session C":""},
+  "Week 3":{"Session A":"","Session B":"","Session C":""},
+  "Week 4":{"Session A":"","Session B":"","Session C":""},
 };
 
 const WEEKS    = ["Week 1","Week 2","Week 3","Week 4"];
@@ -430,7 +448,8 @@ function StretchSection({ color }) {
 }
 
 // ─── REST DAY VIEW ────────────────────────────────────────────────────────────
-function RestDayView({ accent, dim, border }) {
+function RestDayView({ accent, dim, border, plan }) {
+  const items = plan || REST_DAY_PLAN;
   const [checked, setChecked] = useState({});
   const done = Object.values(checked).filter(Boolean).length;
   return (
@@ -438,7 +457,7 @@ function RestDayView({ accent, dim, border }) {
       <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:"rgba(245,241,232,0.4)", marginBottom:16, display:"flex", alignItems:"center", gap:6 }}>
         <Zap size={11} color={accent}/> ACTIVE RECOVERY · CORE · MOBILITY
       </div>
-      {REST_DAY_PLAN.map((item,i) => {
+      {items.map((item,i) => {
         const ch = checked[i];
         return (
           <div key={i} style={{ marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, overflow:"hidden", transition:"all 0.2s" }}>
@@ -458,7 +477,7 @@ function RestDayView({ accent, dim, border }) {
           </div>
         );
       })}
-      {done===REST_DAY_PLAN.length && (
+      {done===items.length && (
         <div style={{ marginTop:8, padding:20, background:dim, border:`1px solid ${accent}`, borderRadius:16, textAlign:"center" }}>
           <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:24, letterSpacing:3, color:accent }}>RECOVERY COMPLETE</div>
           <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>REST · RECOVER · COME BACK STRONGER</div>
@@ -865,137 +884,442 @@ function MansoorTracker() {
   );
 }
 
-// ─── PARI TRACKER (preserved exactly) ────────────────────────────────────────
+// ─── PLANK TIMER ─────────────────────────────────────────────────────────────
+function PlankTimer({ setIdx, savedSecs, accent, onComplete }) {
+  const [running,  setRunning]  = useState(false);
+  const [elapsed,  setElapsed]  = useState(0);
+  const done = !!savedSecs;
+
+  useEffect(() => {
+    if (!running) return;
+    const t = setInterval(() => setElapsed(e => e + 1), 1000);
+    return () => clearInterval(t);
+  }, [running]);
+
+  const start = () => { setElapsed(0); setRunning(true); };
+  const finish = () => { setRunning(false); onComplete(String(elapsed)); };
+
+  return (
+    <div style={{ display:"flex", gap:8, marginBottom:8, alignItems:"center" }}>
+      <div style={{ width:32, textAlign:"center", fontSize:12, fontFamily:'"JetBrains Mono",monospace', fontWeight:600, color:done?accent:"rgba(245,241,232,0.3)", flexShrink:0 }}>
+        {done?"✓":setIdx+1}
+      </div>
+      {done ? (
+        <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
+          ✓ {savedSecs}s HELD
+        </div>
+      ) : running ? (
+        <>
+          <div style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.06)", borderRadius:8, textAlign:"center", color:"#f5f1e8", fontFamily:'"JetBrains Mono",monospace', fontSize:22, fontWeight:700 }}>
+            {elapsed}s
+          </div>
+          <button onClick={finish} style={{ padding:"13px 20px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            DONE
+          </button>
+        </>
+      ) : (
+        <button onClick={start} style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.05)", border:"1px solid rgba(245,241,232,0.12)", borderRadius:8, color:"rgba(245,241,232,0.5)", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
+          START SET {setIdx+1}
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ─── PARI TRACKER ────────────────────────────────────────────────────────────
 function PariTracker() {
-  const [selectedWeek, setSelectedWeek] = useState("Week 1");
-  const [selectedDay, setSelectedDay]   = useState("Day 1");
-  const [logs, setLogs]                 = useState({});
-  const [activeExercise, setActiveExercise] = useState(null);
-  const [saved, setSaved]   = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [selectedWeek,  setSelectedWeek]  = useState("Week 1");
+  const [selectedDay,   setSelectedDay]   = useState("Session A");
+  const [logs,          setLogs]          = useState({});
+  const [extraSets,     setExtraSets]     = useState({});
+  const [activeEx,      setActiveEx]      = useState(null);
+  const [saved,         setSaved]         = useState(false);
+  const [loaded,        setLoaded]        = useState(false);
+  const [calendarDay,   setCalendarDay]   = useState(null);
+  const [editingName,   setEditingName]   = useState(null);
+  const [tempName,      setTempName]      = useState("");
+  const [warmupDone,    setWarmupDone]    = useState(false);
+  const [warmupChecked, setWarmupChecked] = useState({});
+  const [restTimer,     setRestTimer]     = useState(null);
+
+  const isRestDay = selectedDay === "Rest Day";
+  const { accent, dim, border } = PARI_ACCENT[selectedDay];
+  const workout = isRestDay ? null : pariPlan[selectedDay];
 
   useEffect(() => {
     (async () => {
-      try { const res=await fetch("/api/sync/pari"); const{data}=await res.json(); setLogs(data.logs?{...data.logs}:{}); }
-      catch { setLogs({}); }
+      try {
+        const res = await fetch("/api/sync/pari");
+        const { data } = await res.json();
+        setLogs(data.logs || {});
+        setExtraSets(data.extraSets || {});
+      } catch { setLogs({}); }
       setLoaded(true);
     })();
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
-    (async () => {
-      try { await fetch("/api/sync/pari",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:{logs}})}); setSaved(true); setTimeout(()=>setSaved(false),2000); }
-      catch {}
-    })();
-  }, [logs, loaded]);
+    const t = setTimeout(async () => {
+      try {
+        await fetch("/api/sync/pari", {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ data: { logs, extraSets } }),
+        });
+        setSaved(true); setTimeout(()=>setSaved(false),1500);
+      } catch {}
+    }, 700);
+    return () => clearTimeout(t);
+  }, [logs, extraSets, loaded]);
 
-  const workout = pariPlan[selectedDay];
-  const getLog = (e,s,f) => logs[`${selectedWeek}|${selectedDay}|${e}|${s}`]?.[f]||"";
-  const updateLog = (e,s,f,v) => { const k=`${selectedWeek}|${selectedDay}|${e}|${s}`; setLogs(p=>({...p,[k]:{...p[k],[f]:v}})); };
-  const isComplete = (name) => { const ex=workout.exercises.find(e=>e.name===name); if(ex.sets===1) return !!getLog(name,0,"done"); return Array.from({length:ex.sets}).every((_,i)=>getLog(name,i,"weight")&&getLog(name,i,"reps")); };
-  const totalComplete = workout.exercises.filter(e=>isComplete(e.name)).length;
+  useEffect(() => { setWarmupDone(false); setActiveEx(null); setRestTimer(null); setWarmupChecked({}); setCalendarDay(null); }, [selectedDay]);
 
-  if (!loaded) return <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontFamily:"monospace", fontSize:14, letterSpacing:2 }}>LOADING...</div>;
+  const gk = (w,d,e,s) => `${w}|${d}|${e}|${s}`;
+  const getLog = (e,s,f) => logs[gk(selectedWeek,selectedDay,e,s)]?.[f] || "";
+  const updateLog = (exName,si,field,value) => { const k=gk(selectedWeek,selectedDay,exName,si); setLogs(p=>({...p,[k]:{...p[k],[field]:value}})); };
+  const handleLogSet = (ex,si) => {
+    const k=gk(selectedWeek,selectedDay,ex.name,si);
+    const setDone = ex.noWeight ? !!logs[k]?.reps : (logs[k]?.weight && logs[k]?.reps);
+    if (setDone) setRestTimer({seconds:REST_TIMES[ex.type]||75,color:accent});
+  };
 
-  return (
-    <div style={{ minHeight:"100vh", background:"#0a0a0a", fontFamily:"'Bebas Neue', Impact, sans-serif", color:"#fff", paddingBottom:80 }}>
-      <div style={{ background:`linear-gradient(135deg,${workout.color}22,#0a0a0a)`, borderBottom:`2px solid ${workout.color}`, padding:"20px 16px 16px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <div>
-            <div style={{ fontSize:11, letterSpacing:4, color:workout.color, fontFamily:"monospace" }}>PARI • 360 FITNESS{saved&&<span style={{ color:"#4DFFB8" }}> • SAVED</span>}</div>
-            <div style={{ fontSize:24, letterSpacing:2, marginTop:2 }}>{selectedDay} — {workout.focus}</div>
-            <div style={{ fontSize:10, color:"#555", fontFamily:"monospace", letterSpacing:1, marginTop:2 }}>{workout.description.toUpperCase()}</div>
+  const getExKey = (exId) => `${selectedWeek}|${selectedDay}|${exId}`;
+  const getTotalSets = (ex) => ex.sets + (extraSets[getExKey(ex.id)]||0);
+  const addSet = (ex) => { const k=getExKey(ex.id); setExtraSets(p=>({...p,[k]:(p[k]||0)+1})); };
+  const removeSet = (ex) => { const k=getExKey(ex.id); if((extraSets[k]||0)>0) setExtraSets(p=>({...p,[k]:p[k]-1})); };
+
+  const getDate = (day) => logs[`__date|${selectedWeek}|${day}`] || pariWeekDates[selectedWeek]?.[day] || "";
+  const setDate = (day,val) => { setLogs(p=>({...p,[`__date|${selectedWeek}|${day}`]:val})); setCalendarDay(null); };
+  const getExName = (orig) => logs[`__exname|${selectedDay}|${orig}`] || orig;
+  const saveExName = (orig) => { setLogs(p=>({...p,[`__exname|${selectedDay}|${orig}`]:tempName.trim()||orig})); setEditingName(null); };
+  const getNoteKey = (exName) => `__note|${selectedWeek}|${selectedDay}|${exName}`;
+  const getNote = (exName) => logs[getNoteKey(exName)] || "";
+  const saveNote = (exName,text) => setLogs(p=>({...p,[getNoteKey(exName)]:text}));
+
+  const isComplete = (ex) => {
+    if (ex.sets===1) return !!getLog(ex.name,0,"done");
+    const total = getTotalSets(ex);
+    if (ex.timedSet) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
+    if (ex.noWeight) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
+    return Array.from({length:total}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
+  };
+  const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
+  const hasLogs = workout?.exercises.some(ex=>isComplete(ex));
+  const allWarmupDone = Object.keys(warmupChecked).some(k => k.startsWith("c") && warmupChecked[k]) &&
+    PARI_WARMUP_MOBILITY.every(m => warmupChecked[m.id]);
+  const showWarmup = !warmupDone && !hasLogs && !isRestDay;
+
+  if (!loaded) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, fontSize:12 }}>SYNCING...</div>
+  );
+
+  const Header = () => (
+    <div style={{ background:`linear-gradient(135deg,${accent}22,#0a0a0a)`, borderBottom:`2px solid ${accent}`, padding:"20px 16px 14px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+        <div>
+          <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:accent, marginBottom:4 }}>
+            PARI · FITNESS 360{saved?" · SAVED ✓":""}
           </div>
-          <div style={{ background:workout.color, color:"#000", borderRadius:"50%", width:48, height:48, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:900, fontFamily:"monospace", flexShrink:0 }}>{totalComplete}/{workout.exercises.length}</div>
+          <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{selectedDay}</div>
         </div>
-        <div style={{ marginTop:10, height:3, background:"#222", borderRadius:2 }}>
-          <div style={{ height:"100%", width:`${(totalComplete/workout.exercises.length)*100}%`, background:workout.color, borderRadius:2, transition:"width 0.4s ease" }}/>
+        {!isRestDay && workout && (
+          <div style={{ background:accent, color:"#0a0a0a", borderRadius:"50%", width:48, height:48, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:900, fontFamily:'"JetBrains Mono",monospace', flexShrink:0 }}>
+            {totalComplete}/{workout.exercises.length}
+          </div>
+        )}
+      </div>
+      {!isRestDay && workout && (
+        <div style={{ marginTop:10, height:3, background:"rgba(245,241,232,0.08)", borderRadius:2 }}>
+          <div style={{ height:"100%", width:`${(totalComplete/workout.exercises.length)*100}%`, background:accent, borderRadius:2, transition:"width 0.4s" }}/>
         </div>
-      </div>
-      <div style={{ padding:"12px 16px 0", display:"flex", gap:8 }}>
-        {WEEKS.map(w=><button key={w} onClick={()=>setSelectedWeek(w)} style={{ flex:1, padding:"6px 0", background:selectedWeek===w?workout.color:"#1a1a1a", color:selectedWeek===w?"#000":"#666", border:"none", borderRadius:6, fontSize:11, letterSpacing:2, cursor:"pointer", fontFamily:"'Bebas Neue', sans-serif" }}>{w}</button>)}
-      </div>
-      <div style={{ padding:"12px 16px 0", display:"flex", gap:8 }}>
-        {Object.entries(pariPlan).map(([day,data])=>(
-          <button key={day} onClick={()=>{setSelectedDay(day);setActiveExercise(null);}} style={{ flex:1, padding:"8px 0", background:selectedDay===day?data.color:"#1a1a1a", color:selectedDay===day?"#000":"#555", border:`1px solid ${selectedDay===day?data.color:"#2a2a2a"}`, borderRadius:8, fontSize:12, letterSpacing:1, cursor:"pointer", fontFamily:"'Bebas Neue', sans-serif" }}>
-            {day}<div style={{ fontSize:9, fontFamily:"monospace", opacity:0.7 }}>{pariWeekDates[selectedWeek]?.[day]}</div>
-          </button>
+      )}
+      <div style={{ display:"flex", gap:6, marginTop:12 }}>
+        {WEEKS.map(w=>(
+          <button key={w} onClick={()=>setSelectedWeek(w)} style={{ flex:1, padding:"5px 0", background:selectedWeek===w?accent:"rgba(245,241,232,0.05)", color:selectedWeek===w?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:5, fontSize:10, letterSpacing:"0.15em", cursor:"pointer", fontFamily:'"JetBrains Mono",monospace' }}>{w}</button>
         ))}
       </div>
-      <div style={{ padding:"16px 16px 0" }}>
-        {workout.exercises.map((exercise,idx)=>{
-          const done=isComplete(exercise.name); const expanded=activeExercise===exercise.name; const mColor=muscleColors[exercise.target]||"#888";
+    </div>
+  );
+
+  const DaySelector = () => (
+    <div style={{ padding:"10px 16px 0" }}>
+      <div style={{ display:"flex", gap:6, overflowX:"auto", paddingBottom:4 }}>
+        {PARI_DAYS.map(d => {
+          const a = PARI_ACCENT[d].accent;
+          const isSel = selectedDay===d;
           return (
-            <div key={exercise.name} style={{ marginBottom:10, border:`1px solid ${done?workout.color:expanded?"#333":"#1e1e1e"}`, borderRadius:12, overflow:"hidden", background:done?`${workout.color}11`:"#111" }}>
-              <div onClick={()=>setActiveExercise(expanded?null:exercise.name)} style={{ padding:"14px 16px", display:"flex", alignItems:"center", gap:12, cursor:"pointer" }}>
-                <div style={{ width:28, height:28, borderRadius:"50%", background:done?workout.color:"#1e1e1e", color:done?"#000":"#444", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, flexShrink:0 }}>{done?"✓":idx+1}</div>
-                <div style={{ flex:1 }}>
-                  <div style={{ fontSize:14, letterSpacing:1, lineHeight:1.2 }}>{exercise.name}</div>
-                  <div style={{ display:"flex", alignItems:"center", gap:6, marginTop:4 }}>
-                    <span style={{ background:mColor+"22", color:mColor, fontSize:9, fontFamily:"monospace", letterSpacing:1, padding:"2px 8px", borderRadius:4, border:`1px solid ${mColor}44` }}>{exercise.target}</span>
-                    <span style={{ fontSize:9, color:"#444", fontFamily:"monospace", letterSpacing:1 }}>{exercise.sets===1?exercise.defaultReps:`${exercise.sets} × ${exercise.defaultReps}`}</span>
-                  </div>
-                </div>
-                <div style={{ color:"#444", fontSize:16, transition:"transform 0.2s", transform:expanded?"rotate(180deg)":"rotate(0deg)" }}>v</div>
+            <button key={d} onClick={()=>{setSelectedDay(d);setCalendarDay(null);}}
+              style={{ flexShrink:0, minWidth:74, padding:"10px 10px", background:isSel?a:"rgba(245,241,232,0.04)", color:isSel?"#0a0a0a":"rgba(245,241,232,0.55)", border:`1px solid ${isSel?a:"rgba(245,241,232,0.08)"}`, borderRadius:10, cursor:"pointer", fontFamily:'"Bebas Neue",sans-serif', textAlign:"center" }}>
+              <div style={{ fontSize:10, letterSpacing:"0.1em" }}>{d==="Rest Day"?"REST":d}</div>
+              <div style={{ fontSize:8, fontFamily:'"JetBrains Mono",monospace', opacity:0.7, marginTop:2 }}>
+                {getDate(d) ? getDate(d).replace(/^[A-Za-z]+ · /,"") : "—"}
               </div>
-              {expanded && (
-                <div style={{ borderTop:"1px solid #1e1e1e" }}>
-                  <div style={{ padding:"20px 16px", background:"#0d0d0d", display:"flex", alignItems:"center", justifyContent:"center", gap:16 }}>
-                    <div style={{ width:64, height:64, borderRadius:"50%", background:mColor+"18", border:`2px solid ${mColor}55`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28 }}>{muscleIcon[exercise.target]||"💪"}</div>
-                    <div>
-                      <div style={{ fontSize:10, color:"#444", fontFamily:"monospace", letterSpacing:2 }}>TARGET MUSCLE</div>
-                      <div style={{ fontSize:18, letterSpacing:2, color:mColor, marginTop:2 }}>{exercise.target}</div>
-                      <div style={{ fontSize:9, color:"#444", fontFamily:"monospace", letterSpacing:1, marginTop:4 }}>{exercise.sets===1?exercise.defaultReps:`${exercise.sets} SETS • ${exercise.defaultReps} REPS`}</div>
+            </button>
+          );
+        })}
+      </div>
+      <div style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 2px 0", position:"relative" }}>
+        <Calendar size={11} color={accent}/>
+        <span style={{ fontSize:11, fontFamily:'"JetBrains Mono",monospace', color:getDate(selectedDay)?"rgba(245,241,232,0.7)":"rgba(245,241,232,0.3)" }}>
+          {getDate(selectedDay)||"No date set"}
+        </span>
+        <button onClick={()=>setCalendarDay(calendarDay===selectedDay?null:selectedDay)}
+          style={{ background:"transparent", border:"none", cursor:"pointer", padding:2, color:"rgba(245,241,232,0.35)", display:"flex", alignItems:"center" }}>
+          <Pencil size={11}/>
+        </button>
+        {calendarDay===selectedDay && (
+          <div style={{ position:"absolute", top:"100%", left:0, right:0, zIndex:500, marginTop:4 }}>
+            <CalendarPicker color={accent} onSelect={v=>setDate(selectedDay,v)} onClose={()=>setCalendarDay(null)}/>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  if (showWarmup) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif' }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <div style={{ padding:"14px 16px 40px" }}>
+        <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:"rgba(245,241,232,0.4)", marginBottom:12, display:"flex", alignItems:"center", gap:6 }}>
+          <Zap size={11} color={accent}/> WARM UP — CHOOSE YOUR CARDIO + MOBILITY
+        </div>
+
+        {/* Cardio — pick one */}
+        <div style={{ fontSize:9, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3, marginBottom:8 }}>CARDIO · PICK ONE</div>
+        {PARI_WARMUP_CARDIO.map(item => {
+          const ch = warmupChecked[item.id];
+          return (
+            <div key={item.id} onClick={()=>{
+              const newChecked = { ...warmupChecked };
+              PARI_WARMUP_CARDIO.forEach(c => { newChecked[c.id] = false; });
+              newChecked[item.id] = !ch;
+              setWarmupChecked(newChecked);
+            }}
+              style={{ display:"flex", alignItems:"center", gap:14, padding:"13px 16px", marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, cursor:"pointer", transition:"all 0.2s" }}>
+              <div style={{ width:22, height:22, borderRadius:"50%", border:`2px solid ${ch?accent:"rgba(245,241,232,0.2)"}`, background:ch?accent:"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#0a0a0a", fontWeight:700 }}>{ch?"✓":""}</div>
+              <div>
+                <div style={{ fontSize:14, color:ch?"rgba(245,241,232,0.5)":"rgba(245,241,232,0.85)", fontFamily:'"Bebas Neue",sans-serif', letterSpacing:1 }}>{item.label}</div>
+                <div style={{ fontSize:11, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginTop:2 }}>{item.detail}</div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Mobility — all required */}
+        <div style={{ fontSize:9, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3, margin:"16px 0 8px" }}>MOBILITY · ALL 3</div>
+        {PARI_WARMUP_MOBILITY.map(item => {
+          const ch = warmupChecked[item.id];
+          return (
+            <div key={item.id} style={{ marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, overflow:"hidden", transition:"all 0.2s" }}>
+              <div onClick={()=>setWarmupChecked(p=>({...p,[item.id]:!ch}))}
+                style={{ display:"flex", alignItems:"center", gap:14, padding:"13px 16px", cursor:"pointer" }}>
+                <div style={{ width:22, height:22, borderRadius:6, border:`2px solid ${ch?accent:"rgba(245,241,232,0.2)"}`, background:ch?accent:"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#0a0a0a", fontWeight:700 }}>{ch?"✓":""}</div>
+                <div>
+                  <div style={{ fontSize:14, color:ch?"rgba(245,241,232,0.4)":"rgba(245,241,232,0.85)", textDecoration:ch?"line-through":"none", fontFamily:'"Bebas Neue",sans-serif', letterSpacing:1 }}>{item.label}</div>
+                  <div style={{ fontSize:11, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginTop:2 }}>{item.detail}</div>
+                </div>
+              </div>
+              <a href={item.video} target="_blank" rel="noopener noreferrer"
+                style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:6, padding:"7px", borderTop:`1px solid ${accent}22`, color:accent+"99", textDecoration:"none", fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em" }}>
+                <ExternalLink size={9}/> WATCH
+              </a>
+            </div>
+          );
+        })}
+
+        <button onClick={()=>setWarmupDone(true)} disabled={!allWarmupDone}
+          style={{ width:"100%", padding:"15px", marginTop:6, background:allWarmupDone?accent:"rgba(245,241,232,0.06)", color:allWarmupDone?"#0a0a0a":"rgba(245,241,232,0.3)", border:"none", borderRadius:12, fontFamily:'"Bebas Neue",sans-serif', fontSize:20, letterSpacing:"0.1em", cursor:allWarmupDone?"pointer":"not-allowed", transition:"all 0.3s" }}>
+          {allWarmupDone?"LET'S GO! →":"COMPLETE WARMUP FIRST"}
+        </button>
+        <button onClick={()=>setWarmupDone(true)} style={{ width:"100%", padding:"10px", marginTop:8, background:"none", color:"rgba(245,241,232,0.3)", border:"none", fontSize:10, letterSpacing:3, cursor:"pointer", fontFamily:'"JetBrains Mono",monospace', display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+          <SkipForward size={12}/> SKIP WARMUP
+        </button>
+      </div>
+    </div>
+  );
+
+  if (isRestDay) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:80 }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <RestDayView accent={accent} dim={dim} border={border} plan={PARI_REST_DAY_PLAN}/>
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:restTimer?120:80 }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <div style={{ padding:"10px 16px 0" }}>
+        {workout.exercises.map((ex,idx) => {
+          const isOpen = activeEx===ex.id;
+          const done = isComplete(ex);
+          const tc = TYPE_COLOR[ex.type]||TYPE_COLOR.isolation;
+          const displayName = getExName(ex.name);
+          const totalSets = getTotalSets(ex);
+          const isSingleSet = ex.sets===1;
+
+          return (
+            <div key={ex.id} style={{ marginBottom:10, border:`1px solid ${done?accent:isOpen?border:"rgba(245,241,232,0.07)"}`, borderRadius:14, overflow:"hidden", background:done?dim:"rgba(245,241,232,0.02)" }}>
+              <div onClick={()=>setActiveEx(isOpen?null:ex.id)} style={{ padding:"14px 16px", cursor:"pointer" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
+                  <div style={{ flex:1 }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:5, flexWrap:"wrap" }}>
+                      <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:11, color:accent, fontWeight:600 }}>{String(idx+1).padStart(2,"0")}</div>
+                      <div style={{ fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", padding:"2px 6px", background:tc.bg, color:tc.text, borderRadius:3 }}>{tc.label}</div>
+                    </div>
+                    {editingName===ex.id ? (
+                      <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:3 }} onClick={e=>e.stopPropagation()}>
+                        <input value={tempName} onChange={e=>setTempName(e.target.value)} autoFocus
+                          style={{ flex:1, background:"rgba(245,241,232,0.08)", border:`1px solid ${accent}66`, borderRadius:6, color:"#f5f1e8", padding:"4px 8px", fontSize:15, outline:"none", fontWeight:600 }}/>
+                        <button onClick={()=>saveExName(ex.name)} style={{ background:accent, border:"none", borderRadius:5, color:"#0a0a0a", padding:"4px 6px", cursor:"pointer" }}><Check size={13}/></button>
+                        <button onClick={()=>setEditingName(null)} style={{ background:"rgba(245,241,232,0.08)", border:"none", borderRadius:5, color:"rgba(245,241,232,0.5)", padding:"4px 6px", cursor:"pointer" }}><X size={13}/></button>
+                      </div>
+                    ) : (
+                      <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:3 }}>
+                        <span style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:17, letterSpacing:1, lineHeight:1.25 }}>{displayName}</span>
+                        <button onClick={e=>{e.stopPropagation();setTempName(displayName);setEditingName(ex.id);}} style={{ background:"transparent", border:"none", cursor:"pointer", padding:2, color:"rgba(245,241,232,0.25)" }}><Pencil size={12}/></button>
+                        {getNote(ex.name) && <div style={{ width:6, height:6, borderRadius:"50%", background:accent, flexShrink:0 }}/>}
+                      </div>
+                    )}
+                    <div style={{ fontSize:12, color:"rgba(245,241,232,0.5)" }}>
+                      <span style={{ color:"rgba(245,241,232,0.65)" }}>{ex.target}</span>
+                      {ex.secondary && <span style={{ color:"rgba(245,241,232,0.3)" }}> · {ex.secondary}</span>}
                     </div>
                   </div>
-                  {exercise.tip && (
-                    <div style={{ padding:"14px 16px", background:mColor+"11", borderTop:`1px solid ${mColor}22` }}>
-                      <div style={{ fontSize:9, color:mColor, letterSpacing:2, fontFamily:"monospace", marginBottom:6 }}>COACHING TIP</div>
-                      <div style={{ fontSize:13, letterSpacing:0.5, lineHeight:1.6, color:"#bbb", fontFamily:"Arial, sans-serif", fontWeight:"normal" }}>{exercise.tip}</div>
+                  <div style={{ color:"rgba(245,241,232,0.3)", flexShrink:0 }}>{isOpen?<ChevronUp size={18}/>:<ChevronDown size={18}/>}</div>
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginTop:12 }}>
+                  {[["SETS",isSingleSet?"1":totalSets],["REPS",ex.defaultReps],["REST",REST_LABELS[ex.type]]].map(([label,val])=>(
+                    <div key={label} style={{ padding:"8px", background:"rgba(245,241,232,0.04)", borderRadius:6, textAlign:"center" }}>
+                      <div style={{ fontSize:9, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginBottom:2 }}>{label}</div>
+                      <div style={{ fontSize:13, fontWeight:700, color:accent, fontFamily:'"JetBrains Mono",monospace' }}>{val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {isOpen && (
+                <div style={{ borderTop:"1px solid rgba(245,241,232,0.06)", padding:"14px 16px 16px", background:"rgba(0,0,0,0.2)" }}>
+                  {/* Coaching tip */}
+                  {ex.tip && (
+                    <div style={{ marginBottom:12, padding:"10px 12px", background:accent+"11", border:`1px solid ${accent}33`, borderRadius:8 }}>
+                      <div style={{ fontSize:9, color:accent+"99", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", marginBottom:4 }}>COACHING TIP</div>
+                      <div style={{ fontSize:12, color:"rgba(245,241,232,0.7)", lineHeight:1.6 }}>{ex.tip}</div>
                     </div>
                   )}
-                  {exercise.sets>1 && (
-                    <div style={{ padding:"12px 16px 16px", borderTop:"1px solid #1a1a1a" }}>
-                      <div style={{ display:"grid", gridTemplateColumns:"36px 1fr 1fr", gap:8, margin:"0 0 8px" }}>
-                        {["SET","KG","REPS"].map(h=><div key={h} style={{ fontSize:9, color:"#444", letterSpacing:2, fontFamily:"monospace", textAlign:"center" }}>{h}</div>)}
-                      </div>
-                      {Array.from({length:exercise.sets}).map((_,i)=>{
-                        const w=getLog(exercise.name,i,"weight"); const r=getLog(exercise.name,i,"reps"); const setDone=w&&r;
-                        const inp={background:"#1a1a1a",border:`1px solid ${setDone?workout.color+"66":"#2a2a2a"}`,borderRadius:8,color:"#fff",padding:"10px",fontSize:16,fontFamily:"'Bebas Neue',sans-serif",textAlign:"center",outline:"none",width:"100%",boxSizing:"border-box"};
+
+                  {/* Single-set (treadmill) */}
+                  {isSingleSet ? (
+                    <button onClick={()=>updateLog(ex.name,0,"done",getLog(ex.name,0,"done")?"":"1")}
+                      style={{ width:"100%", padding:"14px", background:getLog(ex.name,0,"done")?accent:"rgba(245,241,232,0.06)", color:getLog(ex.name,0,"done")?"#0a0a0a":"rgba(245,241,232,0.4)", border:`1px solid ${accent}44`, borderRadius:10, fontFamily:'"Bebas Neue",sans-serif', fontSize:18, letterSpacing:"0.1em", cursor:"pointer", marginBottom:10 }}>
+                      {getLog(ex.name,0,"done")?"✓ DONE":"MARK COMPLETE"}
+                    </button>
+                  ) : (
+                    <>
+                      {/* Set headers */}
+                  {!ex.timedSet && (
+                    <div style={{ display:"grid", gridTemplateColumns:ex.noWeight?"32px 1fr 80px":"32px 1fr 1fr 80px", gap:8, marginBottom:8 }}>
+                      {(ex.noWeight ? ["SET","REPS",""] : ["SET","KG","REPS",""]).map(h=>(
+                        <div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>
+                      ))}
+                    </div>
+                  )}
+
+                  {Array.from({length:totalSets}).map((_,si)=>{
+                        const w=getLog(ex.name,si,"weight");
+                        const r=getLog(ex.name,si,"reps");
+                        const setDone = ex.timedSet ? !!getLog(ex.name,si,"done") : ex.noWeight ? !!r : (w&&r);
+                        const isExtra=si>=ex.sets;
+
+                        // Plank — start/stop timer records seconds
+                        if (ex.timedSet) return (
+                          <PlankTimer
+                            key={si}
+                            setIdx={si}
+                            savedSecs={getLog(ex.name,si,"reps")}
+                            accent={accent}
+                            onComplete={secs=>updateLog(ex.name,si,"reps",secs)}
+                          />
+                        );
+
                         return (
-                          <div key={i} style={{ display:"grid", gridTemplateColumns:"36px 1fr 1fr", gap:8, marginBottom:8, alignItems:"center" }}>
-                            <div style={{ textAlign:"center", fontSize:13, color:setDone?workout.color:"#444", fontFamily:"monospace" }}>{setDone?"✓":i+1}</div>
-                            <input type="number" placeholder="kg" value={w} onChange={e=>updateLog(exercise.name,i,"weight",e.target.value)} style={inp}/>
-                            <input type="number" placeholder="reps" value={r} onChange={e=>updateLog(exercise.name,i,"reps",e.target.value)} style={inp}/>
+                          <div key={si} style={{ display:"grid", gridTemplateColumns:ex.noWeight?"32px 1fr 80px":"32px 1fr 1fr 80px", gap:8, marginBottom:8, alignItems:"center" }}>
+                            <div style={{ textAlign:"center", fontSize:12, color:setDone?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
+                              {setDone?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
+                            </div>
+                            {!ex.noWeight && (
+                              <input type="number" placeholder="kg" value={w}
+                                onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
+                                style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                            )}
+                            <input type="number" placeholder="reps" value={r}
+                              onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
+                              style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                            <button onClick={()=>handleLogSet(ex,si)}
+                              style={{ padding:"10px 6px", background:setDone?accent:"rgba(245,241,232,0.06)", color:setDone?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
+                              {setDone?"DONE ✓":"LOG"}
+                            </button>
                           </div>
                         );
                       })}
-                    </div>
+                      <div style={{ display:"flex", gap:8, marginBottom:10 }}>
+                        <button onClick={()=>addSet(ex)}
+                          style={{ flex:1, padding:"9px", background:"rgba(245,241,232,0.04)", border:"1px dashed rgba(245,241,232,0.15)", borderRadius:8, color:"rgba(245,241,232,0.4)", fontSize:11, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+                          <Plus size={12}/> ADD SET
+                        </button>
+                        {(extraSets[getExKey(ex.id)]||0)>0 && (
+                          <button onClick={()=>removeSet(ex)}
+                            style={{ flex:1, padding:"9px", background:"rgba(220,80,80,0.06)", border:"1px dashed rgba(220,80,80,0.25)", borderRadius:8, color:"#e57373", fontSize:11, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+                            <X size={12}/> REMOVE SET
+                          </button>
+                        )}
+                      </div>
+                    </>
                   )}
-                  {exercise.sets===1 && (
-                    <div style={{ padding:"12px 16px 16px", borderTop:"1px solid #1a1a1a" }}>
-                      <button onClick={()=>updateLog(exercise.name,0,"done",getLog(exercise.name,0,"done")?"":"1")}
-                        style={{ width:"100%", padding:"12px", background:getLog(exercise.name,0,"done")?workout.color:"#1a1a1a", color:getLog(exercise.name,0,"done")?"#000":"#555", border:`1px solid ${workout.color}44`, borderRadius:8, fontSize:14, letterSpacing:2, cursor:"pointer", fontFamily:"'Bebas Neue',sans-serif" }}>
-                        {getLog(exercise.name,0,"done")?"✓ DONE":"MARK COMPLETE"}
-                      </button>
+
+                  {/* Watch demo */}
+                  <a href={ex.video} target="_blank" rel="noopener noreferrer"
+                    style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"11px", background:dim, border:`1px solid ${border}`, borderRadius:8, color:accent, textDecoration:"none", fontSize:12, fontWeight:600, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em" }}>
+                    <ExternalLink size={12}/> WATCH DEMO
+                  </a>
+
+                  {/* Note */}
+                  <div style={{ marginTop:10 }}>
+                    <div style={{ fontSize:9, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", marginBottom:5, display:"flex", alignItems:"center", gap:6 }}>
+                      <Pencil size={9}/> NOTE
                     </div>
-                  )}
+                    <textarea value={getNote(ex.name)} onChange={e=>saveNote(ex.name,e.target.value)}
+                      placeholder="e.g. felt strong, try heavier next time..."
+                      rows={2}
+                      style={{ width:"100%", background:"rgba(245,241,232,0.04)", border:"1px solid rgba(245,241,232,0.1)", borderRadius:8, color:"#f5f1e8", padding:"10px 12px", fontSize:12, fontFamily:'"JetBrains Mono",monospace', outline:"none", resize:"vertical", lineHeight:1.5 }}/>
+                  </div>
                 </div>
               )}
             </div>
           );
         })}
       </div>
+
       {totalComplete===workout.exercises.length && (
-        <div style={{ margin:"20px 16px", padding:"20px", background:`linear-gradient(135deg,${workout.color}22,${workout.color}11)`, border:`1px solid ${workout.color}`, borderRadius:16, textAlign:"center" }}>
-          <div style={{ fontSize:30, letterSpacing:3, color:workout.color }}>SESSION COMPLETE</div>
-          <div style={{ fontSize:11, color:"#888", fontFamily:"monospace", marginTop:6, letterSpacing:2 }}>GREAT WORK PARI!</div>
-        </div>
+        <>
+          <div style={{ margin:"20px 16px 0", padding:20, background:dim, border:`1px solid ${accent}`, borderRadius:16, textAlign:"center" }}>
+            <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:3, color:accent }}>AMAZING WORK PARI! 💪</div>
+            <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>YOU CRUSHED IT · NOW REST & RECOVER</div>
+          </div>
+          <StretchSection color={accent}/>
+        </>
       )}
-      <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:"#0d1a12", border:"1px solid #34D39933", borderRadius:10, fontSize:10, color:"#34D399", fontFamily:"monospace", letterSpacing:1, lineHeight:1.8 }}>
-        BEGINNER PLAN • START LIGHT • FOCUS ON FORM • ADD WEIGHT GRADUALLY EACH WEEK
+
+      <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:`${accent}0a`, border:`1px solid ${accent}33`, borderRadius:10, fontSize:10, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:1, lineHeight:1.8 }}>
+        BEGINNER PLAN · START LIGHT · FOCUS ON FORM · ADD WEIGHT GRADUALLY EACH WEEK
       </div>
+
+      {restTimer && <RestTimer seconds={restTimer.seconds} color={restTimer.color} onDone={()=>setRestTimer(null)}/>}
     </div>
   );
 }
@@ -1021,7 +1345,7 @@ export default function App() {
           onMouseLeave={e=>e.currentTarget.style.border="1px solid #E879A044"}>
           <div style={{ width:64, height:64, borderRadius:"50%", background:"#E879A022", border:"2px solid #E879A0", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 16px", fontSize:24, color:"#E879A0" }}>P</div>
           <div style={{ fontSize:22, letterSpacing:2, color:"#E879A0" }}>PARI</div>
-          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>360 FITNESS • 3 DAYS</div>
+          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>FITNESS 360 • 3 DAYS</div>
         </div>
       </div>
     </div>
