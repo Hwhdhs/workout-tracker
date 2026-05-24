@@ -10,6 +10,15 @@ const ACCENT = {
   "Rest Day": { accent:"#4DFFB8", dim:"rgba(77,255,184,0.10)",  border:"rgba(77,255,184,0.3)"  },
 };
 
+const PARI_ACCENT = {
+  "Day 1":   { accent:"#E8A0A0", dim:"rgba(232,160,160,0.12)", border:"rgba(232,160,160,0.3)" },
+  "Day 2":   { accent:"#C97B7B", dim:"rgba(201,123,123,0.12)", border:"rgba(201,123,123,0.3)" },
+  "Day 3":   { accent:"#D4A574", dim:"rgba(212,165,116,0.12)", border:"rgba(212,165,116,0.3)" },
+  "Rest Day":{ accent:"#B8896A", dim:"rgba(184,137,106,0.12)", border:"rgba(184,137,106,0.3)" },
+};
+
+const PARI_DAYS = ["Day 1","Day 2","Day 3","Rest Day"];
+
 const TYPE_COLOR = {
   compound:  { bg:"rgba(220,80,80,0.15)",   text:"#e57373", label:"COMPOUND"  },
   isolation: { bg:"rgba(100,160,220,0.15)", text:"#7ab3e0", label:"ISOLATION" },
@@ -276,32 +285,32 @@ const muscleIcon = {
   "TRICEPS":"💪","SIDE DELTS":"💪",
 };
 const pariPlan = {
-  "Day 1": { day:"Mon", color:"#E879A0", focus:"Lower Body", description:"Glutes · Quads · Hamstrings · Calves", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Keep incline high, speed moderate. Don't hold the rails. Warmup only." },
-    { name:"Leg Press",             target:"QUADS & GLUTES",    sets:3, defaultReps:15, tip:"Feet shoulder-width. Push through heels. Don't lock knees at the top." },
-    { name:"Leg Extension",         target:"QUADS",             sets:3, defaultReps:15, tip:"Slow and controlled. Squeeze quad at the top for 1 second before lowering." },
-    { name:"Seated Leg Curl",       target:"HAMSTRINGS",        sets:3, defaultReps:15, tip:"Pull heel smoothly. Don't jerk the weight. Feel the back of your thigh working." },
-    { name:"Hip Abductor (Outer)",  target:"OUTER THIGH & GLUTES", sets:3, defaultReps:15, tip:"Open legs slowly. Squeeze glutes at the widest point." },
-    { name:"Hip Adductor (Inner)",  target:"INNER THIGH",       sets:3, defaultReps:15, tip:"Close legs with control. Focus on inner thigh — don't use momentum." },
-    { name:"Seated Calf Raise",     target:"CALVES",            sets:3, defaultReps:20, tip:"Full range every rep. All the way up, all the way down. Slow counts." },
+  "Day 1": { day:"Mon", color:"#E8A0A0", focus:"Lower Body", description:"Glutes · Quads · Hamstrings · Calves", exercises: [
+    { id:"p_d1_1", name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", type:"warmup",    sets:1, defaultReps:"10 min",  tip:"Keep incline high, speed moderate. Don't hold the rails. Warmup only.", video:"https://www.youtube.com/results?search_query=incline+treadmill+walk" },
+    { id:"p_d1_2", name:"Leg Press",             target:"QUADS & GLUTES",    type:"compound",  secondary:"Hamstrings, Calves", sets:3, defaultReps:"15", tip:"Feet shoulder-width. Push through heels. Don't lock knees at the top.", video:"https://www.youtube.com/results?search_query=leg+press+form" },
+    { id:"p_d1_3", name:"Leg Extension",         target:"QUADS",             type:"isolation", sets:3, defaultReps:"15", tip:"Slow and controlled. Squeeze quad at the top for 1 second before lowering.", video:"https://www.youtube.com/results?search_query=leg+extension+form" },
+    { id:"p_d1_4", name:"Seated Leg Curl",       target:"HAMSTRINGS",        type:"isolation", sets:3, defaultReps:"15", tip:"Pull heel smoothly. Don't jerk the weight. Feel the back of your thigh working.", video:"https://www.youtube.com/results?search_query=seated+leg+curl+form" },
+    { id:"p_d1_5", name:"Hip Abductor (Outer)",  target:"OUTER THIGH",       type:"isolation", sets:3, defaultReps:"15", tip:"Open legs slowly. Squeeze glutes at the widest point.", video:"https://www.youtube.com/results?search_query=hip+abductor+machine" },
+    { id:"p_d1_6", name:"Hip Adductor (Inner)",  target:"INNER THIGH",       type:"isolation", sets:3, defaultReps:"15", tip:"Close legs with control. Focus on inner thigh — don't use momentum.", video:"https://www.youtube.com/results?search_query=hip+adductor+machine" },
+    { id:"p_d1_7", name:"Seated Calf Raise",     target:"CALVES",            type:"finisher",  sets:3, defaultReps:"20", tip:"Full range every rep. All the way up, all the way down. Slow counts.", video:"https://www.youtube.com/results?search_query=seated+calf+raise" },
   ]},
-  "Day 2": { day:"Wed", color:"#A78BFA", focus:"Upper Body", description:"Back · Shoulders · Chest · Arms", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Same warmup as Day 1 — gets blood flowing before lifting." },
-    { name:"Lat Pulldown (Wide Grip)", target:"BACK WIDTH",     sets:3, defaultReps:15, tip:"Pull bar to upper chest. Lean back slightly. Control the weight on the way up." },
-    { name:"Seated Cable Row",      target:"MID BACK",          sets:3, defaultReps:15, tip:"Sit tall. Pull elbows back, squeeze shoulder blades together. Don't round your back." },
-    { name:"Machine Shoulder Press",target:"SHOULDERS",         sets:3, defaultReps:15, tip:"Press straight up. Don't shrug. Start very light." },
-    { name:"Pec Deck Flye",         target:"CHEST",             sets:3, defaultReps:15, tip:"Squeeze chest at the front. Open arms slowly — feel the stretch." },
-    { name:"Cable Curl",            target:"BICEPS",            sets:3, defaultReps:15, tip:"Keep elbows still at sides. Curl up, lower slowly. No swinging." },
-    { name:"Rope Pushdown",         target:"TRICEPS",           sets:3, defaultReps:15, tip:"Push rope down and slightly outward. Lock elbows at sides throughout." },
+  "Day 2": { day:"Wed", color:"#C97B7B", focus:"Upper Body", description:"Back · Shoulders · Chest · Arms", exercises: [
+    { id:"p_d2_1", name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", type:"warmup",    sets:1, defaultReps:"10 min",  tip:"Same warmup as Day 1 — gets blood flowing before lifting.", video:"https://www.youtube.com/results?search_query=incline+treadmill+walk" },
+    { id:"p_d2_2", name:"Lat Pulldown (Wide Grip)", target:"BACK WIDTH",     type:"compound",  secondary:"Biceps, Rear Delts", sets:3, defaultReps:"15", tip:"Pull bar to upper chest. Lean back slightly. Control the weight on the way up.", video:"https://www.youtube.com/results?search_query=lat+pulldown+wide+grip" },
+    { id:"p_d2_3", name:"Seated Cable Row",      target:"MID BACK",          type:"compound",  secondary:"Biceps, Rear Delts", sets:3, defaultReps:"15", tip:"Sit tall. Pull elbows back, squeeze shoulder blades together. Don't round your back.", video:"https://www.youtube.com/results?search_query=seated+cable+row+form" },
+    { id:"p_d2_4", name:"Machine Shoulder Press",target:"SHOULDERS",         type:"compound",  secondary:"Triceps", sets:3, defaultReps:"15", tip:"Press straight up. Don't shrug. Start very light.", video:"https://www.youtube.com/results?search_query=machine+shoulder+press" },
+    { id:"p_d2_5", name:"Pec Deck Flye",         target:"CHEST",             type:"isolation", sets:3, defaultReps:"15", tip:"Squeeze chest at the front. Open arms slowly — feel the stretch.", video:"https://www.youtube.com/results?search_query=pec+deck+flye+form" },
+    { id:"p_d2_6", name:"Cable Curl",            target:"BICEPS",            type:"isolation", sets:3, defaultReps:"15", tip:"Keep elbows still at sides. Curl up, lower slowly. No swinging.", video:"https://www.youtube.com/results?search_query=cable+curl+form" },
+    { id:"p_d2_7", name:"Rope Pushdown",         target:"TRICEPS",           type:"finisher",  sets:3, defaultReps:"15", tip:"Push rope down and slightly outward. Lock elbows at sides throughout.", video:"https://www.youtube.com/results?search_query=rope+pushdown+form" },
   ]},
-  "Day 3": { day:"Fri", color:"#34D399", focus:"Full Body", description:"Compound movements · Full body activation", exercises: [
-    { name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", sets:1, defaultReps:"10 min", tip:"Warmup walk before full body session. Take it easy here." },
-    { name:"Hack Squat (Light)",    target:"QUADS & GLUTES",    sets:3, defaultReps:12, tip:"Feet hip-width. Lower until thighs are parallel to floor. Push through heels." },
-    { name:"Romanian Deadlift (Light)", target:"HAMSTRINGS & GLUTES", sets:3, defaultReps:12, tip:"Hinge at hips, keep back flat. Feel the stretch in your hamstrings." },
-    { name:"Gluteus Standing Machine", target:"GLUTES",         sets:3, defaultReps:15, tip:"One leg at a time. Kick back and squeeze glute hard at the top." },
-    { name:"Chest Supported Machine Row", target:"BACK",        sets:3, defaultReps:15, tip:"Chest on the pad. Pull handles toward you, squeeze your back muscles." },
-    { name:"Cable Lateral Raise",   target:"SIDE DELTS",        sets:3, defaultReps:15, tip:"Very light weight. Raise arm to shoulder height only. Slow both ways." },
-    { name:"Seated Calf Raise",     target:"CALVES",            sets:3, defaultReps:20, tip:"Full range of motion every rep. Slow and controlled." },
+  "Day 3": { day:"Fri", color:"#D4A574", focus:"Full Body", description:"Compound movements · Full body activation", exercises: [
+    { id:"p_d3_1", name:"Treadmill Walk (Incline 8-10%)", target:"CARDIO WARMUP", type:"warmup",    sets:1, defaultReps:"10 min",  tip:"Warmup walk before full body session. Take it easy here.", video:"https://www.youtube.com/results?search_query=incline+treadmill+walk" },
+    { id:"p_d3_2", name:"Hack Squat (Light)",    target:"QUADS & GLUTES",    type:"compound",  secondary:"Glutes, Hamstrings", sets:3, defaultReps:"12", tip:"Feet hip-width. Lower until thighs are parallel to floor. Push through heels.", video:"https://www.youtube.com/results?search_query=hack+squat+form" },
+    { id:"p_d3_3", name:"Romanian Deadlift (Light)", target:"HAMSTRINGS",    type:"compound",  secondary:"Glutes, Lower Back", sets:3, defaultReps:"12", tip:"Hinge at hips, keep back flat. Feel the stretch in your hamstrings.", video:"https://www.youtube.com/results?search_query=romanian+deadlift+form" },
+    { id:"p_d3_4", name:"Gluteus Standing Machine", target:"GLUTES",         type:"isolation", sets:3, defaultReps:"15", tip:"One leg at a time. Kick back and squeeze glute hard at the top.", video:"https://www.youtube.com/results?search_query=glute+kickback+machine" },
+    { id:"p_d3_5", name:"Chest Supported Machine Row", target:"BACK",        type:"compound",  secondary:"Biceps", sets:3, defaultReps:"15", tip:"Chest on the pad. Pull handles toward you, squeeze your back muscles.", video:"https://www.youtube.com/results?search_query=chest+supported+row" },
+    { id:"p_d3_6", name:"Cable Lateral Raise",   target:"SIDE DELTS",        type:"isolation", sets:3, defaultReps:"15", tip:"Very light weight. Raise arm to shoulder height only. Slow both ways.", video:"https://www.youtube.com/results?search_query=cable+lateral+raise" },
+    { id:"p_d3_7", name:"Seated Calf Raise",     target:"CALVES",            type:"finisher",  sets:3, defaultReps:"20", tip:"Full range of motion every rep. Slow and controlled.", video:"https://www.youtube.com/results?search_query=seated+calf+raise" },
   ]},
 };
 const pariWeekDates = {
@@ -865,137 +874,340 @@ function MansoorTracker() {
   );
 }
 
-// ─── PARI TRACKER (preserved exactly) ────────────────────────────────────────
+// ─── PARI TRACKER ────────────────────────────────────────────────────────────
 function PariTracker() {
-  const [selectedWeek, setSelectedWeek] = useState("Week 1");
-  const [selectedDay, setSelectedDay]   = useState("Day 1");
-  const [logs, setLogs]                 = useState({});
-  const [activeExercise, setActiveExercise] = useState(null);
-  const [saved, setSaved]   = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [selectedWeek,  setSelectedWeek]  = useState("Week 1");
+  const [selectedDay,   setSelectedDay]   = useState("Day 1");
+  const [logs,          setLogs]          = useState({});
+  const [extraSets,     setExtraSets]     = useState({});
+  const [activeEx,      setActiveEx]      = useState(null);
+  const [saved,         setSaved]         = useState(false);
+  const [loaded,        setLoaded]        = useState(false);
+  const [calendarDay,   setCalendarDay]   = useState(null);
+  const [editingName,   setEditingName]   = useState(null);
+  const [tempName,      setTempName]      = useState("");
+  const [warmupDone,    setWarmupDone]    = useState(false);
+  const [warmupChecked, setWarmupChecked] = useState({});
+  const [restTimer,     setRestTimer]     = useState(null);
+
+  const isRestDay = selectedDay === "Rest Day";
+  const { accent, dim, border } = PARI_ACCENT[selectedDay];
+  const workout = isRestDay ? null : pariPlan[selectedDay];
 
   useEffect(() => {
     (async () => {
-      try { const res=await fetch("/api/sync/pari"); const{data}=await res.json(); setLogs(data.logs?{...data.logs}:{}); }
-      catch { setLogs({}); }
+      try {
+        const res = await fetch("/api/sync/pari");
+        const { data } = await res.json();
+        setLogs(data.logs || {});
+        setExtraSets(data.extraSets || {});
+      } catch { setLogs({}); }
       setLoaded(true);
     })();
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
-    (async () => {
-      try { await fetch("/api/sync/pari",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:{logs}})}); setSaved(true); setTimeout(()=>setSaved(false),2000); }
-      catch {}
-    })();
-  }, [logs, loaded]);
+    const t = setTimeout(async () => {
+      try {
+        await fetch("/api/sync/pari", {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ data: { logs, extraSets } }),
+        });
+        setSaved(true); setTimeout(()=>setSaved(false),1500);
+      } catch {}
+    }, 700);
+    return () => clearTimeout(t);
+  }, [logs, extraSets, loaded]);
 
-  const workout = pariPlan[selectedDay];
-  const getLog = (e,s,f) => logs[`${selectedWeek}|${selectedDay}|${e}|${s}`]?.[f]||"";
-  const updateLog = (e,s,f,v) => { const k=`${selectedWeek}|${selectedDay}|${e}|${s}`; setLogs(p=>({...p,[k]:{...p[k],[f]:v}})); };
-  const isComplete = (name) => { const ex=workout.exercises.find(e=>e.name===name); if(ex.sets===1) return !!getLog(name,0,"done"); return Array.from({length:ex.sets}).every((_,i)=>getLog(name,i,"weight")&&getLog(name,i,"reps")); };
-  const totalComplete = workout.exercises.filter(e=>isComplete(e.name)).length;
+  useEffect(() => { setWarmupDone(false); setActiveEx(null); setRestTimer(null); setWarmupChecked({}); setCalendarDay(null); }, [selectedDay]);
 
-  if (!loaded) return <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontFamily:"monospace", fontSize:14, letterSpacing:2 }}>LOADING...</div>;
+  const gk = (w,d,e,s) => `${w}|${d}|${e}|${s}`;
+  const getLog = (e,s,f) => logs[gk(selectedWeek,selectedDay,e,s)]?.[f] || "";
+  const updateLog = (exName,si,field,value) => { const k=gk(selectedWeek,selectedDay,exName,si); setLogs(p=>({...p,[k]:{...p[k],[field]:value}})); };
+  const handleLogSet = (ex,si) => { const k=gk(selectedWeek,selectedDay,ex.name,si); if(logs[k]?.weight&&logs[k]?.reps) setRestTimer({seconds:REST_TIMES[ex.type]||75,color:accent}); };
 
-  return (
-    <div style={{ minHeight:"100vh", background:"#0a0a0a", fontFamily:"'Bebas Neue', Impact, sans-serif", color:"#fff", paddingBottom:80 }}>
-      <div style={{ background:`linear-gradient(135deg,${workout.color}22,#0a0a0a)`, borderBottom:`2px solid ${workout.color}`, padding:"20px 16px 16px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <div>
-            <div style={{ fontSize:11, letterSpacing:4, color:workout.color, fontFamily:"monospace" }}>PARI • 360 FITNESS{saved&&<span style={{ color:"#4DFFB8" }}> • SAVED</span>}</div>
-            <div style={{ fontSize:24, letterSpacing:2, marginTop:2 }}>{selectedDay} — {workout.focus}</div>
-            <div style={{ fontSize:10, color:"#555", fontFamily:"monospace", letterSpacing:1, marginTop:2 }}>{workout.description.toUpperCase()}</div>
+  const getExKey = (exId) => `${selectedWeek}|${selectedDay}|${exId}`;
+  const getTotalSets = (ex) => ex.sets + (extraSets[getExKey(ex.id)]||0);
+  const addSet = (ex) => { const k=getExKey(ex.id); setExtraSets(p=>({...p,[k]:(p[k]||0)+1})); };
+  const removeSet = (ex) => { const k=getExKey(ex.id); if((extraSets[k]||0)>0) setExtraSets(p=>({...p,[k]:p[k]-1})); };
+
+  const getDate = (day) => logs[`__date|${selectedWeek}|${day}`] || pariWeekDates[selectedWeek]?.[day] || "";
+  const setDate = (day,val) => { setLogs(p=>({...p,[`__date|${selectedWeek}|${day}`]:val})); setCalendarDay(null); };
+  const getExName = (orig) => logs[`__exname|${selectedDay}|${orig}`] || orig;
+  const saveExName = (orig) => { setLogs(p=>({...p,[`__exname|${selectedDay}|${orig}`]:tempName.trim()||orig})); setEditingName(null); };
+  const getNoteKey = (exName) => `__note|${selectedWeek}|${selectedDay}|${exName}`;
+  const getNote = (exName) => logs[getNoteKey(exName)] || "";
+  const saveNote = (exName,text) => setLogs(p=>({...p,[getNoteKey(exName)]:text}));
+
+  const isComplete = (ex) => {
+    if (ex.sets===1) return !!getLog(ex.name,0,"done");
+    return Array.from({length:getTotalSets(ex)}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
+  };
+  const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
+  const hasLogs = workout?.exercises.some(ex=>isComplete(ex));
+  const allWarmupDone = WARMUP_ITEMS.every((_,i)=>warmupChecked[`wu_${i}`]);
+  const showWarmup = !warmupDone && !hasLogs && !isRestDay;
+
+  if (!loaded) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, fontSize:12 }}>SYNCING...</div>
+  );
+
+  const Header = () => (
+    <div style={{ background:`linear-gradient(135deg,${accent}22,#0a0a0a)`, borderBottom:`2px solid ${accent}`, padding:"20px 16px 14px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+        <div>
+          <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:accent, marginBottom:4 }}>
+            PARI · 360 FITNESS{saved?" · SAVED ✓":""}
           </div>
-          <div style={{ background:workout.color, color:"#000", borderRadius:"50%", width:48, height:48, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:900, fontFamily:"monospace", flexShrink:0 }}>{totalComplete}/{workout.exercises.length}</div>
+          <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{selectedDay}</div>
         </div>
-        <div style={{ marginTop:10, height:3, background:"#222", borderRadius:2 }}>
-          <div style={{ height:"100%", width:`${(totalComplete/workout.exercises.length)*100}%`, background:workout.color, borderRadius:2, transition:"width 0.4s ease" }}/>
+        {!isRestDay && workout && (
+          <div style={{ background:accent, color:"#0a0a0a", borderRadius:"50%", width:48, height:48, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:900, fontFamily:'"JetBrains Mono",monospace', flexShrink:0 }}>
+            {totalComplete}/{workout.exercises.length}
+          </div>
+        )}
+      </div>
+      {!isRestDay && workout && (
+        <div style={{ marginTop:10, height:3, background:"rgba(245,241,232,0.08)", borderRadius:2 }}>
+          <div style={{ height:"100%", width:`${(totalComplete/workout.exercises.length)*100}%`, background:accent, borderRadius:2, transition:"width 0.4s" }}/>
         </div>
-      </div>
-      <div style={{ padding:"12px 16px 0", display:"flex", gap:8 }}>
-        {WEEKS.map(w=><button key={w} onClick={()=>setSelectedWeek(w)} style={{ flex:1, padding:"6px 0", background:selectedWeek===w?workout.color:"#1a1a1a", color:selectedWeek===w?"#000":"#666", border:"none", borderRadius:6, fontSize:11, letterSpacing:2, cursor:"pointer", fontFamily:"'Bebas Neue', sans-serif" }}>{w}</button>)}
-      </div>
-      <div style={{ padding:"12px 16px 0", display:"flex", gap:8 }}>
-        {Object.entries(pariPlan).map(([day,data])=>(
-          <button key={day} onClick={()=>{setSelectedDay(day);setActiveExercise(null);}} style={{ flex:1, padding:"8px 0", background:selectedDay===day?data.color:"#1a1a1a", color:selectedDay===day?"#000":"#555", border:`1px solid ${selectedDay===day?data.color:"#2a2a2a"}`, borderRadius:8, fontSize:12, letterSpacing:1, cursor:"pointer", fontFamily:"'Bebas Neue', sans-serif" }}>
-            {day}<div style={{ fontSize:9, fontFamily:"monospace", opacity:0.7 }}>{pariWeekDates[selectedWeek]?.[day]}</div>
-          </button>
+      )}
+      <div style={{ display:"flex", gap:6, marginTop:12 }}>
+        {WEEKS.map(w=>(
+          <button key={w} onClick={()=>setSelectedWeek(w)} style={{ flex:1, padding:"5px 0", background:selectedWeek===w?accent:"rgba(245,241,232,0.05)", color:selectedWeek===w?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:5, fontSize:10, letterSpacing:"0.15em", cursor:"pointer", fontFamily:'"JetBrains Mono",monospace' }}>{w}</button>
         ))}
       </div>
-      <div style={{ padding:"16px 16px 0" }}>
-        {workout.exercises.map((exercise,idx)=>{
-          const done=isComplete(exercise.name); const expanded=activeExercise===exercise.name; const mColor=muscleColors[exercise.target]||"#888";
+    </div>
+  );
+
+  const DaySelector = () => (
+    <div style={{ padding:"10px 16px 0" }}>
+      <div style={{ display:"flex", gap:6, overflowX:"auto", paddingBottom:4 }}>
+        {PARI_DAYS.map(d => {
+          const a = PARI_ACCENT[d].accent;
+          const isSel = selectedDay===d;
           return (
-            <div key={exercise.name} style={{ marginBottom:10, border:`1px solid ${done?workout.color:expanded?"#333":"#1e1e1e"}`, borderRadius:12, overflow:"hidden", background:done?`${workout.color}11`:"#111" }}>
-              <div onClick={()=>setActiveExercise(expanded?null:exercise.name)} style={{ padding:"14px 16px", display:"flex", alignItems:"center", gap:12, cursor:"pointer" }}>
-                <div style={{ width:28, height:28, borderRadius:"50%", background:done?workout.color:"#1e1e1e", color:done?"#000":"#444", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, flexShrink:0 }}>{done?"✓":idx+1}</div>
-                <div style={{ flex:1 }}>
-                  <div style={{ fontSize:14, letterSpacing:1, lineHeight:1.2 }}>{exercise.name}</div>
-                  <div style={{ display:"flex", alignItems:"center", gap:6, marginTop:4 }}>
-                    <span style={{ background:mColor+"22", color:mColor, fontSize:9, fontFamily:"monospace", letterSpacing:1, padding:"2px 8px", borderRadius:4, border:`1px solid ${mColor}44` }}>{exercise.target}</span>
-                    <span style={{ fontSize:9, color:"#444", fontFamily:"monospace", letterSpacing:1 }}>{exercise.sets===1?exercise.defaultReps:`${exercise.sets} × ${exercise.defaultReps}`}</span>
-                  </div>
-                </div>
-                <div style={{ color:"#444", fontSize:16, transition:"transform 0.2s", transform:expanded?"rotate(180deg)":"rotate(0deg)" }}>v</div>
+            <button key={d} onClick={()=>{setSelectedDay(d);setCalendarDay(null);}}
+              style={{ flexShrink:0, minWidth:68, padding:"10px 10px", background:isSel?a:"rgba(245,241,232,0.04)", color:isSel?"#0a0a0a":"rgba(245,241,232,0.55)", border:`1px solid ${isSel?a:"rgba(245,241,232,0.08)"}`, borderRadius:10, cursor:"pointer", fontFamily:'"Bebas Neue",sans-serif', textAlign:"center" }}>
+              <div style={{ fontSize:10, letterSpacing:"0.1em" }}>{d==="Rest Day"?"REST":d}</div>
+              <div style={{ fontSize:8, fontFamily:'"JetBrains Mono",monospace', opacity:0.7, marginTop:2 }}>
+                {getDate(d) ? getDate(d).replace(/^[A-Za-z]+ · /,"") : "—"}
               </div>
-              {expanded && (
-                <div style={{ borderTop:"1px solid #1e1e1e" }}>
-                  <div style={{ padding:"20px 16px", background:"#0d0d0d", display:"flex", alignItems:"center", justifyContent:"center", gap:16 }}>
-                    <div style={{ width:64, height:64, borderRadius:"50%", background:mColor+"18", border:`2px solid ${mColor}55`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28 }}>{muscleIcon[exercise.target]||"💪"}</div>
-                    <div>
-                      <div style={{ fontSize:10, color:"#444", fontFamily:"monospace", letterSpacing:2 }}>TARGET MUSCLE</div>
-                      <div style={{ fontSize:18, letterSpacing:2, color:mColor, marginTop:2 }}>{exercise.target}</div>
-                      <div style={{ fontSize:9, color:"#444", fontFamily:"monospace", letterSpacing:1, marginTop:4 }}>{exercise.sets===1?exercise.defaultReps:`${exercise.sets} SETS • ${exercise.defaultReps} REPS`}</div>
+            </button>
+          );
+        })}
+      </div>
+      <div style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 2px 0", position:"relative" }}>
+        <Calendar size={11} color={accent}/>
+        <span style={{ fontSize:11, fontFamily:'"JetBrains Mono",monospace', color:getDate(selectedDay)?"rgba(245,241,232,0.7)":"rgba(245,241,232,0.3)" }}>
+          {getDate(selectedDay)||"No date set"}
+        </span>
+        <button onClick={()=>setCalendarDay(calendarDay===selectedDay?null:selectedDay)}
+          style={{ background:"transparent", border:"none", cursor:"pointer", padding:2, color:"rgba(245,241,232,0.35)", display:"flex", alignItems:"center" }}>
+          <Pencil size={11}/>
+        </button>
+        {calendarDay===selectedDay && (
+          <div style={{ position:"absolute", top:"100%", left:0, right:0, zIndex:500, marginTop:4 }}>
+            <CalendarPicker color={accent} onSelect={v=>setDate(selectedDay,v)} onClose={()=>setCalendarDay(null)}/>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  if (showWarmup) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif' }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <div style={{ padding:"14px 16px 40px" }}>
+        <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:"rgba(245,241,232,0.4)", marginBottom:14, display:"flex", alignItems:"center", gap:6 }}>
+          <Zap size={11} color={accent}/> WARM UP — COMPLETE BEFORE TRAINING
+        </div>
+        {WARMUP_ITEMS.map((item,i)=>{
+          const key=`wu_${i}`; const ch=warmupChecked[key];
+          return (
+            <div key={i} onClick={()=>setWarmupChecked(p=>({...p,[key]:!ch}))}
+              style={{ display:"flex", alignItems:"center", gap:14, padding:"14px 16px", marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, cursor:"pointer", transition:"all 0.2s" }}>
+              <div style={{ width:22, height:22, borderRadius:6, border:`2px solid ${ch?accent:"rgba(245,241,232,0.2)"}`, background:ch?accent:"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#0a0a0a", fontWeight:700 }}>{ch?"✓":""}</div>
+              <div>
+                <div style={{ fontSize:14, color:ch?"rgba(245,241,232,0.4)":"rgba(245,241,232,0.85)", textDecoration:ch?"line-through":"none", fontFamily:'"Bebas Neue",sans-serif', letterSpacing:1 }}>{item.label}</div>
+                <div style={{ fontSize:11, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginTop:2 }}>{item.detail}</div>
+              </div>
+            </div>
+          );
+        })}
+        <button onClick={()=>setWarmupDone(true)} disabled={!allWarmupDone}
+          style={{ width:"100%", padding:"15px", marginTop:6, background:allWarmupDone?accent:"rgba(245,241,232,0.06)", color:allWarmupDone?"#0a0a0a":"rgba(245,241,232,0.3)", border:"none", borderRadius:12, fontFamily:'"Bebas Neue",sans-serif', fontSize:20, letterSpacing:"0.1em", cursor:allWarmupDone?"pointer":"not-allowed", transition:"all 0.3s" }}>
+          {allWarmupDone?"LET'S GO! →":`${Object.values(warmupChecked).filter(Boolean).length}/${WARMUP_ITEMS.length} COMPLETE`}
+        </button>
+        <button onClick={()=>setWarmupDone(true)} style={{ width:"100%", padding:"10px", marginTop:8, background:"none", color:"rgba(245,241,232,0.3)", border:"none", fontSize:10, letterSpacing:3, cursor:"pointer", fontFamily:'"JetBrains Mono",monospace', display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+          <SkipForward size={12}/> SKIP WARMUP
+        </button>
+      </div>
+    </div>
+  );
+
+  if (isRestDay) return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:80 }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <RestDayView accent={accent} dim={dim} border={border}/>
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:restTimer?120:80 }}>
+      <style>{CSS}</style>
+      <Header/>
+      <DaySelector/>
+      <div style={{ padding:"10px 16px 0" }}>
+        {workout.exercises.map((ex,idx) => {
+          const isOpen = activeEx===ex.id;
+          const done = isComplete(ex);
+          const tc = TYPE_COLOR[ex.type]||TYPE_COLOR.isolation;
+          const displayName = getExName(ex.name);
+          const totalSets = getTotalSets(ex);
+          const isSingleSet = ex.sets===1;
+
+          return (
+            <div key={ex.id} style={{ marginBottom:10, border:`1px solid ${done?accent:isOpen?border:"rgba(245,241,232,0.07)"}`, borderRadius:14, overflow:"hidden", background:done?dim:"rgba(245,241,232,0.02)" }}>
+              <div onClick={()=>setActiveEx(isOpen?null:ex.id)} style={{ padding:"14px 16px", cursor:"pointer" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
+                  <div style={{ flex:1 }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:5, flexWrap:"wrap" }}>
+                      <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:11, color:accent, fontWeight:600 }}>{String(idx+1).padStart(2,"0")}</div>
+                      <div style={{ fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", padding:"2px 6px", background:tc.bg, color:tc.text, borderRadius:3 }}>{tc.label}</div>
+                    </div>
+                    {editingName===ex.id ? (
+                      <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:3 }} onClick={e=>e.stopPropagation()}>
+                        <input value={tempName} onChange={e=>setTempName(e.target.value)} autoFocus
+                          style={{ flex:1, background:"rgba(245,241,232,0.08)", border:`1px solid ${accent}66`, borderRadius:6, color:"#f5f1e8", padding:"4px 8px", fontSize:15, outline:"none", fontWeight:600 }}/>
+                        <button onClick={()=>saveExName(ex.name)} style={{ background:accent, border:"none", borderRadius:5, color:"#0a0a0a", padding:"4px 6px", cursor:"pointer" }}><Check size={13}/></button>
+                        <button onClick={()=>setEditingName(null)} style={{ background:"rgba(245,241,232,0.08)", border:"none", borderRadius:5, color:"rgba(245,241,232,0.5)", padding:"4px 6px", cursor:"pointer" }}><X size={13}/></button>
+                      </div>
+                    ) : (
+                      <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:3 }}>
+                        <span style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:17, letterSpacing:1, lineHeight:1.25 }}>{displayName}</span>
+                        <button onClick={e=>{e.stopPropagation();setTempName(displayName);setEditingName(ex.id);}} style={{ background:"transparent", border:"none", cursor:"pointer", padding:2, color:"rgba(245,241,232,0.25)" }}><Pencil size={12}/></button>
+                        {getNote(ex.name) && <div style={{ width:6, height:6, borderRadius:"50%", background:accent, flexShrink:0 }}/>}
+                      </div>
+                    )}
+                    <div style={{ fontSize:12, color:"rgba(245,241,232,0.5)" }}>
+                      <span style={{ color:"rgba(245,241,232,0.65)" }}>{ex.target}</span>
+                      {ex.secondary && <span style={{ color:"rgba(245,241,232,0.3)" }}> · {ex.secondary}</span>}
                     </div>
                   </div>
-                  {exercise.tip && (
-                    <div style={{ padding:"14px 16px", background:mColor+"11", borderTop:`1px solid ${mColor}22` }}>
-                      <div style={{ fontSize:9, color:mColor, letterSpacing:2, fontFamily:"monospace", marginBottom:6 }}>COACHING TIP</div>
-                      <div style={{ fontSize:13, letterSpacing:0.5, lineHeight:1.6, color:"#bbb", fontFamily:"Arial, sans-serif", fontWeight:"normal" }}>{exercise.tip}</div>
+                  <div style={{ color:"rgba(245,241,232,0.3)", flexShrink:0 }}>{isOpen?<ChevronUp size={18}/>:<ChevronDown size={18}/>}</div>
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginTop:12 }}>
+                  {[["SETS",isSingleSet?"1":totalSets],["REPS",ex.defaultReps],["REST",REST_LABELS[ex.type]]].map(([label,val])=>(
+                    <div key={label} style={{ padding:"8px", background:"rgba(245,241,232,0.04)", borderRadius:6, textAlign:"center" }}>
+                      <div style={{ fontSize:9, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginBottom:2 }}>{label}</div>
+                      <div style={{ fontSize:13, fontWeight:700, color:accent, fontFamily:'"JetBrains Mono",monospace' }}>{val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {isOpen && (
+                <div style={{ borderTop:"1px solid rgba(245,241,232,0.06)", padding:"14px 16px 16px", background:"rgba(0,0,0,0.2)" }}>
+                  {/* Coaching tip */}
+                  {ex.tip && (
+                    <div style={{ marginBottom:12, padding:"10px 12px", background:accent+"11", border:`1px solid ${accent}33`, borderRadius:8 }}>
+                      <div style={{ fontSize:9, color:accent+"99", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", marginBottom:4 }}>COACHING TIP</div>
+                      <div style={{ fontSize:12, color:"rgba(245,241,232,0.7)", lineHeight:1.6 }}>{ex.tip}</div>
                     </div>
                   )}
-                  {exercise.sets>1 && (
-                    <div style={{ padding:"12px 16px 16px", borderTop:"1px solid #1a1a1a" }}>
-                      <div style={{ display:"grid", gridTemplateColumns:"36px 1fr 1fr", gap:8, margin:"0 0 8px" }}>
-                        {["SET","KG","REPS"].map(h=><div key={h} style={{ fontSize:9, color:"#444", letterSpacing:2, fontFamily:"monospace", textAlign:"center" }}>{h}</div>)}
+
+                  {/* Single-set (treadmill) */}
+                  {isSingleSet ? (
+                    <button onClick={()=>updateLog(ex.name,0,"done",getLog(ex.name,0,"done")?"":"1")}
+                      style={{ width:"100%", padding:"14px", background:getLog(ex.name,0,"done")?accent:"rgba(245,241,232,0.06)", color:getLog(ex.name,0,"done")?"#0a0a0a":"rgba(245,241,232,0.4)", border:`1px solid ${accent}44`, borderRadius:10, fontFamily:'"Bebas Neue",sans-serif', fontSize:18, letterSpacing:"0.1em", cursor:"pointer", marginBottom:10 }}>
+                      {getLog(ex.name,0,"done")?"✓ DONE":"MARK COMPLETE"}
+                    </button>
+                  ) : (
+                    <>
+                      <div style={{ display:"grid", gridTemplateColumns:"32px 1fr 1fr 80px", gap:8, marginBottom:8 }}>
+                        {["SET","KG","REPS",""].map(h=>(
+                          <div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>
+                        ))}
                       </div>
-                      {Array.from({length:exercise.sets}).map((_,i)=>{
-                        const w=getLog(exercise.name,i,"weight"); const r=getLog(exercise.name,i,"reps"); const setDone=w&&r;
-                        const inp={background:"#1a1a1a",border:`1px solid ${setDone?workout.color+"66":"#2a2a2a"}`,borderRadius:8,color:"#fff",padding:"10px",fontSize:16,fontFamily:"'Bebas Neue',sans-serif",textAlign:"center",outline:"none",width:"100%",boxSizing:"border-box"};
+                      {Array.from({length:totalSets}).map((_,si)=>{
+                        const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps"); const setDone=w&&r; const isExtra=si>=ex.sets;
                         return (
-                          <div key={i} style={{ display:"grid", gridTemplateColumns:"36px 1fr 1fr", gap:8, marginBottom:8, alignItems:"center" }}>
-                            <div style={{ textAlign:"center", fontSize:13, color:setDone?workout.color:"#444", fontFamily:"monospace" }}>{setDone?"✓":i+1}</div>
-                            <input type="number" placeholder="kg" value={w} onChange={e=>updateLog(exercise.name,i,"weight",e.target.value)} style={inp}/>
-                            <input type="number" placeholder="reps" value={r} onChange={e=>updateLog(exercise.name,i,"reps",e.target.value)} style={inp}/>
+                          <div key={si} style={{ display:"grid", gridTemplateColumns:"32px 1fr 1fr 80px", gap:8, marginBottom:8, alignItems:"center" }}>
+                            <div style={{ textAlign:"center", fontSize:12, color:setDone?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
+                              {setDone?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
+                            </div>
+                            <input type="number" placeholder="kg" value={w}
+                              onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
+                              style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                            <input type="number" placeholder="reps" value={r}
+                              onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
+                              style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                            <button onClick={()=>handleLogSet(ex,si)}
+                              style={{ padding:"10px 6px", background:setDone?accent:"rgba(245,241,232,0.06)", color:setDone?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
+                              {setDone?"DONE ✓":"LOG"}
+                            </button>
                           </div>
                         );
                       })}
-                    </div>
+                      <div style={{ display:"flex", gap:8, marginBottom:10 }}>
+                        <button onClick={()=>addSet(ex)}
+                          style={{ flex:1, padding:"9px", background:"rgba(245,241,232,0.04)", border:"1px dashed rgba(245,241,232,0.15)", borderRadius:8, color:"rgba(245,241,232,0.4)", fontSize:11, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+                          <Plus size={12}/> ADD SET
+                        </button>
+                        {(extraSets[getExKey(ex.id)]||0)>0 && (
+                          <button onClick={()=>removeSet(ex)}
+                            style={{ flex:1, padding:"9px", background:"rgba(220,80,80,0.06)", border:"1px dashed rgba(220,80,80,0.25)", borderRadius:8, color:"#e57373", fontSize:11, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
+                            <X size={12}/> REMOVE SET
+                          </button>
+                        )}
+                      </div>
+                    </>
                   )}
-                  {exercise.sets===1 && (
-                    <div style={{ padding:"12px 16px 16px", borderTop:"1px solid #1a1a1a" }}>
-                      <button onClick={()=>updateLog(exercise.name,0,"done",getLog(exercise.name,0,"done")?"":"1")}
-                        style={{ width:"100%", padding:"12px", background:getLog(exercise.name,0,"done")?workout.color:"#1a1a1a", color:getLog(exercise.name,0,"done")?"#000":"#555", border:`1px solid ${workout.color}44`, borderRadius:8, fontSize:14, letterSpacing:2, cursor:"pointer", fontFamily:"'Bebas Neue',sans-serif" }}>
-                        {getLog(exercise.name,0,"done")?"✓ DONE":"MARK COMPLETE"}
-                      </button>
+
+                  {/* Watch demo */}
+                  <a href={ex.video} target="_blank" rel="noopener noreferrer"
+                    style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"11px", background:dim, border:`1px solid ${border}`, borderRadius:8, color:accent, textDecoration:"none", fontSize:12, fontWeight:600, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em" }}>
+                    <ExternalLink size={12}/> WATCH DEMO
+                  </a>
+
+                  {/* Note */}
+                  <div style={{ marginTop:10 }}>
+                    <div style={{ fontSize:9, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", marginBottom:5, display:"flex", alignItems:"center", gap:6 }}>
+                      <Pencil size={9}/> NOTE
                     </div>
-                  )}
+                    <textarea value={getNote(ex.name)} onChange={e=>saveNote(ex.name,e.target.value)}
+                      placeholder="e.g. felt strong, try heavier next time..."
+                      rows={2}
+                      style={{ width:"100%", background:"rgba(245,241,232,0.04)", border:"1px solid rgba(245,241,232,0.1)", borderRadius:8, color:"#f5f1e8", padding:"10px 12px", fontSize:12, fontFamily:'"JetBrains Mono",monospace', outline:"none", resize:"vertical", lineHeight:1.5 }}/>
+                  </div>
                 </div>
               )}
             </div>
           );
         })}
       </div>
+
       {totalComplete===workout.exercises.length && (
-        <div style={{ margin:"20px 16px", padding:"20px", background:`linear-gradient(135deg,${workout.color}22,${workout.color}11)`, border:`1px solid ${workout.color}`, borderRadius:16, textAlign:"center" }}>
-          <div style={{ fontSize:30, letterSpacing:3, color:workout.color }}>SESSION COMPLETE</div>
-          <div style={{ fontSize:11, color:"#888", fontFamily:"monospace", marginTop:6, letterSpacing:2 }}>GREAT WORK PARI!</div>
-        </div>
+        <>
+          <div style={{ margin:"20px 16px 0", padding:20, background:dim, border:`1px solid ${accent}`, borderRadius:16, textAlign:"center" }}>
+            <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:3, color:accent }}>AMAZING WORK PARI! 💪</div>
+            <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>YOU CRUSHED IT · NOW REST & RECOVER</div>
+          </div>
+          <StretchSection color={accent}/>
+        </>
       )}
-      <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:"#0d1a12", border:"1px solid #34D39933", borderRadius:10, fontSize:10, color:"#34D399", fontFamily:"monospace", letterSpacing:1, lineHeight:1.8 }}>
-        BEGINNER PLAN • START LIGHT • FOCUS ON FORM • ADD WEIGHT GRADUALLY EACH WEEK
+
+      <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:`${accent}0a`, border:`1px solid ${accent}33`, borderRadius:10, fontSize:10, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:1, lineHeight:1.8 }}>
+        BEGINNER PLAN · START LIGHT · FOCUS ON FORM · ADD WEIGHT GRADUALLY EACH WEEK
       </div>
+
+      {restTimer && <RestTimer seconds={restTimer.seconds} color={restTimer.color} onDone={()=>setRestTimer(null)}/>}
     </div>
   );
 }
