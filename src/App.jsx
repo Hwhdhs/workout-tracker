@@ -1311,7 +1311,6 @@ function PariTracker() {
             <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:3, color:accent }}>AMAZING WORK PARI! 💪</div>
             <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>YOU CRUSHED IT · NOW REST & RECOVER</div>
           </div>
-          <StretchSection color={accent}/>
         </>
       )}
 
