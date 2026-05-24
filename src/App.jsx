@@ -299,7 +299,7 @@ const pariPlan = {
     { id:"a_3", name:"Hip Abductor",        target:"OUTER THIGH",                                     type:"isolation", sets:3, defaultReps:"15",    tip:"Open legs slowly, squeeze glutes at the widest point. Control both ways.", video:"https://www.youtube.com/results?search_query=hip+abductor+machine+women" },
     { id:"a_4", name:"Hip Adductor",        target:"INNER THIGH",                                     type:"isolation", sets:3, defaultReps:"15",    tip:"Close legs with control — don't slam them together. Focus on inner thigh.", video:"https://www.youtube.com/results?search_query=hip+adductor+machine+women" },
     { id:"a_5", name:"Seated Calf Raise",   target:"CALVES",                                          type:"finisher",  sets:3, defaultReps:"15-20", tip:"Full range every rep — all the way up, all the way down. Go slow.", video:"https://www.youtube.com/results?search_query=seated+calf+raise+women" },
-    { id:"a_6", name:"Plank",               target:"CORE",                                            type:"isolation", sets:3, defaultReps:"30 secs", noWeight:true, tip:"Keep your body in a straight line. Breathe normally. Don't let your hips sag.", video:"https://www.youtube.com/results?search_query=plank+women" },
+    { id:"a_6", name:"Plank",               target:"CORE",                                            type:"isolation", sets:3, defaultReps:"30 secs", noWeight:true, timedSet:true, tip:"Keep your body in a straight line. Breathe normally. Don't let your hips sag.", video:"https://www.youtube.com/results?search_query=plank+women" },
     { id:"a_7", name:"Leg Raises",          target:"LOWER ABS",                                       type:"isolation", sets:3, defaultReps:"15",    noWeight:true, tip:"Keep legs straight, lower slowly. Don't let feet touch the floor between reps.", video:"https://www.youtube.com/results?search_query=lying+leg+raises+women" },
   ]},
   "Session B": { focus:"Upper Body + Core", description:"Back · Chest · Shoulders · Arms · Core", exercises: [
@@ -884,6 +884,48 @@ function MansoorTracker() {
   );
 }
 
+// ─── PLANK TIMER ─────────────────────────────────────────────────────────────
+function PlankTimer({ setIdx, savedSecs, accent, onComplete }) {
+  const [running,  setRunning]  = useState(false);
+  const [elapsed,  setElapsed]  = useState(0);
+  const done = !!savedSecs;
+
+  useEffect(() => {
+    if (!running) return;
+    const t = setInterval(() => setElapsed(e => e + 1), 1000);
+    return () => clearInterval(t);
+  }, [running]);
+
+  const start = () => { setElapsed(0); setRunning(true); };
+  const finish = () => { setRunning(false); onComplete(String(elapsed)); };
+
+  return (
+    <div style={{ display:"flex", gap:8, marginBottom:8, alignItems:"center" }}>
+      <div style={{ width:32, textAlign:"center", fontSize:12, fontFamily:'"JetBrains Mono",monospace', fontWeight:600, color:done?accent:"rgba(245,241,232,0.3)", flexShrink:0 }}>
+        {done?"✓":setIdx+1}
+      </div>
+      {done ? (
+        <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
+          ✓ {savedSecs}s HELD
+        </div>
+      ) : running ? (
+        <>
+          <div style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.06)", borderRadius:8, textAlign:"center", color:"#f5f1e8", fontFamily:'"JetBrains Mono",monospace', fontSize:22, fontWeight:700 }}>
+            {elapsed}s
+          </div>
+          <button onClick={finish} style={{ padding:"13px 20px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            DONE
+          </button>
+        </>
+      ) : (
+        <button onClick={start} style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.05)", border:"1px solid rgba(245,241,232,0.12)", borderRadius:8, color:"rgba(245,241,232,0.5)", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
+          START SET {setIdx+1}
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ─── PARI TRACKER ────────────────────────────────────────────────────────────
 function PariTracker() {
   const [selectedWeek,  setSelectedWeek]  = useState("Week 1");
@@ -956,7 +998,10 @@ function PariTracker() {
 
   const isComplete = (ex) => {
     if (ex.sets===1) return !!getLog(ex.name,0,"done");
-    return Array.from({length:getTotalSets(ex)}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
+    const total = getTotalSets(ex);
+    if (ex.timedSet) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
+    if (ex.noWeight) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
+    return Array.from({length:total}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
   };
   const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
   const hasLogs = workout?.exercises.some(ex=>isComplete(ex));
@@ -1176,15 +1221,32 @@ function PariTracker() {
                     </button>
                   ) : (
                     <>
-                      <div style={{ display:"grid", gridTemplateColumns:"32px 1fr 1fr 80px", gap:8, marginBottom:8 }}>
-                        {["SET","KG","REPS",""].map(h=>(
-                          <div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>
-                        ))}
-                      </div>
-                      {Array.from({length:totalSets}).map((_,si)=>{
-                        const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps");
-                        const setDone = ex.noWeight ? !!r : (w&&r);
+                      {/* Set headers */}
+                  {!ex.timedSet && (
+                    <div style={{ display:"grid", gridTemplateColumns:ex.noWeight?"32px 1fr 80px":"32px 1fr 1fr 80px", gap:8, marginBottom:8 }}>
+                      {(ex.noWeight ? ["SET","REPS",""] : ["SET","KG","REPS",""]).map(h=>(
+                        <div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>
+                      ))}
+                    </div>
+                  )}
+
+                  {Array.from({length:totalSets}).map((_,si)=>{
+                        const w=getLog(ex.name,si,"weight");
+                        const r=getLog(ex.name,si,"reps");
+                        const setDone = ex.timedSet ? !!getLog(ex.name,si,"done") : ex.noWeight ? !!r : (w&&r);
                         const isExtra=si>=ex.sets;
+
+                        // Plank — start/stop timer records seconds
+                        if (ex.timedSet) return (
+                          <PlankTimer
+                            key={si}
+                            setIdx={si}
+                            savedSecs={getLog(ex.name,si,"reps")}
+                            accent={accent}
+                            onComplete={secs=>updateLog(ex.name,si,"reps",secs)}
+                          />
+                        );
+
                         return (
                           <div key={si} style={{ display:"grid", gridTemplateColumns:ex.noWeight?"32px 1fr 80px":"32px 1fr 1fr 80px", gap:8, marginBottom:8, alignItems:"center" }}>
                             <div style={{ textAlign:"center", fontSize:12, color:setDone?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
@@ -1195,7 +1257,7 @@ function PariTracker() {
                                 onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
                                 style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                             )}
-                            <input type="number" placeholder={ex.noWeight?"reps / secs":"reps"} value={r}
+                            <input type="number" placeholder="reps" value={r}
                               onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
                               style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                             <button onClick={()=>handleLogSet(ex,si)}
