@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp, ExternalLink, Zap, Calendar, SkipForward, Pencil, Check, X, Plus } from "lucide-react";
 
 // ─── MANSOOR ACCENT / STYLE ───────────────────────────────────────────────────
@@ -388,19 +388,34 @@ function CalendarPicker({ color, onSelect, onClose }) {
 
 // ─── REST TIMER ───────────────────────────────────────────────────────────────
 function RestTimer({ seconds, color, onDone }) {
+  const startRef = useRef(Date.now());
+  const adjustRef = useRef(0); // tracks manual +/- adjustments
   const [remaining, setRemaining] = useState(seconds);
-  const pct = remaining / seconds;
-  const fmt = s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+  const fmt = s => `${Math.floor(Math.max(0,s)/60)}:${String(Math.max(0,s)%60).padStart(2,"0")}`;
+
   useEffect(() => {
-    if (remaining<=0) { onDone(); return; }
-    const t = setInterval(()=>setRemaining(r=>r-1),1000);
-    return ()=>clearInterval(t);
-  }, [remaining]);
+    const tick = () => {
+      const elapsed = Math.floor((Date.now() - startRef.current) / 1000);
+      const left = seconds + adjustRef.current - elapsed;
+      if (left <= 0) { setRemaining(0); onDone(); return; }
+      setRemaining(left);
+    };
+    tick();
+    const t = setInterval(tick, 500); // poll every 500ms so it catches up fast after background
+    return () => clearInterval(t);
+  }, []);
+
+  const adjust = (delta) => {
+    adjustRef.current += delta;
+    setRemaining(r => Math.max(0, r + delta));
+  };
+
+  const pct = remaining / seconds;
   return (
     <div style={{ position:"fixed", bottom:0, left:0, right:0, zIndex:300, background:"#0f0f0f", borderTop:`2px solid ${color}`, padding:"14px 20px", display:"flex", alignItems:"center", gap:16 }}>
       <div style={{ width:50, height:50, borderRadius:"50%", border:`3px solid ${color}33`, flexShrink:0, position:"relative", display:"flex", alignItems:"center", justifyContent:"center" }}>
         <svg style={{ position:"absolute", inset:0 }} viewBox="0 0 50 50">
-          <circle cx="25" cy="25" r="22" fill="none" stroke={color} strokeWidth="3" strokeDasharray={`${pct*138.2} 138.2`} strokeLinecap="round" transform="rotate(-90 25 25)"/>
+          <circle cx="25" cy="25" r="22" fill="none" stroke={color} strokeWidth="3" strokeDasharray={`${Math.max(0,pct)*138.2} 138.2`} strokeLinecap="round" transform="rotate(-90 25 25)"/>
         </svg>
         <div style={{ fontSize:10, fontFamily:'"JetBrains Mono",monospace', color, fontWeight:900 }}>{fmt(remaining)}</div>
       </div>
@@ -409,8 +424,8 @@ function RestTimer({ seconds, color, onDone }) {
         <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:14, letterSpacing:2, color:"#fff", marginTop:2 }}>NEXT SET IN {fmt(remaining)}</div>
       </div>
       <div style={{ display:"flex", gap:8, flexShrink:0 }}>
-        <button onClick={()=>setRemaining(r=>Math.max(0,r-15))} style={{ background:"#1a1a1a", border:"none", color:"#aaa", borderRadius:8, padding:"8px 10px", fontSize:11, fontFamily:'"JetBrains Mono",monospace', cursor:"pointer" }}>-15s</button>
-        <button onClick={()=>setRemaining(r=>r+15)} style={{ background:"#1a1a1a", border:"none", color:"#aaa", borderRadius:8, padding:"8px 10px", fontSize:11, fontFamily:'"JetBrains Mono",monospace', cursor:"pointer" }}>+15s</button>
+        <button onClick={()=>adjust(-15)} style={{ background:"#1a1a1a", border:"none", color:"#aaa", borderRadius:8, padding:"8px 10px", fontSize:11, fontFamily:'"JetBrains Mono",monospace', cursor:"pointer" }}>-15s</button>
+        <button onClick={()=>adjust(+15)} style={{ background:"#1a1a1a", border:"none", color:"#aaa", borderRadius:8, padding:"8px 10px", fontSize:11, fontFamily:'"JetBrains Mono",monospace', cursor:"pointer" }}>+15s</button>
         <button onClick={onDone} style={{ background:color, border:"none", color:"#000", borderRadius:8, padding:"8px 14px", fontSize:11, fontFamily:'"Bebas Neue",sans-serif', letterSpacing:2, cursor:"pointer" }}>SKIP</button>
       </div>
     </div>
@@ -547,6 +562,7 @@ function MansoorTracker() {
   const handleLogSet = (ex,si) => {
     const k = gk(selectedWeek,selectedDay,ex.name,si);
     if (logs[k]?.weight && logs[k]?.reps) {
+      setLogs(p => ({ ...p, [k]: { ...p[k], confirmed:"1" } }));
       setRestTimer({ seconds: REST_TIMES[ex.type]||75, color: accent });
     }
   };
@@ -590,7 +606,11 @@ function MansoorTracker() {
   const saveNote = (exName, text) => setLogs(p => ({ ...p, [getNoteKey(exName)]: text }));
 
   // ── Completion ────────────────────────────────────────────────────────────
-  const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
+  const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i) => {
+    const confirmed = !!getLog(ex.name,i,"confirmed");
+    const legacy = selectedWeek === "Week 1" && !!getLog(ex.name,i,"weight") && !!getLog(ex.name,i,"reps");
+    return confirmed || legacy;
+  });
   const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
   const hasLogs = workout?.exercises.some(ex=>Array.from({length:getTotalSets(ex)}).some((_,i)=>getLog(ex.name,i,"weight")));
   const allWarmupDone = WARMUP_ITEMS.every((_,i)=>warmupChecked[`wu_${i}`]);
@@ -808,21 +828,24 @@ function MansoorTracker() {
                   </div>
                   {/* Set rows */}
                   {Array.from({length:totalSets}).map((_,si)=>{
-                    const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps"); const setDone=w&&r; const isExtra=si>=ex.sets;
+                    const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps");
+                    const confirmed = !!(getLog(ex.name,si,"confirmed") || (selectedWeek==="Week 1" && w && r));
+                    const hasData = !!(w && r);
+                    const isExtra=si>=ex.sets;
                     return (
                       <div key={si} style={{ display:"grid", gridTemplateColumns:"32px 1fr 1fr 80px", gap:8, marginBottom:8, alignItems:"center" }}>
-                        <div style={{ textAlign:"center", fontSize:12, color:setDone?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
-                          {setDone?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
+                        <div style={{ textAlign:"center", fontSize:12, color:confirmed?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
+                          {confirmed?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
                         </div>
                         <input type="number" placeholder="kg" value={w}
                           onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
-                          style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                          style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                         <input type="number" placeholder="reps" value={r}
                           onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
-                          style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                          style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                         <button onClick={()=>handleLogSet(ex,si)}
-                          style={{ padding:"10px 6px", background:setDone?accent:"rgba(245,241,232,0.06)", color:setDone?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
-                          {setDone?"DONE ✓":"LOG"}
+                          style={{ padding:"10px 6px", background:confirmed?accent:hasData?"rgba(245,241,232,0.15)":"rgba(245,241,232,0.06)", color:confirmed?"#0a0a0a":hasData?"#f5f1e8":"rgba(245,241,232,0.4)", border:confirmed?"none":`1px solid ${hasData?accent+"55":"transparent"}`, borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
+                          {confirmed?"DONE ✓":"LOG"}
                         </button>
                       </div>
                     );
@@ -980,7 +1003,10 @@ function PariTracker() {
   const handleLogSet = (ex,si) => {
     const k=gk(selectedWeek,selectedDay,ex.name,si);
     const setDone = ex.noWeight ? !!logs[k]?.reps : (logs[k]?.weight && logs[k]?.reps);
-    if (setDone) setRestTimer({seconds:REST_TIMES[ex.type]||75,color:accent});
+    if (setDone) {
+      setLogs(p => ({ ...p, [k]: { ...p[k], confirmed:"1" } }));
+      setRestTimer({seconds:REST_TIMES[ex.type]||75,color:accent});
+    }
   };
 
   const getExKey = (exId) => `${selectedWeek}|${selectedDay}|${exId}`;
@@ -1000,8 +1026,8 @@ function PariTracker() {
     if (ex.sets===1) return !!getLog(ex.name,0,"done");
     const total = getTotalSets(ex);
     if (ex.timedSet) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
-    if (ex.noWeight) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"reps"));
-    return Array.from({length:total}).every((_,i)=>getLog(ex.name,i,"weight")&&getLog(ex.name,i,"reps"));
+    if (ex.noWeight) return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"confirmed"));
+    return Array.from({length:total}).every((_,i)=>!!getLog(ex.name,i,"confirmed"));
   };
   const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
   const hasLogs = workout?.exercises.some(ex=>isComplete(ex));
@@ -1233,7 +1259,8 @@ function PariTracker() {
                   {Array.from({length:totalSets}).map((_,si)=>{
                         const w=getLog(ex.name,si,"weight");
                         const r=getLog(ex.name,si,"reps");
-                        const setDone = ex.timedSet ? !!getLog(ex.name,si,"done") : ex.noWeight ? !!r : (w&&r);
+                        const confirmed = !!getLog(ex.name,si,"confirmed");
+                        const hasData = ex.noWeight ? !!r : !!(w && r);
                         const isExtra=si>=ex.sets;
 
                         // Plank — start/stop timer records seconds
@@ -1249,20 +1276,20 @@ function PariTracker() {
 
                         return (
                           <div key={si} style={{ display:"grid", gridTemplateColumns:ex.noWeight?"32px 1fr 80px":"32px 1fr 1fr 80px", gap:8, marginBottom:8, alignItems:"center" }}>
-                            <div style={{ textAlign:"center", fontSize:12, color:setDone?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
-                              {setDone?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
+                            <div style={{ textAlign:"center", fontSize:12, color:confirmed?accent:isExtra?"rgba(245,241,232,0.2)":"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontWeight:600 }}>
+                              {confirmed?"✓":isExtra?`+${si-ex.sets+1}`:si+1}
                             </div>
                             {!ex.noWeight && (
                               <input type="number" placeholder="kg" value={w}
                                 onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
-                                style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                                style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                             )}
                             <input type="number" placeholder="reps" value={r}
                               onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
-                              style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${setDone?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
+                              style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                             <button onClick={()=>handleLogSet(ex,si)}
-                              style={{ padding:"10px 6px", background:setDone?accent:"rgba(245,241,232,0.06)", color:setDone?"#0a0a0a":"rgba(245,241,232,0.4)", border:"none", borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
-                              {setDone?"DONE ✓":"LOG"}
+                              style={{ padding:"10px 6px", background:confirmed?accent:hasData?"rgba(245,241,232,0.15)":"rgba(245,241,232,0.06)", color:confirmed?"#0a0a0a":hasData?"#f5f1e8":"rgba(245,241,232,0.4)", border:confirmed?"none":`1px solid ${hasData?accent+"55":"transparent"}`, borderRadius:7, fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.08em", cursor:"pointer", fontWeight:600 }}>
+                              {confirmed?"DONE ✓":"LOG"}
                             </button>
                           </div>
                         );
