@@ -909,18 +909,21 @@ function MansoorTracker() {
 
 // ─── PLANK TIMER ─────────────────────────────────────────────────────────────
 function PlankTimer({ setIdx, savedSecs, accent, onComplete }) {
+  const startRef = useRef(null);
   const [running,  setRunning]  = useState(false);
   const [elapsed,  setElapsed]  = useState(0);
   const done = !!savedSecs;
 
   useEffect(() => {
     if (!running) return;
-    const t = setInterval(() => setElapsed(e => e + 1), 1000);
+    const tick = () => setElapsed(Math.floor((Date.now() - startRef.current) / 1000));
+    tick();
+    const t = setInterval(tick, 500);
     return () => clearInterval(t);
   }, [running]);
 
-  const start = () => { setElapsed(0); setRunning(true); };
-  const finish = () => { setRunning(false); onComplete(String(elapsed)); };
+  const start = () => { startRef.current = Date.now(); setElapsed(0); setRunning(true); };
+  const finish = () => { setRunning(false); onComplete(String(Math.floor((Date.now() - startRef.current) / 1000))); };
 
   return (
     <div style={{ display:"flex", gap:8, marginBottom:8, alignItems:"center" }}>
