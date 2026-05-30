@@ -517,6 +517,7 @@ function MansoorTracker() {
   const [warmupDone,    setWarmupDone]    = useState(false);
   const [warmupChecked, setWarmupChecked] = useState({});
   const [restTimer,     setRestTimer]     = useState(null);
+  const [copied,        setCopied]        = useState(false);
 
   const isRestDay = selectedDay === "Rest Day";
   const { accent, dim, border } = ACCENT[selectedDay];
@@ -572,6 +573,8 @@ function MansoorTracker() {
     const searchName = ex.poRef || ex.name;
     const searchDay  = ex.poRefDay || selectedDay;
     let maxW = 0, maxWeek = null;
+
+    // Search all past weeks on the mapped day
     WEEKS.forEach(wk => {
       if (parseInt(wk.split(" ")[1]) >= parseInt(selectedWeek.split(" ")[1])) return;
       for (let si = 0; si < 10; si++) {
@@ -579,6 +582,16 @@ function MansoorTracker() {
         if (w > maxW) { maxW = w; maxWeek = wk; }
       }
     });
+
+    // Also search current week on all OTHER days (same-week cross-day reference)
+    ALL_DAYS.forEach(day => {
+      if (day === selectedDay) return;
+      for (let si = 0; si < 10; si++) {
+        const w = parseFloat(logs[gk(selectedWeek, day, searchName, si)]?.weight) || 0;
+        if (w > maxW) { maxW = w; maxWeek = `${selectedWeek} · ${day}`; }
+      }
+    });
+
     return maxW > 0 ? { maxW, maxWeek } : null;
   };
   const getPo = (ex) => {
@@ -731,6 +744,46 @@ function MansoorTracker() {
     </div>
   );
 
+  // ── Copy session summary ──────────────────────────────────────────────────
+  const copySummary = () => {
+    const date = getDate(selectedDay) || selectedDay;
+    let text = `${selectedDay.toUpperCase()} — ${selectedWeek.toUpperCase()}\n${date}\n${"─".repeat(30)}\n\n`;
+    workout.exercises.forEach((ex, idx) => {
+      const displayName = getExName(ex.name);
+      text += `${String(idx+1).padStart(2,"0")}. ${displayName}\n`;
+      const total = getTotalSets(ex);
+      let hasSets = false;
+      for (let si = 0; si < total; si++) {
+        const w = getLog(ex.name, si, "weight");
+        const r = getLog(ex.name, si, "reps");
+        if (w || r) { text += `    Set ${si+1}: ${w||"—"}kg × ${r||"—"}\n`; hasSets = true; }
+      }
+      if (!hasSets) text += `    Not logged\n`;
+      const note = getNote(ex.name);
+      if (note) text += `    Note: ${note}\n`;
+      text += "\n";
+    });
+    text += `─────────────────────────────\nTHEOGLUMI · OXYGEN GYM`;
+
+    const done = () => { setCopied(true); setTimeout(()=>setCopied(false), 2000); };
+
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallback(text, done));
+    } else {
+      fallback(text, done);
+    }
+  };
+
+  const fallback = (text, done) => {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.style.cssText = "position:fixed;opacity:0;top:0;left:0;";
+    document.body.appendChild(el);
+    el.focus(); el.select();
+    try { document.execCommand("copy"); done(); } catch {}
+    document.body.removeChild(el);
+  };
+
   // ── TRAINING SCREEN ───────────────────────────────────────────────────────
   return (
     <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:restTimer?120:80 }}>
@@ -738,6 +791,9 @@ function MansoorTracker() {
       <Header/>
       <DaySelector/>
       <div style={{ padding:"10px 16px 0" }}>
+        <button onClick={copySummary} style={{ width:"100%", padding:"10px", marginBottom:10, background:"rgba(245,241,232,0.04)", border:`1px solid ${copied?accent+"66":"rgba(245,241,232,0.1)"}`, borderRadius:10, color:copied?accent:"rgba(245,241,232,0.4)", fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.2em", cursor:"pointer", transition:"all 0.2s", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+          {copied ? "✓ COPIED TO CLIPBOARD" : "📋 COPY SESSION SUMMARY"}
+        </button>
         {workout.exercises.map((ex,idx) => {
           const isOpen = activeEx===ex.id;
           const done = isComplete(ex);
