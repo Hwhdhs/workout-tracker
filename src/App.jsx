@@ -3,11 +3,11 @@ import { ChevronDown, ChevronUp, ExternalLink, Zap, Calendar, SkipForward, Penci
 
 // ─── MANSOOR ACCENT / STYLE ───────────────────────────────────────────────────
 const ACCENT = {
-  "Push 1":   { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
-  "Pull 1":   { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
-  "Push 2":   { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
-  "Pull 2":   { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
-  "Rest Day": { accent:"#4DFFB8", dim:"rgba(77,255,184,0.10)",  border:"rgba(77,255,184,0.3)"  },
+  "Push 1": { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
+  "Pull 1": { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
+  "Legs":   { accent:"#6BA57A", dim:"rgba(107,165,122,0.12)", border:"rgba(107,165,122,0.3)" },
+  "Push 2": { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
+  "Pull 2": { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
 };
 
 const PARI_ACCENT = {
@@ -40,26 +40,52 @@ const TYPE_COLOR = {
 const REST_TIMES  = { compound:150, isolation:75, warmup:50, finisher:50 };
 const REST_LABELS = { compound:"2-3 MIN", isolation:"60-90 SEC", warmup:"45-60 SEC", finisher:"45-60 SEC" };
 
-const WARMUP_ITEMS = [
+// ─── DAY-SPECIFIC WARMUPS ─────────────────────────────────────────────────────
+const PUSH_WARMUP = [
   { label:"Treadmill incline 10",        detail:"5 mins" },
-  { label:"Arm circles",                 detail:"1 min" },
-  { label:"Hip flexor stretch",          detail:"1 min" },
-  { label:"Wrist flexor stretch",        detail:"1 min" },
+  { label:"Arm circles",                 detail:"1 min",  video:"https://www.youtube.com/results?search_query=arm+circles+warmup" },
+  { label:"Wrist flexor stretch",        detail:"1 min",  video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
   { label:"Light set on first exercise", detail:"50% weight · 1 set" },
 ];
-
-const STRETCHES = [
-  { muscle:"Chest",       duration:"30 secs",      video:"https://www.youtube.com/results?search_query=chest+stretch" },
-  { muscle:"Shoulders",   duration:"30 secs each", video:"https://www.youtube.com/results?search_query=shoulder+stretch" },
-  { muscle:"Triceps",     duration:"30 secs each", video:"https://www.youtube.com/results?search_query=tricep+stretch" },
-  { muscle:"Lats",        duration:"30 secs each", video:"https://www.youtube.com/results?search_query=lat+stretch" },
-  { muscle:"Biceps",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=bicep+stretch" },
-  { muscle:"Quads",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=quad+stretch" },
-  { muscle:"Hamstrings",  duration:"30 secs",      video:"https://www.youtube.com/results?search_query=hamstring+stretch" },
-  { muscle:"Glutes",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=glute+stretch" },
-  { muscle:"Calves",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=calf+stretch" },
-  { muscle:"Hip Flexors", duration:"30 secs each", video:"https://www.youtube.com/results?search_query=hip+flexor+stretch" },
+const PULL_WARMUP = [
+  { label:"Treadmill incline 10",        detail:"5 mins" },
+  { label:"Arm circles",                 detail:"1 min",  video:"https://www.youtube.com/results?search_query=arm+circles+warmup" },
+  { label:"Lat stretch",                 detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=lat+stretch" },
+  { label:"Wrist flexor stretch",        detail:"1 min",  video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
+  { label:"Light set on first exercise", detail:"50% weight · 1 set" },
 ];
+const LEGS_WARMUP = [
+  { label:"Kneeling Hip Flexor Stretch", detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=kneeling+hip+flexor+stretch" },
+  { label:"Standing Quad Stretch",       detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=standing+quad+stretch" },
+  { label:"Seated Forward Fold",         detail:"30 secs",           video:"https://www.youtube.com/results?search_query=seated+forward+fold+hamstring+stretch" },
+  { label:"Figure 4 Stretch",            detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=figure+4+piriformis+stretch" },
+  { label:"Wall Calf Stretch",           detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=wall+calf+stretch" },
+];
+// Legacy — kept for archive compatibility
+const WARMUP_ITEMS = PUSH_WARMUP;
+
+// ─── DAY-SPECIFIC STRETCHES ───────────────────────────────────────────────────
+const PUSH_STRETCHES = [
+  { muscle:"Chest",        duration:"30 secs",      video:"https://www.youtube.com/results?search_query=chest+stretch" },
+  { muscle:"Shoulders",    duration:"30 secs each", video:"https://www.youtube.com/results?search_query=shoulder+stretch" },
+  { muscle:"Triceps",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=tricep+stretch" },
+  { muscle:"Wrist Flexor", duration:"30 secs each", video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
+];
+const PULL_STRETCHES = [
+  { muscle:"Lats",         duration:"30 secs each", video:"https://www.youtube.com/results?search_query=lat+stretch" },
+  { muscle:"Biceps",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=bicep+stretch" },
+  { muscle:"Rear Delts",   duration:"30 secs each", video:"https://www.youtube.com/results?search_query=rear+delt+stretch" },
+  { muscle:"Wrist Flexor", duration:"30 secs each", video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
+];
+const LEGS_STRETCHES = [
+  { muscle:"Quads",        duration:"30 secs each", video:"https://www.youtube.com/results?search_query=quad+stretch" },
+  { muscle:"Hamstrings",   duration:"30 secs",      video:"https://www.youtube.com/results?search_query=hamstring+stretch" },
+  { muscle:"Glutes",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=glute+stretch" },
+  { muscle:"Hip Flexors",  duration:"30 secs each", video:"https://www.youtube.com/results?search_query=hip+flexor+stretch" },
+  { muscle:"Calves",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=calf+stretch" },
+];
+// Legacy constant used by PariTracker StretchSection
+const STRETCHES = [...PUSH_STRETCHES, ...PULL_STRETCHES, ...LEGS_STRETCHES];
 
 const REST_DAY_PLAN = [
   { label:"Cardio",                        detail:"20-30 mins · Treadmill or Bike",   video:"https://www.youtube.com/results?search_query=cardio+workout" },
@@ -83,8 +109,8 @@ const PARI_REST_DAY_PLAN = [
   { label:"Full Body Stretch",             detail:"5-10 mins · Take your time",            video:"https://www.youtube.com/results?search_query=full+body+stretch+women" },
 ];
 
-// ─── NEW PPL PLAN (Week 2+) ───────────────────────────────────────────────────
-const PLAN = {
+// ─── ARCHIVE PLAN (old program — kept for reference) ─────────────────────────
+const ARCHIVE_PLAN = {
   "Push 1": { day:"Monday", exercises: [
     { id:"p1_1", name:"Incline Press",                 target:"UPPER CHEST",        secondary:"Front Delts, Triceps",    type:"compound",  sets:4, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=incline+chest+press",           poRef:"Panatta Inclined Chest Press Circular", poRefDay:"Push 2" },
     { id:"p1_2", name:"Upper Chest Flye",              target:"UPPER CHEST",                                             type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=upper+chest+fly",               poRef:"Panatta Upper Pec Flye",               poRefDay:"Push 1" },
@@ -135,7 +161,68 @@ const PLAN = {
   ]},
 };
 
-// ─── WEEK 1 PLAN (preserved exactly) ─────────────────────────────────────────
+
+// ─── NEW PROGRAM — PUSH 1 (Monday) ───────────────────────────────────────────
+// ─── NEW PROGRAM — PULL 1 (Tuesday) ──────────────────────────────────────────
+// ─── NEW PROGRAM — LEGS (Wednesday, 2-week rotation) ─────────────────────────
+// ─── NEW PROGRAM — PUSH 2 (Thursday) ─────────────────────────────────────────
+// ─── NEW PROGRAM — PULL 2 (Friday) ───────────────────────────────────────────
+const LEGS_A = { label:"LEGS A", exercises: [
+  { id:"la_1", name:"Leg Curl Lying (Warm Up)", target:"HAMSTRINGS",     type:"warmup",   sets:3, defaultReps:"15",    poDefault:39,  video:"https://www.youtube.com/results?search_query=lying+leg+curl+jeff+nippard" },
+  { id:"la_2", name:"Squat",                   target:"QUADS & GLUTES", type:"compound", sets:4, defaultReps:"8-12",  poDefault:40,  video:"https://www.youtube.com/results?search_query=squat+jeff+nippard",          secondary:"Hamstrings, Lower Back" },
+  { id:"la_3", name:"Romanian Deadlift",        target:"HAMSTRINGS",     type:"compound", sets:4, defaultReps:"8-12",  poDefault:40,  video:"https://www.youtube.com/results?search_query=romanian+deadlift+jeff+nippard", secondary:"Glutes, Lower Back" },
+  { id:"la_4", name:"Leg Extension",            target:"QUADS",          type:"isolation",sets:3, defaultReps:"12-15", poDefault:57.5,video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
+  { id:"la_5", name:"Hip Abductor",             target:"OUTER THIGH",    type:"isolation",sets:3, defaultReps:"15",    poDefault:59,  video:"https://www.youtube.com/results?search_query=hip+abductor+jeff+nippard" },
+  { id:"la_6", name:"Hip Thrust",               target:"GLUTES",         type:"compound", sets:3, defaultReps:"12-15", poDefault:50,  video:"https://www.youtube.com/results?search_query=hip+thrust+jeff+nippard",    secondary:"Hamstrings" },
+  { id:"la_7", name:"Standing Calf Raise",      target:"CALVES",         type:"finisher", sets:3, defaultReps:"15-20", poDefault:55,  video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
+]};
+
+const LEGS_B = { label:"LEGS B", exercises: [
+  { id:"lb_1", name:"Leg Curl Seated (Warm Up)",target:"HAMSTRINGS",     type:"warmup",   sets:3, defaultReps:"15",    poDefault:42,  video:"https://www.youtube.com/results?search_query=seated+leg+curl+jeff+nippard" },
+  { id:"lb_2", name:"Squat",                   target:"QUADS & GLUTES", type:"compound", sets:4, defaultReps:"8-12",  poDefault:40,  video:"https://www.youtube.com/results?search_query=squat+jeff+nippard",          secondary:"Hamstrings, Lower Back" },
+  { id:"lb_3", name:"Romanian Deadlift",        target:"HAMSTRINGS",     type:"compound", sets:4, defaultReps:"8-12",  poDefault:40,  video:"https://www.youtube.com/results?search_query=romanian+deadlift+jeff+nippard", secondary:"Glutes, Lower Back" },
+  { id:"lb_4", name:"Leg Press",               target:"QUADS & GLUTES", type:"compound", sets:3, defaultReps:"12-15", poDefault:140, video:"https://www.youtube.com/results?search_query=leg+press+jeff+nippard",      secondary:"Hamstrings, Calves" },
+  { id:"lb_5", name:"Hip Adductor",            target:"INNER THIGH",    type:"isolation",sets:3, defaultReps:"15",    poDefault:52,  video:"https://www.youtube.com/results?search_query=hip+adductor+jeff+nippard" },
+  { id:"lb_6", name:"Glute Kickback",          target:"GLUTES",         type:"isolation",sets:3, defaultReps:"15",    poDefault:50,  video:"https://www.youtube.com/results?search_query=glute+kickback+jeff+nippard" },
+  { id:"lb_7", name:"Standing Calf Raise",      target:"CALVES",         type:"finisher", sets:3, defaultReps:"15-20", poDefault:55,  video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
+]};
+
+const NEW_PLAN = {
+  "Push 1": { day:"Monday", exercises: [
+    { id:"n1_1", name:"Chest Press",              target:"CHEST",            type:"compound",  sets:4, defaultReps:"10-15", poDefault:45,    video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard",             secondary:"Triceps, Front Delts" },
+    { id:"n1_2", name:"Press-Around Flye",        target:"CHEST",            type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=press+around+flye+jeff+nippard" },
+    { id:"n1_3", name:"Arnold Press",             target:"SHOULDERS",        type:"compound",  sets:3, defaultReps:"10-12",                   video:"https://www.youtube.com/results?search_query=arnold+press+jeff+nippard",            secondary:"Front Delts, Triceps" },
+    { id:"n1_4", name:"Cross-body Cable Y-Raise", target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=cable+y+raise+jeff+nippard" },
+    { id:"n1_5", name:"Tricep Pushdown",          target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-15", poDefault:16.25, video:"https://www.youtube.com/results?search_query=tricep+pushdown+jeff+nippard" },
+    { id:"n1_6", name:"Tricep Overhead Extension",target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=tricep+overhead+extension+jeff+nippard" },
+  ]},
+  "Pull 1": { day:"Tuesday", exercises: [
+    { id:"n2_1", name:"Lat Pulldown",             target:"LATS",             type:"compound",  sets:3, defaultReps:"10-12", poDefault:60,    video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",            secondary:"Biceps, Rear Delts", note:"Drop grip each set" },
+    { id:"n2_2", name:"Chest Supported Row",      target:"MID BACK",         type:"compound",  sets:3, defaultReps:"10-12", poDefault:50,    video:"https://www.youtube.com/results?search_query=chest+supported+row+jeff+nippard",    secondary:"Biceps, Rear Delts", note:"Omni grip" },
+    { id:"n2_3", name:"Pullover + Lat Stretch",   target:"LATS",             type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=cable+pullover+lat+stretch+jeff+nippard", note:"Superset · 30s lat stretch after each set" },
+    { id:"n2_4", name:"Reverse Cable Crossover",  target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=reverse+cable+crossover+jeff+nippard" },
+    { id:"n2_5", name:"EZ Bar Curl",              target:"BICEPS",           type:"isolation", sets:3, defaultReps:"10-12",                   video:"https://www.youtube.com/results?search_query=ez+bar+curl+jeff+nippard" },
+    { id:"n2_6", name:"Hammer Curl",              target:"BRACHIALIS",       type:"isolation", sets:3, defaultReps:"12-15", poDefault:18.75, video:"https://www.youtube.com/results?search_query=hammer+curl+jeff+nippard",             note:"Preacher style" },
+  ]},
+  "Push 2": { day:"Thursday", exercises: [
+    { id:"n3_1", name:"Incline Press",            target:"UPPER CHEST",      type:"compound",  sets:4, defaultReps:"10-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",          secondary:"Front Delts, Triceps" },
+    { id:"n3_2", name:"Cable Flye",               target:"INNER CHEST",      type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=cable+fly+jeff+nippard" },
+    { id:"n3_3", name:"Machine Shoulder Press",   target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", poDefault:40,    video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard", secondary:"Triceps" },
+    { id:"n3_4", name:"Cable Lateral Raise",      target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"12-15", poDefault:6,     video:"https://www.youtube.com/results?search_query=cable+lateral+raise+jeff+nippard" },
+    { id:"n3_5", name:"Tricep Dip",               target:"TRICEPS ALL HEADS", type:"compound", sets:3, defaultReps:"10-12", poDefault:59,    video:"https://www.youtube.com/results?search_query=tricep+dip+jeff+nippard",             secondary:"Chest, Shoulders" },
+    { id:"n3_6", name:"Cross-body Tricep Extension",target:"TRICEPS LONG",   type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=cross+body+tricep+extension+jeff+nippard" },
+  ]},
+  "Pull 2": { day:"Friday", exercises: [
+    { id:"n4_1", name:"Assisted Pull-Up",         target:"LATS",             type:"compound",  sets:3, defaultReps:"AMRAP",                   video:"https://www.youtube.com/results?search_query=assisted+pull+up+jeff+nippard",       secondary:"Biceps, Rear Delts" },
+    { id:"n4_2", name:"1-Arm Lat Pulldown",       target:"LATS",             type:"compound",  sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=one+arm+lat+pulldown+jeff+nippard",  secondary:"Biceps" },
+    { id:"n4_3", name:"1-Arm Row",                target:"MID BACK",         type:"compound",  sets:3, defaultReps:"10-12",                   video:"https://www.youtube.com/results?search_query=one+arm+row+jeff+nippard",           secondary:"Biceps, Rear Delts" },
+    { id:"n4_4", name:"Shrugs",                   target:"TRAPS",            type:"isolation", sets:3, defaultReps:"12-15", poDefault:60,    video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard",               note:"Cable first, swap machine if needed" },
+    { id:"n4_5", name:"Reverse Pec Deck",         target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"10-12", poDefault:40,    video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
+    { id:"n4_6", name:"Bayesian Cable Curl",      target:"BICEPS",           type:"isolation", sets:3, defaultReps:"12-15", poDefault:34,    video:"https://www.youtube.com/results?search_query=bayesian+cable+curl+jeff+nippard" },
+  ]},
+};
+
+// ─── WEEK 1 PLAN// ─── WEEK 1 PLAN (preserved exactly — archive only) ──────────────────────────
 const mansoorPlan = {
   "Push 1": { exercises: [
     { id:"m_p1_1", name:"Flat Machine Chest Press",            target:"MID CHEST",         secondary:"Triceps, Front Delts",  type:"compound",  sets:4, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=machine+chest+press" },
@@ -330,7 +417,8 @@ const pariWeekDates = {
 };
 
 const WEEKS    = ["Week 1","Week 2","Week 3","Week 4"];
-const ALL_DAYS = ["Push 1","Pull 1","Push 2","Pull 2","Rest Day"];
+const ALL_DAYS = ["Push 1","Pull 1","Legs","Push 2","Pull 2"];
+const ARCHIVE_DAYS = ["Push 1","Pull 1","Push 2","Pull 2"];
 
 // ─── CSS ──────────────────────────────────────────────────────────────────────
 const CSS = `
@@ -433,7 +521,8 @@ function RestTimer({ seconds, color, onDone }) {
 }
 
 // ─── STRETCH SECTION ─────────────────────────────────────────────────────────
-function StretchSection({ color }) {
+function StretchSection({ color, items }) {
+  const stretches = items || PUSH_STRETCHES;
   const [checked, setChecked] = useState({});
   const done = Object.values(checked).filter(Boolean).length;
   return (
@@ -441,7 +530,7 @@ function StretchSection({ color }) {
       <div style={{ fontSize:10, color:"#555", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, marginBottom:4 }}>POST WORKOUT</div>
       <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:22, letterSpacing:2, marginBottom:14 }}>STRETCHES</div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
-        {STRETCHES.map((s,i) => (
+        {stretches.map((s,i) => (
           <div key={i} style={{ background:checked[i]?color+"18":"#1a1a1a", border:`1px solid ${checked[i]?color+"55":"#2a2a2a"}`, borderRadius:10, overflow:"hidden", transition:"all 0.2s" }}>
             <div onClick={()=>setChecked(p=>({...p,[i]:!p[i]}))} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", cursor:"pointer" }}>
               <div style={{ width:18, height:18, borderRadius:"50%", border:`1.5px solid ${checked[i]?color:"#333"}`, background:checked[i]?color:"none", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:10, color:"#000" }}>{checked[i]?"✓":""}</div>
@@ -457,7 +546,7 @@ function StretchSection({ color }) {
           </div>
         ))}
       </div>
-      {done===STRETCHES.length && <div style={{ marginTop:14, textAlign:"center", fontSize:11, color, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3 }}>ALL DONE 💪</div>}
+      {done===stretches.length && <div style={{ marginTop:14, textAlign:"center", fontSize:11, color, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3 }}>ALL DONE 💪</div>}
     </div>
   );
 }
@@ -518,10 +607,29 @@ function MansoorTracker() {
   const [warmupChecked, setWarmupChecked] = useState({});
   const [restTimer,     setRestTimer]     = useState(null);
   const [copied,        setCopied]        = useState(false);
+  const [archiveMode,   setArchiveMode]   = useState(false);
+  const [archiveDay,    setArchiveDay]    = useState("Push 1");
 
-  const isRestDay = selectedDay === "Rest Day";
+  const isLegs = selectedDay === "Legs";
+  const isPush = selectedDay.startsWith("Push");
+  const isPull = selectedDay.startsWith("Pull");
   const { accent, dim, border } = ACCENT[selectedDay];
-  const workout = isRestDay ? null : (selectedWeek === "Week 1" ? mansoorPlan[selectedDay] : PLAN[selectedDay]);
+
+  const getWorkout = () => {
+    if (archiveMode) {
+      const wkNum = parseInt(selectedWeek.split(" ")[1]);
+      const src = wkNum === 1 ? mansoorPlan : ARCHIVE_PLAN;
+      return src[selectedDay] || null;
+    }
+    if (isLegs) {
+      const wkNum = parseInt(selectedWeek.split(" ")[1]);
+      return wkNum % 2 === 1 ? LEGS_A : LEGS_B;
+    }
+    return NEW_PLAN[selectedDay] || null;
+  };
+  const workout = getWorkout();
+  const warmupItems = isPush ? PUSH_WARMUP : isPull ? PULL_WARMUP : LEGS_WARMUP;
+  const stretchItems = isPush ? PUSH_STRETCHES : isPull ? PULL_STRETCHES : LEGS_STRETCHES;
 
   // ── API Load ───────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -554,7 +662,7 @@ function MansoorTracker() {
   useEffect(() => { setWarmupDone(false); setActiveEx(null); setRestTimer(null); setWarmupChecked({}); setCalendarDay(null); }, [selectedDay]);
 
   // ── Log helpers ───────────────────────────────────────────────────────────
-  const gk = (w,d,e,s) => `${w}|${d}|${e}|${s}`;
+  const gk = (w,d,e,s) => `P2|${w}|${d}|${e}|${s}`;
   const getLog = (e,s,f) => logs[gk(selectedWeek,selectedDay,e,s)]?.[f] || "";
   const updateLog = (exName,si,field,value) => {
     const k = gk(selectedWeek,selectedDay,exName,si);
@@ -595,7 +703,7 @@ function MansoorTracker() {
     return maxW > 0 ? { maxW, maxWeek } : null;
   };
   const getPo = (ex) => {
-    if (ex.poDefault) return { maxW: ex.poDefault, maxWeek: "suggested start", suggested: ex.poDefault, isDefault: true };
+    if (ex.poDefault) return { maxW: ex.poDefault, maxWeek: "last session", suggested: ex.poDefault + 2.5, isDefault: false };
     const r = getMaxWeight(ex);
     if (!r) return null;
     return { maxW: r.maxW, maxWeek: r.maxWeek, suggested: r.maxW + 2.5 };
@@ -619,15 +727,11 @@ function MansoorTracker() {
   const saveNote = (exName, text) => setLogs(p => ({ ...p, [getNoteKey(exName)]: text }));
 
   // ── Completion ────────────────────────────────────────────────────────────
-  const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i) => {
-    const confirmed = !!getLog(ex.name,i,"confirmed");
-    const legacy = selectedWeek === "Week 1" && !!getLog(ex.name,i,"weight") && !!getLog(ex.name,i,"reps");
-    return confirmed || legacy;
-  });
+  const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i) => !!getLog(ex.name,i,"confirmed"));
   const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
   const hasLogs = workout?.exercises.some(ex=>Array.from({length:getTotalSets(ex)}).some((_,i)=>getLog(ex.name,i,"weight")));
-  const allWarmupDone = WARMUP_ITEMS.every((_,i)=>warmupChecked[`wu_${i}`]);
-  const showWarmup = !warmupDone && !hasLogs && !isRestDay;
+  const allWarmupDone = warmupItems.every((_,i)=>warmupChecked[`wu_${i}`]);
+  const showWarmup = !warmupDone && !hasLogs && !archiveMode;
 
   if (!loaded) return (
     <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, fontSize:12 }}>
@@ -637,21 +741,27 @@ function MansoorTracker() {
 
   // ── Header ────────────────────────────────────────────────────────────────
   const Header = () => (
-    <div style={{ background:`linear-gradient(135deg,${accent}22,#0a0a0a)`, borderBottom:`2px solid ${accent}`, padding:"20px 16px 14px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
+    <div style={{ background:`linear-gradient(135deg,${accent}22,#0a0a0a)`, borderBottom:`2px solid ${accent}`, padding:"48px 16px 14px", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(10px)" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
           <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:accent, marginBottom:4 }}>
             THEOGLUMI · OXYGEN GYM{saved?" · SAVED ✓":""}
           </div>
-          <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{selectedDay}</div>
+          <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{archiveMode?"ARCHIVE":selectedDay}</div>
         </div>
-        {!isRestDay && workout && (
-          <div style={{ background:accent, color:"#000", borderRadius:"50%", width:48, height:48, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:900, fontFamily:'"JetBrains Mono",monospace', flexShrink:0 }}>
-            {totalComplete}/{workout.exercises.length}
-          </div>
-        )}
+        <div style={{ display:"flex", flexDirection:"column", gap:6, alignItems:"flex-end" }}>
+          <button onClick={()=>{ setArchiveMode(m=>!m); setArchiveDay("Push 1"); }}
+            style={{ background:archiveMode?accent:"rgba(245,241,232,0.08)", border:`1px solid ${archiveMode?accent:"rgba(245,241,232,0.2)"}`, borderRadius:8, color:archiveMode?"#0a0a0a":"rgba(245,241,232,0.5)", fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:2, padding:"5px 10px", cursor:"pointer" }}>
+            {archiveMode?"← BACK":"ARCHIVE"}
+          </button>
+          {!archiveMode && workout && (
+            <div style={{ background:accent, color:"#000", borderRadius:"50%", width:40, height:40, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, fontFamily:'"JetBrains Mono",monospace', flexShrink:0 }}>
+              {totalComplete}/{workout.exercises.length}
+            </div>
+          )}
+        </div>
       </div>
-      {!isRestDay && workout && (
+      {!archiveMode && workout && (
         <div style={{ marginTop:10, height:3, background:"rgba(245,241,232,0.08)", borderRadius:2 }}>
           <div style={{ height:"100%", width:`${(totalComplete/workout.exercises.length)*100}%`, background:accent, borderRadius:2, transition:"width 0.4s" }}/>
         </div>
@@ -674,7 +784,7 @@ function MansoorTracker() {
           return (
             <button key={d} onClick={()=>{setSelectedDay(d);setCalendarDay(null);}}
               style={{ flexShrink:0, minWidth:68, padding:"10px 10px", background:isSel?a:"rgba(245,241,232,0.04)", color:isSel?"#0a0a0a":"rgba(245,241,232,0.55)", border:`1px solid ${isSel?a:"rgba(245,241,232,0.08)"}`, borderRadius:10, cursor:"pointer", fontFamily:'"Bebas Neue",sans-serif', textAlign:"center" }}>
-              <div style={{ fontSize:10, letterSpacing:"0.1em" }}>{d==="Rest Day"?"REST":d}</div>
+              <div style={{ fontSize:10, letterSpacing:"0.1em" }}>{d}</div>
               <div style={{ fontSize:8, fontFamily:'"JetBrains Mono",monospace', opacity:0.7, marginTop:2 }}>
                 {getDate(d) ? getDate(d).replace(/^[A-Za-z]+ · /,"") : "—"}
               </div>
@@ -700,6 +810,63 @@ function MansoorTracker() {
     </div>
   );
 
+  // ── ARCHIVE VIEW ─────────────────────────────────────────────────────────
+  if (archiveMode) {
+    const archiveAccent = "#C9A96E";
+    const archiveWorkout = (() => {
+      const wkNum = parseInt(selectedWeek.split(" ")[1]);
+      const src = wkNum === 1 ? mansoorPlan : ARCHIVE_PLAN;
+      return src[archiveDay] || null;
+    })();
+    return (
+      <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:80 }}>
+        <style>{CSS}</style>
+        <Header/>
+        <div style={{ padding:"10px 16px 0" }}>
+          <div style={{ display:"flex", gap:6, overflowX:"auto", paddingBottom:4 }}>
+            {ARCHIVE_DAYS.map(d => (
+              <button key={d} onClick={()=>setArchiveDay(d)}
+                style={{ flexShrink:0, minWidth:68, padding:"10px", background:archiveDay===d?archiveAccent:"rgba(245,241,232,0.04)", color:archiveDay===d?"#0a0a0a":"rgba(245,241,232,0.55)", border:`1px solid ${archiveDay===d?archiveAccent:"rgba(245,241,232,0.08)"}`, borderRadius:10, cursor:"pointer", fontFamily:'"Bebas Neue",sans-serif', fontSize:10, letterSpacing:"0.1em", textAlign:"center" }}>
+                {d}
+              </button>
+            ))}
+          </div>
+          <div style={{ marginTop:8, fontSize:10, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:2 }}>READ-ONLY · OLD PROGRAM DATA</div>
+        </div>
+        <div style={{ padding:"12px 16px 0" }}>
+          {!archiveWorkout ? (
+            <div style={{ padding:20, textAlign:"center", color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', fontSize:12 }}>No data for this selection</div>
+          ) : archiveWorkout.exercises.map((ex, idx) => {
+            const loggedSets = Array.from({length:ex.sets+3}, (_,si) => {
+              const entry = logs[`${selectedWeek}|${archiveDay}|${ex.name}|${si}`];
+              return entry?.weight||entry?.reps ? { w:entry.weight, r:entry.reps, si } : null;
+            }).filter(Boolean);
+            return (
+              <div key={ex.id||ex.name} style={{ marginBottom:8, background:"rgba(245,241,232,0.02)", border:`1px solid ${loggedSets.length?archiveAccent+"44":"rgba(245,241,232,0.07)"}`, borderRadius:12, padding:"14px 16px" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:loggedSets.length?10:0 }}>
+                  <div>
+                    <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, color:archiveAccent, marginBottom:2 }}>{String(idx+1).padStart(2,"0")} · {ex.target}</div>
+                    <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1 }}>{ex.name}</div>
+                  </div>
+                  <div style={{ fontSize:10, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace' }}>{ex.sets}×{ex.defaultReps}</div>
+                </div>
+                {loggedSets.length ? (
+                  <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+                    {loggedSets.map(({w,r,si}) => (
+                      <div key={si} style={{ background:archiveAccent+"18", border:`1px solid ${archiveAccent}33`, borderRadius:6, padding:"5px 10px", fontSize:11, fontFamily:'"JetBrains Mono",monospace', color:archiveAccent }}>
+                        {w||"—"}kg × {r||"—"}
+                      </div>
+                    ))}
+                  </div>
+                ) : <div style={{ fontSize:10, color:"rgba(245,241,232,0.2)", fontFamily:'"JetBrains Mono",monospace' }}>Not logged</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   // ── WARMUP SCREEN ─────────────────────────────────────────────────────────
   if (showWarmup) return (
     <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif' }}>
@@ -710,37 +877,34 @@ function MansoorTracker() {
         <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:"rgba(245,241,232,0.4)", marginBottom:14, display:"flex", alignItems:"center", gap:6 }}>
           <Zap size={11} color={accent}/> WARM UP — COMPLETE BEFORE TRAINING
         </div>
-        {WARMUP_ITEMS.map((item,i)=>{
+        {warmupItems.map((item,i)=>{
           const key=`wu_${i}`; const ch=warmupChecked[key];
           return (
-            <div key={i} onClick={()=>setWarmupChecked(p=>({...p,[key]:!ch}))}
-              style={{ display:"flex", alignItems:"center", gap:14, padding:"14px 16px", marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, cursor:"pointer", transition:"all 0.2s" }}>
-              <div style={{ width:22, height:22, borderRadius:6, border:`2px solid ${ch?accent:"rgba(245,241,232,0.2)"}`, background:ch?accent:"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#0a0a0a", fontWeight:700 }}>{ch?"✓":""}</div>
-              <div>
-                <div style={{ fontSize:14, color:ch?"rgba(245,241,232,0.4)":"rgba(245,241,232,0.85)", textDecoration:ch?"line-through":"none", fontFamily:'"Bebas Neue",sans-serif', letterSpacing:1 }}>{item.label}</div>
-                <div style={{ fontSize:11, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginTop:2 }}>{item.detail}</div>
+            <div key={i} style={{ marginBottom:8, background:ch?dim:"rgba(245,241,232,0.03)", border:`1px solid ${ch?border:"rgba(245,241,232,0.07)"}`, borderRadius:12, overflow:"hidden", transition:"all 0.2s" }}>
+              <div onClick={()=>setWarmupChecked(p=>({...p,[key]:!ch}))} style={{ display:"flex", alignItems:"center", gap:14, padding:"14px 16px", cursor:"pointer" }}>
+                <div style={{ width:22, height:22, borderRadius:6, border:`2px solid ${ch?accent:"rgba(245,241,232,0.2)"}`, background:ch?accent:"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#0a0a0a", fontWeight:700 }}>{ch?"✓":""}</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontSize:14, color:ch?"rgba(245,241,232,0.4)":"rgba(245,241,232,0.85)", textDecoration:ch?"line-through":"none", fontFamily:'"Bebas Neue",sans-serif', letterSpacing:1 }}>{item.label}</div>
+                  <div style={{ fontSize:11, color:"rgba(245,241,232,0.4)", fontFamily:'"JetBrains Mono",monospace', marginTop:2 }}>{item.detail}</div>
+                </div>
               </div>
+              {item.video && (
+                <a href={item.video} target="_blank" rel="noopener noreferrer"
+                  style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:6, padding:"7px", borderTop:`1px solid ${accent}22`, color:accent+"99", textDecoration:"none", fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.1em" }}>
+                  <ExternalLink size={9}/> WATCH
+                </a>
+              )}
             </div>
           );
         })}
         <button onClick={()=>setWarmupDone(true)} disabled={!allWarmupDone}
           style={{ width:"100%", padding:"15px", marginTop:6, background:allWarmupDone?accent:"rgba(245,241,232,0.06)", color:allWarmupDone?"#0a0a0a":"rgba(245,241,232,0.3)", border:"none", borderRadius:12, fontFamily:'"Bebas Neue",sans-serif', fontSize:20, letterSpacing:"0.1em", cursor:allWarmupDone?"pointer":"not-allowed", transition:"all 0.3s" }}>
-          {allWarmupDone?"START SESSION →":`${Object.values(warmupChecked).filter(Boolean).length}/${WARMUP_ITEMS.length} COMPLETE`}
+          {allWarmupDone?"START SESSION →":`${Object.values(warmupChecked).filter(Boolean).length}/${warmupItems.length} COMPLETE`}
         </button>
         <button onClick={()=>setWarmupDone(true)} style={{ width:"100%", padding:"10px", marginTop:8, background:"none", color:"rgba(245,241,232,0.3)", border:"none", fontSize:10, letterSpacing:3, cursor:"pointer", fontFamily:'"JetBrains Mono",monospace', display:"flex", alignItems:"center", justifyContent:"center", gap:6 }}>
           <SkipForward size={12}/> SKIP WARMUP
         </button>
       </div>
-    </div>
-  );
-
-  // ── REST DAY SCREEN ───────────────────────────────────────────────────────
-  if (isRestDay) return (
-    <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:80 }}>
-      <style>{CSS}</style>
-      <Header/>
-      <DaySelector/>
-      <RestDayView accent={accent} dim={dim} border={border}/>
     </div>
   );
 
@@ -885,7 +1049,7 @@ function MansoorTracker() {
                   {/* Set rows */}
                   {Array.from({length:totalSets}).map((_,si)=>{
                     const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps");
-                    const confirmed = !!(getLog(ex.name,si,"confirmed") || (selectedWeek==="Week 1" && w && r));
+                    const confirmed = !!getLog(ex.name,si,"confirmed");
                     const hasData = !!(w && r);
                     const isExtra=si>=ex.sets;
                     return (
@@ -950,7 +1114,7 @@ function MansoorTracker() {
             <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:3, color:accent }}>SESSION COMPLETE</div>
             <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>SAUNA · COLD PLUNGE · SAUNA</div>
           </div>
-          <StretchSection color={accent}/>
+          <StretchSection color={accent} items={stretchItems}/>
         </>
       )}
 
@@ -1437,7 +1601,7 @@ export default function App() {
   );
   return (
     <div>
-      <div onClick={()=>setProfile(null)} style={{ position:"fixed", top:12, right:16, zIndex:200, cursor:"pointer", fontSize:10, fontFamily:"monospace", color:"#444", letterSpacing:2, background:"#111", padding:"6px 10px", borderRadius:6, border:"1px solid #2a2a2a" }}>SWITCH</div>
+      <div onClick={()=>setProfile(null)} style={{ position:"fixed", top:12, left:16, zIndex:200, cursor:"pointer", fontSize:10, fontFamily:"monospace", color:"#444", letterSpacing:2, background:"#111", padding:"6px 10px", borderRadius:6, border:"1px solid #2a2a2a" }}>SWITCH</div>
       {profile==="Mansoor"?<MansoorTracker/>:<PariTracker/>}
     </div>
   );
