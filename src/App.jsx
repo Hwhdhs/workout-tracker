@@ -521,10 +521,9 @@ function RestTimer({ seconds, color, onDone }) {
 }
 
 // ─── STRETCH SECTION ─────────────────────────────────────────────────────────
-function StretchSection({ color, items }) {
+function StretchSection({ color, items, checked, onToggle }) {
   const stretches = items || PUSH_STRETCHES;
-  const [checked, setChecked] = useState({});
-  const done = Object.values(checked).filter(Boolean).length;
+  const done = Object.values(checked||{}).filter(Boolean).length;
   return (
     <div style={{ margin:"20px 16px 0", padding:"20px 16px", background:"#111", border:`1px solid ${color}44`, borderRadius:16 }}>
       <div style={{ fontSize:10, color:"#555", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, marginBottom:4 }}>POST WORKOUT</div>
@@ -532,7 +531,7 @@ function StretchSection({ color, items }) {
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
         {stretches.map((s,i) => (
           <div key={i} style={{ background:checked[i]?color+"18":"#1a1a1a", border:`1px solid ${checked[i]?color+"55":"#2a2a2a"}`, borderRadius:10, overflow:"hidden", transition:"all 0.2s" }}>
-            <div onClick={()=>setChecked(p=>({...p,[i]:!p[i]}))} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", cursor:"pointer" }}>
+            <div onClick={()=>onToggle(i)} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", cursor:"pointer" }}>
               <div style={{ width:18, height:18, borderRadius:"50%", border:`1.5px solid ${checked[i]?color:"#333"}`, background:checked[i]?color:"none", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", fontSize:10, color:"#000" }}>{checked[i]?"✓":""}</div>
               <div style={{ flex:1 }}>
                 <div style={{ fontSize:11, letterSpacing:1, color:checked[i]?"#666":"#ccc", fontFamily:'"Bebas Neue",sans-serif' }}>{s.muscle}</div>
@@ -546,8 +545,7 @@ function StretchSection({ color, items }) {
           </div>
         ))}
       </div>
-      {done===stretches.length && <div style={{ marginTop:14, textAlign:"center", fontSize:11, color, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3 }}>ALL DONE 💪</div>}
-    </div>
+      {done===stretches.length && <div style={{ marginTop:14, textAlign:"center", fontSize:11, color, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3 }}>ALL DONE 💪</div>}    </div>
   );
 }
 
@@ -703,10 +701,10 @@ function MansoorTracker() {
     return maxW > 0 ? { maxW, maxWeek } : null;
   };
   const getPo = (ex) => {
-    if (ex.poDefault) return { maxW: ex.poDefault, maxWeek: "last session", suggested: ex.poDefault + 2.5, isDefault: false };
     const r = getMaxWeight(ex);
-    if (!r) return null;
-    return { maxW: r.maxW, maxWeek: r.maxWeek, suggested: r.maxW + 2.5 };
+    if (r) return { maxW: r.maxW, maxWeek: r.maxWeek, suggested: r.maxW + 2.5 };
+    if (ex.poDefault) return { maxW: ex.poDefault, maxWeek: "last session ref", suggested: ex.poDefault + 2.5 };
+    return null;
   };
 
   // ── Extra sets ────────────────────────────────────────────────────────────
@@ -725,6 +723,11 @@ function MansoorTracker() {
   const getNoteKey = (exName) => `__note|${selectedWeek}|${selectedDay}|${exName}`;
   const getNote = (exName) => logs[getNoteKey(exName)] || "";
   const saveNote = (exName, text) => setLogs(p => ({ ...p, [getNoteKey(exName)]: text }));
+
+  // ── Stretch state (persisted in logs) ─────────────────────────────────────
+  const getStretchKey = (i) => `P2|__stretch|${selectedWeek}|${selectedDay}|${i}`;
+  const stretchChecked = stretchItems.reduce((acc,_,i) => ({...acc,[i]:!!logs[getStretchKey(i)]}), {});
+  const toggleStretch = (i) => setLogs(p=>({...p,[getStretchKey(i)]:p[getStretchKey(i)]?"":"1"}));
 
   // ── Completion ────────────────────────────────────────────────────────────
   const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i) => !!getLog(ex.name,i,"confirmed"));
@@ -1114,7 +1117,7 @@ function MansoorTracker() {
             <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:3, color:accent }}>SESSION COMPLETE</div>
             <div style={{ fontSize:11, color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', marginTop:6 }}>SAUNA · COLD PLUNGE · SAUNA</div>
           </div>
-          <StretchSection color={accent} items={stretchItems}/>
+          <StretchSection color={accent} items={stretchItems} checked={stretchChecked} onToggle={toggleStretch}/>
         </>
       )}
 
