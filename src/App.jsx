@@ -7,7 +7,8 @@ const ACCENT = {
   "Pull 1": { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
   "Legs":   { accent:"#6BA57A", dim:"rgba(107,165,122,0.12)", border:"rgba(107,165,122,0.3)" },
   "Push 2": { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
-  "Pull 2": { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
+  "Pull 2":   { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
+  "Flex Day": { accent:"#E8C85A", dim:"rgba(232,200,90,0.12)",  border:"rgba(232,200,90,0.3)"  },
 };
 
 const PARI_ACCENT = {
@@ -417,8 +418,17 @@ const pariWeekDates = {
 };
 
 const WEEKS    = ["Week 1","Week 2","Week 3","Week 4"];
-const ALL_DAYS = ["Push 1","Pull 1","Legs","Push 2","Pull 2"];
+const ALL_DAYS = ["Push 1","Pull 1","Legs","Push 2","Pull 2","Flex Day"];
 const ARCHIVE_DAYS = ["Push 1","Pull 1","Push 2","Pull 2"];
+
+const FLEX_DEFAULTS = [
+  { id:"fd_1", name:"Incline Press",          target:"CHEST",     type:"compound",  sets:3, defaultReps:"12-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard" },
+  { id:"fd_2", name:"Lat Pulldown",           target:"BACK",      type:"compound",  sets:3, defaultReps:"12-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard" },
+  { id:"fd_3", name:"Machine Shoulder Press", target:"SHOULDERS", type:"compound",  sets:3, defaultReps:"12-15", poDefault:40,    video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard" },
+  { id:"fd_4", name:"Tricep Pushdown",        target:"TRICEPS",   type:"isolation", sets:3, defaultReps:"12-15", poDefault:16.25, video:"https://www.youtube.com/results?search_query=tricep+pushdown+jeff+nippard" },
+  { id:"fd_5", name:"Preacher Curl",          target:"BICEPS",    type:"isolation", sets:3, defaultReps:"12-15", poDefault:34,    video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
+  { id:"fd_6", name:"Leg Extension",          target:"LEGS",      type:"isolation", sets:3, defaultReps:"15",    poDefault:57.5,  video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
+];
 
 // ─── CSS ──────────────────────────────────────────────────────────────────────
 const CSS = `
@@ -607,10 +617,17 @@ function MansoorTracker() {
   const [copied,        setCopied]        = useState(false);
   const [archiveMode,   setArchiveMode]   = useState(false);
   const [archiveDay,    setArchiveDay]    = useState("Push 1");
+  const [flexExercises, setFlexExercises] = useState({});
+  const [showAddEx,     setShowAddEx]     = useState(false);
+  const [newExName,     setNewExName]     = useState("");
+  const [newExTarget,   setNewExTarget]   = useState("");
 
-  const isLegs = selectedDay === "Legs";
-  const isPush = selectedDay.startsWith("Push");
-  const isPull = selectedDay.startsWith("Pull");
+  const isLegs    = selectedDay === "Legs";
+  const isPush    = selectedDay.startsWith("Push");
+  const isPull    = selectedDay.startsWith("Pull");
+  const isFlexDay = selectedDay === "Flex Day";
+  const flexWeekKey = selectedWeek;
+  const flexList = flexExercises[flexWeekKey] ?? FLEX_DEFAULTS;
   const { accent, dim, border } = ACCENT[selectedDay];
 
   const getWorkout = () => {
@@ -619,6 +636,7 @@ function MansoorTracker() {
       const src = wkNum === 1 ? mansoorPlan : ARCHIVE_PLAN;
       return src[selectedDay] || null;
     }
+    if (isFlexDay) return { exercises: flexList };
     if (isLegs) {
       const wkNum = parseInt(selectedWeek.split(" ")[1]);
       return wkNum % 2 === 1 ? LEGS_A : LEGS_B;
@@ -627,7 +645,7 @@ function MansoorTracker() {
   };
   const workout = getWorkout();
   const warmupItems = isPush ? PUSH_WARMUP : isPull ? PULL_WARMUP : LEGS_WARMUP;
-  const stretchItems = isPush ? PUSH_STRETCHES : isPull ? PULL_STRETCHES : LEGS_STRETCHES;
+  const stretchItems = isPush ? PUSH_STRETCHES : isPull ? PULL_STRETCHES : isLegs ? LEGS_STRETCHES : PUSH_STRETCHES;
 
   // ── API Load ───────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -637,6 +655,7 @@ function MansoorTracker() {
         const { data } = await res.json();
         setLogs(data.logs ? { ...mansoorLogs, ...data.logs } : { ...mansoorLogs });
         setExtraSets(data.extraSets || {});
+        setFlexExercises(data.flexExercises || {});
       } catch { setLogs({ ...mansoorLogs }); }
       setLoaded(true);
     })();
@@ -649,7 +668,7 @@ function MansoorTracker() {
       try {
         await fetch("/api/sync/mansoor", {
           method:"POST", headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ data: { logs, extraSets } }),
+          body: JSON.stringify({ data: { logs, extraSets, flexExercises } }),
         });
         setSaved(true); setTimeout(()=>setSaved(false),1500);
       } catch {}
@@ -734,7 +753,7 @@ function MansoorTracker() {
   const totalComplete = workout ? workout.exercises.filter(isComplete).length : 0;
   const hasLogs = workout?.exercises.some(ex=>Array.from({length:getTotalSets(ex)}).some((_,i)=>getLog(ex.name,i,"weight")));
   const allWarmupDone = warmupItems.every((_,i)=>warmupChecked[`wu_${i}`]);
-  const showWarmup = !warmupDone && !hasLogs && !archiveMode;
+  const showWarmup = !warmupDone && !hasLogs && !archiveMode && !isFlexDay;
 
   if (!loaded) return (
     <div style={{ minHeight:"100vh", background:"#0a0a0a", display:"flex", alignItems:"center", justifyContent:"center", color:"rgba(245,241,232,0.5)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:4, fontSize:12 }}>
@@ -961,6 +980,40 @@ function MansoorTracker() {
         <button onClick={copySummary} style={{ width:"100%", padding:"10px", marginBottom:10, background:"rgba(245,241,232,0.04)", border:`1px solid ${copied?accent+"66":"rgba(245,241,232,0.1)"}`, borderRadius:10, color:copied?accent:"rgba(245,241,232,0.4)", fontSize:10, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.2em", cursor:"pointer", transition:"all 0.2s", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
           {copied ? "✓ COPIED TO CLIPBOARD" : "📋 COPY SESSION SUMMARY"}
         </button>
+
+        {/* Flex Day — add exercise panel */}
+        {isFlexDay && (
+          <div style={{ marginBottom:10 }}>
+            {showAddEx ? (
+              <div style={{ padding:"14px 16px", background:"rgba(245,241,232,0.04)", border:`1px solid ${accent}44`, borderRadius:12 }}>
+                <div style={{ fontSize:9, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3, marginBottom:10 }}>ADD EXERCISE</div>
+                <input value={newExName} onChange={e=>setNewExName(e.target.value)} placeholder="Exercise name"
+                  style={{ width:"100%", background:"rgba(245,241,232,0.06)", border:`1px solid ${accent}44`, borderRadius:8, color:"#f5f1e8", padding:"10px 12px", fontSize:14, fontFamily:'"JetBrains Mono",monospace', outline:"none", marginBottom:8 }}/>
+                <input value={newExTarget} onChange={e=>setNewExTarget(e.target.value)} placeholder="Muscle group (e.g. CHEST)"
+                  style={{ width:"100%", background:"rgba(245,241,232,0.06)", border:`1px solid ${accent}44`, borderRadius:8, color:"#f5f1e8", padding:"10px 12px", fontSize:14, fontFamily:'"JetBrains Mono",monospace', outline:"none", marginBottom:10 }}/>
+                <div style={{ display:"flex", gap:8 }}>
+                  <button onClick={()=>{
+                    if (!newExName.trim()) return;
+                    const newEx = { id:`flex_${Date.now()}`, name:newExName.trim(), target:newExTarget.trim().toUpperCase()||"GENERAL", type:"isolation", sets:3, defaultReps:"12-15", video:`https://www.youtube.com/results?search_query=${newExName.trim().replace(/ /g,"+")}+jeff+nippard` };
+                    setFlexExercises(p=>({...p,[flexWeekKey]:[...flexList,newEx]}));
+                    setNewExName(""); setNewExTarget(""); setShowAddEx(false);
+                  }} style={{ flex:1, padding:"10px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer" }}>
+                    ADD
+                  </button>
+                  <button onClick={()=>{setShowAddEx(false);setNewExName("");setNewExTarget("");}} style={{ padding:"10px 16px", background:"rgba(245,241,232,0.06)", color:"rgba(245,241,232,0.4)", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, cursor:"pointer" }}>
+                    CANCEL
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button onClick={()=>setShowAddEx(true)}
+                style={{ width:"100%", padding:"10px", background:"rgba(245,241,232,0.04)", border:`1px dashed ${accent}66`, borderRadius:10, color:accent, fontSize:11, fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+                <Plus size={13}/> ADD EXERCISE
+              </button>
+            )}
+          </div>
+        )}
+
         {workout.exercises.map((ex,idx) => {
           const isOpen = activeEx===ex.id;
           const done = isComplete(ex);
@@ -998,7 +1051,7 @@ function MansoorTracker() {
                       {ex.secondary && <span style={{ color:"rgba(245,241,232,0.3)" }}> · {ex.secondary}</span>}
                     </div>
                   </div>
-                  <div style={{ color:"rgba(245,241,232,0.3)", flexShrink:0 }}>{isOpen?<ChevronUp size={18}/>:<ChevronDown size={18}/>}</div>
+                  <div style={{ color:"rgba(245,241,232,0.3)", flexShrink:0, display:"flex", alignItems:"center", gap:8 }}>{isFlexDay && (<button onClick={e=>{e.stopPropagation();setFlexExercises(p=>({...p,[flexWeekKey]:flexList.filter(fe=>fe.id!==ex.id)}));}} style={{ background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.25)", borderRadius:6, color:"#e57373", padding:"4px 8px", cursor:"pointer", display:"flex", alignItems:"center" }}><X size={12}/></button>)}{isOpen?<ChevronUp size={18}/>:<ChevronDown size={18}/>}</div>
                 </div>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginTop:12 }}>
                   {[["SETS",totalSets],["REPS",ex.defaultReps],["REST",REST_LABELS[ex.type]]].map(([label,val])=>(
@@ -1122,7 +1175,9 @@ function MansoorTracker() {
       )}
 
       <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:"rgba(201,169,110,0.06)", border:"1px solid rgba(201,169,110,0.2)", borderRadius:10, fontSize:10, color:"#C9A96E", fontFamily:'"JetBrains Mono",monospace', letterSpacing:1, lineHeight:1.8 }}>
-        TENNIS ELBOW · HOOKS ON PULLS · ANKLE STRAPS ON CABLES · NEUTRAL GRIP · STOP IF SHARP PAIN
+        {isPush && "TENNIS ELBOW · WRIST WRAPS ON PRESS · ANKLE STRAPS ON CABLES · NEUTRAL GRIP · STOP IF SHARP PAIN"}
+        {isPull && "TENNIS ELBOW · WRIST STRAPS ON PULLS · ANKLE STRAPS ON CABLES · NEUTRAL GRIP · STOP IF SHARP PAIN"}
+        {isLegs && "BELT ON SQUAT & RDL & HIP THRUST · STOP IF SHARP PAIN"}
       </div>
 
       {restTimer && <RestTimer seconds={restTimer.seconds} color={restTimer.color} onDone={()=>setRestTimer(null)}/>}
@@ -1213,7 +1268,7 @@ function PariTracker() {
       try {
         await fetch("/api/sync/pari", {
           method:"POST", headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ data: { logs, extraSets } }),
+          body: JSON.stringify({ data: { logs, extraSets, flexExercises } }),
         });
         setSaved(true); setTimeout(()=>setSaved(false),1500);
       } catch {}
