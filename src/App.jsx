@@ -218,7 +218,44 @@ const ARCHIVE_PLAN_2 = {
 };
 
 // ─── WEEK 1 PLAN
-// ─── MONTH 3 PROGRAM ─────────────────────────────────────────────────────────
+// ─── WEEK 1 PLAN — exact names as logged (DO NOT CHANGE) ─────────────────────
+const WEEK1_PLAN = {
+  "Push": { day:"Push Day", exercises: [
+    { id:"w1p_1", name:"Incline Press",          target:"UPPER CHEST",      type:"compound",  sets:4, defaultReps:"10-15", video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",            secondary:"Front Delts, Triceps" },
+    { id:"w1p_2", name:"Pec Fly",               target:"CHEST",            type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=pec+fly+jeff+nippard" },
+    { id:"w1p_3", name:"Machine Shoulder Press", target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard",   secondary:"Triceps" },
+    { id:"w1p_4", name:"Machine Lateral Raise",  target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=lateral+raise+machine+jeff+nippard" },
+    { id:"w1p_5", name:"Tricep Pushdown",        target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=tricep+pushdown+jeff+nippard" },
+    { id:"w1p_6", name:"Overhead Extension",     target:"TRICEPS LONG HEAD", type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=overhead+extension+jeff+nippard" },
+  ]},
+  "Pull": { day:"Pull Day", exercises: [
+    { id:"w1l_1", name:"Lat Pulldown",           target:"LATS",             type:"compound",  sets:3, defaultReps:"10-15", video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",             secondary:"Biceps, Rear Delts" },
+    { id:"w1l_2", name:"Chest Supported Row",    target:"MID BACK",         type:"compound",  sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=chest+supported+row+jeff+nippard",     secondary:"Biceps, Rear Delts" },
+    { id:"w1l_3", name:"Reverse Pec Deck",       target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
+    { id:"w1l_4", name:"Shrugs",                 target:"TRAPS",            type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
+    { id:"w1l_5", name:"EZ Bar Curl",            target:"BICEPS",           type:"isolation", sets:3, defaultReps:"10-15", video:"https://www.youtube.com/results?search_query=ez+bar+curl+jeff+nippard" },
+    { id:"w1l_6", name:"Hammer Curl",            target:"BRACHIALIS",       type:"isolation", sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=hammer+curl+jeff+nippard" },
+  ]},
+  "Legs": { day:"Legs Day", exercises: [
+    { id:"w1lg_1", name:"Lying Leg Curl",        target:"HAMSTRINGS",       type:"warmup",   sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=lying+leg+curl+jeff+nippard" },
+    { id:"w1lg_2", name:"Hack Squat",            target:"QUADS & GLUTES",   type:"compound", sets:3, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=hack+squat+jeff+nippard",           secondary:"Hamstrings, Glutes" },
+    { id:"w1lg_3", name:"Dumbbell RDL",          target:"HAMSTRINGS",       type:"compound", sets:3, defaultReps:"8-12",  video:"https://www.youtube.com/results?search_query=dumbbell+rdl+jeff+nippard",         secondary:"Glutes, Lower Back" },
+    { id:"w1lg_4", name:"Leg Extension",         target:"QUADS",            type:"isolation",sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
+    { id:"w1lg_5", name:"Hip Abductor",          target:"OUTER THIGH",      type:"isolation",sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+abductor+jeff+nippard" },
+    { id:"w1lg_6", name:"Hip Adductor",          target:"INNER THIGH",      type:"isolation",sets:3, defaultReps:"15",    video:"https://www.youtube.com/results?search_query=hip+adductor+jeff+nippard" },
+    { id:"w1lg_7", name:"Seated Calf Raise",     target:"CALVES",           type:"finisher", sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=seated+calf+raise+jeff+nippard" },
+  ]},
+  "Flex Day": { day:"Flex Day", exercises: [
+    { id:"w1f_1", name:"Chest Press",            target:"CHEST",            type:"compound",  sets:3, defaultReps:"10-15", video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard" },
+    { id:"w1f_2", name:"ISO Lateral Low Row",    target:"UPPER BACK",       type:"compound",  sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=iso+lateral+low+row+jeff+nippard" },
+    { id:"w1f_3", name:"Machine Shoulder Press", target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard" },
+    { id:"w1f_4", name:"Leg Press",             target:"QUADS & GLUTES",   type:"compound",  sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=leg+press+jeff+nippard" },
+    { id:"w1f_5", name:"Preacher Curl",         target:"BICEPS",           type:"isolation", sets:3, defaultReps:"10-12", video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
+    { id:"w1f_6", name:"Tricep Extension Machine",target:"TRICEPS",         type:"isolation", sets:3, defaultReps:"12-15", video:"https://www.youtube.com/results?search_query=tricep+extension+machine+jeff+nippard" },
+    { id:"w1f_7", name:"Standing Calf Raise",   target:"CALVES",           type:"finisher",  sets:3, defaultReps:"15-20", video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
+  ]},
+};
+
 const NEW_PLAN = {
   "Push": { day:"Push Day", exercises: [
     { id:"m3p_1", name:"Incline Press",              target:"UPPER CHEST",      type:"compound",  sets:4, defaultReps:"10-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",               secondary:"Front Delts, Triceps" },
@@ -226,7 +263,7 @@ const NEW_PLAN = {
     { id:"m3p_3", name:"Machine Shoulder Press",     target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", poDefault:32.5,  video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard",      secondary:"Triceps" },
     { id:"m3p_4", name:"Machine Lateral Raise",      target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"15-20", poDefault:40,    video:"https://www.youtube.com/results?search_query=lateral+raise+machine+jeff+nippard" },
     { id:"m3p_5", name:"Cable Pushdown (rope)",       target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-15", poDefault:21.25, poRef:"Tricep Pushdown", poRefDay:"Push", video:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+rope+jeff+nippard" },
-    { id:"m3p_6", name:"Cable Overhead Extension (rope)", target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-15", poDefault:17.5, poRef:"Tricep Overhead Extension", poRefDay:"Push", video:"https://www.youtube.com/results?search_query=cable+overhead+extension+rope+jeff+nippard" },
+    { id:"m3p_6", name:"Cable Overhead Extension (rope)", target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-15", poDefault:17.5, poRef:"Overhead Extension", poRefDay:"Push", video:"https://www.youtube.com/results?search_query=cable+overhead+extension+rope+jeff+nippard" },
   ]},
   "Pull": { day:"Pull Day", exercises: [
     { id:"m3l_1", name:"Lat Pulldown",               target:"LATS",             type:"compound",  sets:3, defaultReps:"10-15", poDefault:60,    video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",            secondary:"Biceps, Rear Delts" },
@@ -239,13 +276,13 @@ const NEW_PLAN = {
 };
 
 const NEW_LEGS = { day:"Legs Day", exercises: [
-  { id:"m3lg_1", name:"Lying Leg Curl (Warm Up)", target:"HAMSTRINGS",     type:"warmup",   sets:3, defaultReps:"15",    poDefault:46,  video:"https://www.youtube.com/results?search_query=lying+leg+curl+jeff+nippard" },
-  { id:"m3lg_2", name:"Pendulum/Hack Squat",      target:"QUADS & GLUTES", type:"compound", sets:3, defaultReps:"8-12",  poDefault:80,  video:"https://www.youtube.com/results?search_query=hack+squat+jeff+nippard",    secondary:"Hamstrings, Glutes" },
-  { id:"m3lg_3", name:"Romanian Deadlift",         target:"HAMSTRINGS",     type:"compound", sets:3, defaultReps:"8-12",  poDefault:60,  video:"https://www.youtube.com/results?search_query=romanian+deadlift+jeff+nippard", secondary:"Glutes, Lower Back" },
+  { id:"m3lg_1", name:"Lying Leg Curl (Warm Up)", target:"HAMSTRINGS",     type:"warmup",   sets:3, defaultReps:"15",    poDefault:46,  video:"https://www.youtube.com/results?search_query=lying+leg+curl+jeff+nippard", poRef:"Lying Leg Curl", poRefDay:"Legs" },
+  { id:"m3lg_2", name:"Pendulum/Hack Squat",      target:"QUADS & GLUTES", type:"compound", sets:3, defaultReps:"8-12",  poDefault:80,  video:"https://www.youtube.com/results?search_query=hack+squat+jeff+nippard",    secondary:"Hamstrings, Glutes", poRef:"Hack Squat", poRefDay:"Legs" },
+  { id:"m3lg_3", name:"Romanian Deadlift",         target:"HAMSTRINGS",     type:"compound", sets:3, defaultReps:"8-12",  poDefault:60,  video:"https://www.youtube.com/results?search_query=romanian+deadlift+jeff+nippard", secondary:"Glutes, Lower Back", poRef:"Dumbbell RDL", poRefDay:"Legs" },
   { id:"m3lg_4", name:"Leg Extension",             target:"QUADS",          type:"isolation",sets:3, defaultReps:"12-15", poDefault:65,  video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
   { id:"m3lg_5", name:"Hip Abductor",              target:"OUTER THIGH",    type:"isolation",sets:3, defaultReps:"15",    poDefault:66,  video:"https://www.youtube.com/results?search_query=hip+abductor+jeff+nippard" },
   { id:"m3lg_6", name:"Hip Adductor",              target:"INNER THIGH",    type:"isolation",sets:3, defaultReps:"15",    poDefault:50,  video:"https://www.youtube.com/results?search_query=hip+adductor+jeff+nippard" },
-  { id:"m3lg_7", name:"Standing Calf Raise",       target:"CALVES",         type:"finisher", sets:3, defaultReps:"15-20", poDefault:65,  video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
+  { id:"m3lg_7", name:"Standing Calf Raise",       target:"CALVES",         type:"finisher", sets:3, defaultReps:"15-20", poDefault:65,  poRef:"Seated Calf Raise", poRefDay:"Legs", video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
 ]};
 
 // ─── WEEK 1 PLAN (preserved exactly — archive only) ──────────────────────────
@@ -293,6 +330,89 @@ const mansoorPlan = {
   ]},
 };
 
+
+// ─── MONTH 3 WEEK 1 LOGS (hardcoded fallback) ─────────────────────────────────
+const mansoorLogsP3 = {
+  "P3|Week 1|Push|Incline Press|0":          { weight:"30",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Incline Press|1":          { weight:"35",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Incline Press|2":          { weight:"40",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Incline Press|3":          { weight:"45",    reps:"10", confirmed:"1" },
+  "P3|Week 1|Push|Pec Fly|0":               { weight:"39",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Pec Fly|1":               { weight:"39",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Pec Fly|2":               { weight:"48",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Machine Shoulder Press|0": { weight:"27.5",  reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Machine Shoulder Press|1": { weight:"30",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Machine Shoulder Press|2": { weight:"35",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Machine Lateral Raise|0":  { weight:"35",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Machine Lateral Raise|1":  { weight:"40",    reps:"18", confirmed:"1" },
+  "P3|Week 1|Push|Machine Lateral Raise|2":  { weight:"45",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Tricep Pushdown|0":        { weight:"17.5",  reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Tricep Pushdown|1":        { weight:"21.25", reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Tricep Pushdown|2":        { weight:"25",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Overhead Extension|0":     { weight:"15",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Push|Overhead Extension|1":     { weight:"17.5",  reps:"12", confirmed:"1" },
+  "P3|Week 1|Push|Overhead Extension|2":     { weight:"21.25", reps:"10", confirmed:"1" },
+  "P3|Week 1|Pull|Lat Pulldown|0":           { weight:"41",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Lat Pulldown|1":           { weight:"45",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Lat Pulldown|2":           { weight:"50",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|Chest Supported Row|0":    { weight:"20",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Chest Supported Row|1":    { weight:"40",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Chest Supported Row|2":    { weight:"60",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Reverse Pec Deck|0":       { weight:"23",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Reverse Pec Deck|1":       { weight:"34",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|Reverse Pec Deck|2":       { weight:"38",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|Shrugs|0":                 { weight:"32",    reps:"20", confirmed:"1" },
+  "P3|Week 1|Pull|Shrugs|1":                 { weight:"36",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Shrugs|2":                 { weight:"41",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|EZ Bar Curl|0":            { weight:"25",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|EZ Bar Curl|1":            { weight:"25",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|EZ Bar Curl|2":            { weight:"30",    reps:"10", confirmed:"1" },
+  "P3|Week 1|Pull|Hammer Curl|0":            { weight:"10",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Pull|Hammer Curl|1":            { weight:"10",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Pull|Hammer Curl|2":            { weight:"12",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Legs|Lying Leg Curl|0":         { weight:"27",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Lying Leg Curl|1":         { weight:"32",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Lying Leg Curl|2":         { weight:"32",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hack Squat|0":             { weight:"30",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hack Squat|1":             { weight:"50",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Legs|Hack Squat|2":             { weight:"80",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Legs|Dumbbell RDL|0":           { weight:"26",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Dumbbell RDL|1":           { weight:"32",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Legs|Dumbbell RDL|2":           { weight:"36",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Legs|Leg Extension|0":          { weight:"41",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Leg Extension|1":          { weight:"50",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Leg Extension|2":          { weight:"56",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Abductor|0":           { weight:"41",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Abductor|1":           { weight:"45",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Abductor|2":           { weight:"50",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Adductor|0":           { weight:"45",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Adductor|1":           { weight:"50",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Hip Adductor|2":           { weight:"54",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Legs|Seated Calf Raise|0":      { weight:"54",    reps:"20", confirmed:"1" },
+  "P3|Week 1|Legs|Seated Calf Raise|1":      { weight:"59",    reps:"20", confirmed:"1" },
+  "P3|Week 1|Legs|Seated Calf Raise|2":      { weight:"64",    reps:"20", confirmed:"1" },
+  "P3|Week 1|Flex Day|Chest Press|0":        { weight:"36",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Chest Press|1":        { weight:"38",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Chest Press|2":        { weight:"41",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|ISO Lateral Low Row|0":{ weight:"20",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|ISO Lateral Low Row|1":{ weight:"30",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|ISO Lateral Low Row|2":{ weight:"35",    reps:"10", confirmed:"1" },
+  "P3|Week 1|Flex Day|Machine Shoulder Press|0":{ weight:"23", reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Machine Shoulder Press|1":{ weight:"27", reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Machine Shoulder Press|2":{ weight:"32", reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Leg Press|0":          { weight:"80",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Leg Press|1":          { weight:"120",   reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Leg Press|2":          { weight:"160",   reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Preacher Curl|0":      { weight:"14",    reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Preacher Curl|1":      { weight:"18",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Preacher Curl|2":      { weight:"23",    reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Tricep Extension Machine|0":{ weight:"23", reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Tricep Extension Machine|1":{ weight:"27", reps:"15", confirmed:"1" },
+  "P3|Week 1|Flex Day|Tricep Extension Machine|2":{ weight:"32", reps:"12", confirmed:"1" },
+  "P3|Week 1|Flex Day|Standing Calf Raise|0":{ weight:"54",    reps:"20", confirmed:"1" },
+  "P3|Week 1|Flex Day|Standing Calf Raise|1":{ weight:"59",    reps:"18", confirmed:"1" },
+  "P3|Week 1|Flex Day|Standing Calf Raise|2":{ weight:"63",    reps:"15", confirmed:"1" },
+};
 // ─── WEEK 1 LOGS (preserved exactly) ─────────────────────────────────────────
 const mansoorLogs = {
   "Week 1|Push 1|Flat Machine Chest Press|0": { weight:"0",     reps:"15" },
@@ -660,8 +780,9 @@ function MansoorTracker() {
 
   const getWorkout = () => {
     if (archiveMode) return null;
-    if (isFlexDay) return { exercises: flexList };
-    if (isLegs) return NEW_LEGS;
+    if (isLegs) return selectedWeek === "Week 1" ? WEEK1_PLAN["Legs"] : NEW_LEGS;
+    if (isFlexDay) return selectedWeek === "Week 1" ? WEEK1_PLAN["Flex Day"] : { exercises: flexList };
+    if (selectedWeek === "Week 1" && WEEK1_PLAN[selectedDay]) return WEEK1_PLAN[selectedDay];
     return NEW_PLAN[selectedDay] || null;
   };
   const workout = getWorkout();
@@ -674,10 +795,10 @@ function MansoorTracker() {
       try {
         const res = await fetch("/api/sync/mansoor");
         const { data } = await res.json();
-        setLogs(data.logs ? { ...mansoorLogs, ...data.logs } : { ...mansoorLogs });
+        setLogs(data.logs ? { ...mansoorLogs, ...mansoorLogsP3, ...data.logs } : { ...mansoorLogs, ...mansoorLogsP3 });
         setExtraSets(data.extraSets || {});
         setFlexExercises(data.flexExercises || {});
-      } catch { setLogs({ ...mansoorLogs }); }
+      } catch { setLogs({ ...mansoorLogs, ...P3_WEEK1_LOGS }); }
       setLoaded(true);
     })();
   }, []);
