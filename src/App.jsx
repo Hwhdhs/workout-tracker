@@ -201,7 +201,7 @@ const ARCHIVE_PLAN_2 = {
   ]},
   "Push 2": { day:"Thursday", exercises: [
     { id:"n3_1", name:"Incline Press",            target:"UPPER CHEST",      type:"compound",  sets:4, defaultReps:"10-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",          secondary:"Front Delts, Triceps" },
-    { id:"n3_2", name:"Cable Flye",               target:"INNER CHEST",      type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=cable+fly+jeff+nippard" },
+    { id:"n3_2", name:"Pec Fly",               target:"INNER CHEST",      type:"isolation", sets:3, defaultReps:"12-15",                   video:"https://www.youtube.com/results?search_query=pec+fly+jeff+nippard" },
     { id:"n3_3", name:"Machine Shoulder Press",   target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", poDefault:40,    video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard", secondary:"Triceps" },
     { id:"n3_4", name:"Cable Lateral Raise",      target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"12-15", poDefault:6,     video:"https://www.youtube.com/results?search_query=cable+lateral+raise+jeff+nippard" },
     { id:"n3_5", name:"Tricep Dip",               target:"TRICEPS ALL HEADS", type:"compound", sets:3, defaultReps:"10-12", poDefault:59,    video:"https://www.youtube.com/results?search_query=tricep+dip+jeff+nippard",             secondary:"Chest, Shoulders" },
@@ -222,19 +222,19 @@ const ARCHIVE_PLAN_2 = {
 const NEW_PLAN = {
   "Push": { day:"Push Day", exercises: [
     { id:"m3p_1", name:"Incline Press",              target:"UPPER CHEST",      type:"compound",  sets:4, defaultReps:"10-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",               secondary:"Front Delts, Triceps" },
-    { id:"m3p_2", name:"Cable Flye",                 target:"CHEST",            type:"isolation", sets:3, defaultReps:"12-15", poDefault:45,    video:"https://www.youtube.com/results?search_query=cable+fly+jeff+nippard" },
+    { id:"m3p_2", name:"Pec Fly",                 target:"CHEST",            type:"isolation", sets:3, defaultReps:"12-15", poDefault:45,    video:"https://www.youtube.com/results?search_query=pec+fly+jeff+nippard" },
     { id:"m3p_3", name:"Machine Shoulder Press",     target:"FRONT DELTS",      type:"compound",  sets:3, defaultReps:"10-12", poDefault:32.5,  video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard",      secondary:"Triceps" },
     { id:"m3p_4", name:"Machine Lateral Raise",      target:"SIDE DELTS",       type:"isolation", sets:3, defaultReps:"15-20", poDefault:40,    video:"https://www.youtube.com/results?search_query=lateral+raise+machine+jeff+nippard" },
-    { id:"m3p_5", name:"Tricep Pushdown",            target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-15", poDefault:21.25, video:"https://www.youtube.com/results?search_query=tricep+pushdown+jeff+nippard" },
-    { id:"m3p_6", name:"Tricep Overhead Extension",  target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-15", poDefault:17.5,  video:"https://www.youtube.com/results?search_query=tricep+overhead+extension+jeff+nippard" },
+    { id:"m3p_5", name:"Cable Pushdown (rope)",       target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-15", poDefault:21.25, poRef:"Tricep Pushdown", poRefDay:"Push", video:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+rope+jeff+nippard" },
+    { id:"m3p_6", name:"Cable Overhead Extension (rope)", target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-15", poDefault:17.5, poRef:"Tricep Overhead Extension", poRefDay:"Push", video:"https://www.youtube.com/results?search_query=cable+overhead+extension+rope+jeff+nippard" },
   ]},
   "Pull": { day:"Pull Day", exercises: [
-    { id:"m3l_1", name:"Lat Pulldown",               target:"LATS",             type:"compound",  sets:4, defaultReps:"10-15", poDefault:60,    video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",               secondary:"Biceps, Rear Delts" },
-    { id:"m3l_2", name:"Chest Supported Row",        target:"MID BACK",         type:"compound",  sets:3, defaultReps:"10-12", poDefault:60,    video:"https://www.youtube.com/results?search_query=chest+supported+row+jeff+nippard",        secondary:"Biceps, Rear Delts" },
-    { id:"m3l_3", name:"Reverse Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"10-12", poDefault:40,    video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
-    { id:"m3l_4", name:"Shrugs",                     target:"TRAPS",            type:"isolation", sets:3, defaultReps:"12-15", poDefault:60,    video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
-    { id:"m3l_5", name:"EZ Bar Curl",                target:"BICEPS",           type:"isolation", sets:3, defaultReps:"10-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=ez+bar+curl+jeff+nippard",               note:"Cable attachment" },
-    { id:"m3l_6", name:"Hammer Curl",                target:"BRACHIALIS",       type:"isolation", sets:3, defaultReps:"10-12", poDefault:25,    video:"https://www.youtube.com/results?search_query=hammer+curl+jeff+nippard",               note:"Cable, rope attachment" },
+    { id:"m3l_1", name:"Lat Pulldown",               target:"LATS",             type:"compound",  sets:3, defaultReps:"10-15", poDefault:60,    video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",            secondary:"Biceps, Rear Delts" },
+    { id:"m3l_2", name:"T-Bar Row",                  target:"MID BACK",         type:"compound",  sets:3, defaultReps:"10-12", poDefault:60,    video:"https://www.youtube.com/results?search_query=t+bar+row+jeff+nippard",             secondary:"Biceps, Rear Delts", poRef:"Chest Supported Row", poRefDay:"Pull" },
+    { id:"m3l_3", name:"Machine Low Row (1 arm)",    target:"LOWER BACK",       type:"compound",  sets:3, defaultReps:"10-12",                  video:"https://www.youtube.com/results?search_query=machine+low+row+one+arm+jeff+nippard", secondary:"Biceps, Rear Delts" },
+    { id:"m3l_4", name:"Reverse Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"10-12", poDefault:40,    video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
+    { id:"m3l_5", name:"Bayesian Cable Curl",        target:"BICEPS",           type:"isolation", sets:3, defaultReps:"12-15", poDefault:50,    video:"https://www.youtube.com/results?search_query=bayesian+cable+curl+jeff+nippard",    poRef:"EZ Bar Curl", poRefDay:"Pull" },
+    { id:"m3l_6", name:"Hammer Preacher Curl",       target:"BRACHIALIS",       type:"isolation", sets:3, defaultReps:"10-12", poDefault:25,    video:"https://www.youtube.com/results?search_query=hammer+preacher+curl+jeff+nippard",  poRef:"Hammer Curl", poRefDay:"Pull" },
   ]},
 };
 
@@ -447,15 +447,14 @@ const ALL_DAYS = ["Push","Pull","Legs","Flex Day"];
 const ARCHIVE_DAYS = ["Push 1","Pull 1","Push 2","Pull 2"];
 
 const FLEX_DEFAULTS = [
-  { id:"fd_1",  name:"Chest Press",                  target:"CHEST",          type:"compound",  sets:3, defaultReps:"10-15", poDefault:65,   video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard" },
-  { id:"fd_2",  name:"M-Torture High Row (1 arm)",   target:"UPPER BACK",     type:"compound",  sets:3, defaultReps:"10-12", poDefault:30,   video:"https://www.youtube.com/results?search_query=high+row+one+arm+jeff+nippard" },
-  { id:"fd_3",  name:"Machine Shoulder Press",        target:"FRONT DELTS",    type:"compound",  sets:3, defaultReps:"10-12", poDefault:32.5, video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard" },
-  { id:"fd_4",  name:"Leg Press",                    target:"QUADS & GLUTES", type:"compound",  sets:3, defaultReps:"12-15", poDefault:200,  video:"https://www.youtube.com/results?search_query=leg+press+jeff+nippard" },
-  { id:"fd_5",  name:"Seated Calf Raise",            target:"CALVES",         type:"finisher",  sets:3, defaultReps:"15-20", poDefault:65,   video:"https://www.youtube.com/results?search_query=seated+calf+raise+jeff+nippard" },
-  { id:"fd_6",  name:"Preacher Curl",                target:"BICEPS",         type:"isolation", sets:3, defaultReps:"10-12", poDefault:30,   video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
-  { id:"fd_7",  name:"Bayesian Cable Curl",          target:"BICEPS",         type:"isolation", sets:3, defaultReps:"12-15", poDefault:10.5, video:"https://www.youtube.com/results?search_query=bayesian+cable+curl+jeff+nippard" },
-  { id:"fd_8",  name:"Close Grip Dip",               target:"TRICEPS",        type:"compound",  sets:3, defaultReps:"10-12", poDefault:63.5, video:"https://www.youtube.com/results?search_query=close+grip+dip+jeff+nippard" },
-  { id:"fd_9",  name:"Forearm Work (optional)",       target:"FOREARMS",       type:"isolation", sets:2, defaultReps:"12-15",                 video:"https://www.youtube.com/results?search_query=forearm+workout+jeff+nippard" },
+  { id:"fd_1", name:"Chest Press",              target:"CHEST",          type:"compound",  sets:3, defaultReps:"10-15", poDefault:65,   video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard" },
+  { id:"fd_2", name:"Lat Pullover",             target:"LATS",           type:"isolation", sets:3, defaultReps:"12-15",                  video:"https://www.youtube.com/results?search_query=lat+pullover+jeff+nippard" },
+  { id:"fd_3", name:"Machine Shoulder Press",   target:"FRONT DELTS",    type:"compound",  sets:3, defaultReps:"10-12", poDefault:32.5, video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard" },
+  { id:"fd_4", name:"Leg Press",               target:"QUADS & GLUTES", type:"compound",  sets:3, defaultReps:"12-15", poDefault:200,  video:"https://www.youtube.com/results?search_query=leg+press+jeff+nippard" },
+  { id:"fd_5", name:"Shrugs",                  target:"TRAPS",          type:"isolation", sets:3, defaultReps:"12-15", poDefault:60,   video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
+  { id:"fd_6", name:"Preacher Curl",           target:"BICEPS",         type:"isolation", sets:3, defaultReps:"10-12", poDefault:30,   video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
+  { id:"fd_7", name:"Bent Over Cable Kickback", target:"TRICEPS",        type:"isolation", sets:3, defaultReps:"12-15",                  video:"https://www.youtube.com/results?search_query=bent+over+cable+kickback+jeff+nippard", note:"Wrist strap" },
+  { id:"fd_8", name:"Seated Calf Raise",       target:"CALVES",         type:"finisher",  sets:3, defaultReps:"15-20", poDefault:65,   video:"https://www.youtube.com/results?search_query=seated+calf+raise+jeff+nippard" },
 ];
 
 // ─── CSS ──────────────────────────────────────────────────────────────────────
@@ -789,7 +788,7 @@ function MansoorTracker() {
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
           <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:accent, marginBottom:4 }}>
-            THEOGLUMI · OXYGEN GYM{saved?" · SAVED ✓":""}
+            THEOGLUMI · WELLFIT{saved?" · SAVED ✓":""}
           </div>
           <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{archiveMode?"ARCHIVE":selectedDay}</div>
         </div>
@@ -997,7 +996,7 @@ function MansoorTracker() {
       if (note) text += `    Note: ${note}\n`;
       text += "\n";
     });
-    text += `─────────────────────────────\nTHEOGLUMI · OXYGEN GYM`;
+    text += `─────────────────────────────\nTHEOGLUMI · WELLFIT`;
 
     const done = () => { setCopied(true); setTimeout(()=>setCopied(false), 2000); };
 
@@ -1694,7 +1693,7 @@ export default function App() {
           onMouseLeave={e=>e.currentTarget.style.border="1px solid #C9A96E44"}>
           <div style={{ width:64, height:64, borderRadius:"50%", background:"#C9A96E22", border:"2px solid #C9A96E", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 16px", fontSize:24, color:"#C9A96E" }}>M</div>
           <div style={{ fontSize:22, letterSpacing:2, color:"#C9A96E" }}>MANSOOR</div>
-          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>OXYGEN GYM • 4 DAYS</div>
+          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>WELLFIT • 4 DAYS</div>
         </div>
         <div onClick={()=>setProfile("Pari")} style={{ cursor:"pointer", width:150, padding:"32px 20px", background:"#111", border:"1px solid #E879A044", borderRadius:16, textAlign:"center" }}
           onMouseEnter={e=>e.currentTarget.style.border="1px solid #E879A0"}
