@@ -296,6 +296,65 @@ const P4_PLAN_W12 = {
 };
 
 
+
+// ─── WEEK 4 PLAN — supersets added ───────────────────────────────────────────
+const P4_PLAN_W4 = {
+  "Upper A": { exercises: [
+    { id:"w4_ua_1",  name:"Chest Press",             target:"CHEST",            type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard",               secondary:"Triceps, Front Delts", note:"⚡ SUPERSET → Rear Pec Deck" },
+    { id:"w4_ua_1s", name:"Rear Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard",           note:"⚡ SUPERSET ← Chest Press" },
+    { id:"w4_ua_2",  name:"Incline Press",           target:"UPPER CHEST",      type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=incline+press+jeff+nippard",              secondary:"Front Delts, Triceps" },
+    { id:"w4_ua_3",  name:"Lat Pulldown",            target:"LATS",             type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=lat+pulldown+jeff+nippard",               secondary:"Biceps, Rear Delts", note:"⚡ SUPERSET → Shrugs" },
+    { id:"w4_ua_3s", name:"Shrugs",                  target:"TRAPS",            type:"isolation", sets:3, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard",                     note:"⚡ SUPERSET ← Lat Pulldown" },
+    { id:"w4_ua_4",  name:"Diverging Low Row",       target:"MID BACK",         type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=diverging+low+row+jeff+nippard",           secondary:"Biceps, Rear Delts", poRef:"Chest Supported Row", poRefDay:"Upper A", note:"⚡ SUPERSET → Preacher Curl" },
+    { id:"w4_ua_4s", name:"Preacher Curl",           target:"BICEPS",           type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard",               note:"⚡ SUPERSET ← Diverging Low Row" },
+    { id:"w4_ua_5",  name:"Pec Flye",                target:"CHEST",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=pec+flye+jeff+nippard" },
+    { id:"w4_ua_6",  name:"Machine Lateral Raise",   target:"SIDE DELTS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=lateral+raise+machine+jeff+nippard" },
+    { id:"w4_ua_7",  name:"Cable Pushdown (rope)",   target:"TRICEPS",          type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+rope+jeff+nippard" },
+    { id:"w4_ua_8",  name:"Cable Hammer Curl",       target:"BRACHIALIS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+hammer+curl+jeff+nippard" },
+  ]},
+  "Upper B": { exercises: [
+    { id:"w4_ub_1",  name:"Chest Press",             target:"CHEST",            type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard",               secondary:"Triceps, Front Delts", note:"⚡ SUPERSET → Rear Pec Deck" },
+    { id:"w4_ub_1s", name:"Rear Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:3, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard",           note:"⚡ SUPERSET ← Chest Press" },
+    { id:"w4_ub_2",  name:"DB Flye",                 target:"CHEST",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=dumbbell+flye+jeff+nippard",               note:"⚡ SUPERSET → Cable Flye High to Low" },
+    { id:"w4_ub_2s", name:"Cable Flye High to Low",  target:"LOWER CHEST",      type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+flye+high+to+low+jeff+nippard",     note:"⚡ SUPERSET ← DB Flye" },
+    { id:"w4_ub_3",  name:"Assisted Pull Up",        target:"LATS",             type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=assisted+pull+up+jeff+nippard",            secondary:"Biceps", note:"Assist weight · ⚡ SUPERSET → Cable Lateral Raise" },
+    { id:"w4_ub_3s", name:"Cable Lateral Raise",     target:"SIDE DELTS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+lateral+raise+jeff+nippard",         note:"One arm · ⚡ SUPERSET ← Assisted Pull Up" },
+    { id:"w4_ub_4",  name:"ISO Lateral Row",         target:"MID BACK",         type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=iso+lateral+row+jeff+nippard",             secondary:"Biceps, Rear Delts", poRef:"T-Bar Row", poRefDay:"Upper B", note:"⚡ SUPERSET → Shrugs" },
+    { id:"w4_ub_4s", name:"Shrugs",                  target:"TRAPS",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard",                     note:"⚡ SUPERSET ← ISO Lateral Row" },
+    { id:"w4_ub_5",  name:"Machine Shoulder Press",  target:"FRONT DELTS",      type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=machine+shoulder+press+jeff+nippard",      secondary:"Triceps" },
+    { id:"w4_ub_6",  name:"Overhead Extension (rope)",target:"TRICEPS LONG HEAD",type:"isolation", sets:2, defaultReps:"12-8",   video:"https://www.youtube.com/results?search_query=overhead+extension+rope+jeff+nippard" },
+    { id:"w4_ub_7",  name:"Bayesian Cable Curl",     target:"BICEPS",           type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=bayesian+cable+curl+jeff+nippard",          note:"⚡ SUPERSET → Preacher Curl" },
+    { id:"w4_ub_7s", name:"Preacher Curl",           target:"BICEPS PEAK",      type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard",               note:"⚡ SUPERSET ← Bayesian Cable Curl" },
+  ]},
+  "Upper C": { exercises: [
+    { id:"w4_uc_1",  name:"Arnold Press",            target:"SHOULDERS",        type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=arnold+press+jeff+nippard",             secondary:"Front Delts, Triceps" },
+    { id:"w4_uc_2b", name:"Cable Flye Low to High",  target:"UPPER CHEST",      type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+flye+low+to+high+jeff+nippard" },
+    { id:"w4_uc_2",  name:"Cable Lateral Raise",     target:"SIDE DELTS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+lateral+raise+jeff+nippard",      note:"One arm" },
+    { id:"w4_uc_3",  name:"Shrugs",                  target:"TRAPS",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
+    { id:"w4_uc_4",  name:"Preacher Curl",           target:"BICEPS",           type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
+    { id:"w4_uc_5",  name:"Bent Over Cable Kickback",target:"TRICEPS",          type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=bent+over+cable+kickback+jeff+nippard" },
+    { id:"w4_uc_6",  name:"Lat Pullover",            target:"LATS",             type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=lat+pullover+jeff+nippard" },
+  ]},
+  "Lower A": { exercises: [
+    { id:"w4_la_1", name:"Hack Squat",               target:"QUADS & GLUTES",   type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=hack+squat+jeff+nippard",              secondary:"Hamstrings, Glutes" },
+    { id:"w4_la_2", name:"Romanian Deadlift",        target:"HAMSTRINGS",       type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=romanian+deadlift+jeff+nippard",      secondary:"Glutes, Lower Back" },
+    { id:"w4_la_3", name:"Leg Extension",            target:"QUADS",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
+    { id:"w4_la_4", name:"Lying Leg Curl",           target:"HAMSTRINGS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=lying+leg+curl+jeff+nippard" },
+    { id:"w4_la_5", name:"Hip Adductor",             target:"INNER THIGH",      type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=hip+adductor+jeff+nippard" },
+    { id:"w4_la_6", name:"Standing Calf Raise",      target:"CALVES",           type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard" },
+    { id:"w4_la_7", name:"Cable Crunch",             target:"ABS",              type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=cable+crunch+jeff+nippard" },
+  ]},
+  "Lower B": { exercises: [
+    { id:"w4_lb_1", name:"Leg Press",                target:"QUADS & GLUTES",   type:"compound",  sets:3, defaultReps:"15-8-6",  video:"https://www.youtube.com/results?search_query=leg+press+jeff+nippard",              secondary:"Hamstrings, Calves" },
+    { id:"w4_lb_2", name:"Hip Thrust",               target:"GLUTES",           type:"compound",  sets:2, defaultReps:"8-6",     video:"https://www.youtube.com/results?search_query=hip+thrust+jeff+nippard",             secondary:"Hamstrings" },
+    { id:"w4_lb_3", name:"Leg Extension",            target:"QUADS",            type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=leg+extension+jeff+nippard" },
+    { id:"w4_lb_4", name:"Seated Leg Curl",          target:"HAMSTRINGS",       type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=seated+leg+curl+jeff+nippard" },
+    { id:"w4_lb_5", name:"Hip Abductor",             target:"OUTER THIGH",      type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=hip+abductor+jeff+nippard" },
+    { id:"w4_lb_6", name:"Standing Calf Raise",      target:"CALVES",           type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=standing+calf+raise+jeff+nippard",   poRef:"Seated Calf Raise", poRefDay:"Lower B" },
+    { id:"w4_lb_7", name:"Leg Raises",               target:"LOWER ABS",        type:"isolation", sets:2, defaultReps:"12-8",    video:"https://www.youtube.com/results?search_query=leg+raises+jeff+nippard",            noWeight:true },
+  ]},
+};
+
 // ─── WEEK 3 & 4 PLAN — updated rep schemes and exercises ─────────────────────
 const P4_PLAN_W34 = {
   "Upper A": { exercises: [
@@ -900,7 +959,9 @@ function MansoorTracker() {
   const getWorkout = () => {
     if (archiveMode) return null;
     const wkNum = parseInt(selectedWeek.split(" ")[1]);
-    return wkNum >= 3 ? (P4_PLAN_W34[selectedDay] || null) : (P4_PLAN_W12[selectedDay] || null);
+    if (wkNum === 4) return P4_PLAN_W4[selectedDay] || null;
+    if (wkNum === 3) return P4_PLAN_W34[selectedDay] || null;
+    return P4_PLAN_W12[selectedDay] || null;
   };
   const workout = getWorkout();
   const warmupItems = isUpper ? PUSH_WARMUP : LEGS_WARMUP;
