@@ -1026,20 +1026,27 @@ function MansoorPlankTimer({ setIdx, savedSecs, accent, onComplete }) {
         {done?"✓":setIdx+1}
       </div>
       {done ? (
-        <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
-          ✓ {savedSecs}s HELD
+        <div style={{ display:"flex", gap:8, flex:1, alignItems:"center" }}>
+          <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
+            ✓ {savedSecs}s HELD
+          </div>
+          <button onClick={()=>onComplete("")} style={{ padding:"10px 14px", background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.3)", borderRadius:8, color:"#e57373", fontFamily:'"Bebas Neue",sans-serif', fontSize:14, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            RESET
+          </button>
         </div>
       ) : running ? (
         <>
           <div style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.06)", borderRadius:8, textAlign:"center", color:"#f5f1e8", fontFamily:'"JetBrains Mono",monospace', fontSize:28, fontWeight:700 }}>
             {elapsed}s
           </div>
-          <button onClick={finish} style={{ padding:"13px 20px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
-            DONE
-          </button>
-          <button onClick={()=>{ setRunning(false); setElapsed(0); }} style={{ padding:"13px 14px", background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.3)", borderRadius:8, color:"#e57373", fontFamily:'"Bebas Neue",sans-serif', fontSize:14, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
-            RESET
-          </button>
+          <div style={{ display:"flex", flexDirection:"column", gap:6, flexShrink:0 }}>
+            <button onClick={finish} style={{ padding:"10px 16px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
+              DONE
+            </button>
+            <button onClick={()=>{ setRunning(false); setElapsed(0); }} style={{ padding:"10px 16px", background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.3)", borderRadius:8, color:"#e57373", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
+              RESET
+            </button>
+          </div>
         </>
       ) : (
         <button onClick={start} style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.05)", border:"1px solid rgba(245,241,232,0.12)", borderRadius:8, color:"rgba(245,241,232,0.5)", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
@@ -1713,8 +1720,13 @@ function PlankTimer({ setIdx, savedSecs, accent, onComplete }) {
         {done?"✓":setIdx+1}
       </div>
       {done ? (
-        <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
-          ✓ {savedSecs}s HELD
+        <div style={{ display:"flex", gap:8, flex:1, alignItems:"center" }}>
+          <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
+            ✓ {savedSecs}s HELD
+          </div>
+          <button onClick={()=>onComplete("")} style={{ padding:"10px 14px", background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.3)", borderRadius:8, color:"#e57373", fontFamily:'"Bebas Neue",sans-serif', fontSize:14, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            RESET
+          </button>
         </div>
       ) : running ? (
         <>
