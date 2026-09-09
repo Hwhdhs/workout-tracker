@@ -365,7 +365,8 @@ const P5_PLAN = {
     { id:"p5_sh_4", name:"Upright Row",             target:"DELTS & TRAPS",    type:"compound",  sets:3, defaultReps:"12-10-8",      video:"https://www.youtube.com/results?search_query=upright+row+jeff+nippard",               note:"Cable EZ bar" },
     { id:"p5_sh_5", name:"Rear Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:4, defaultReps:"15-12-10-8",   video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
     { id:"p5_sh_6", name:"Shrugs",                  target:"TRAPS",            type:"isolation", sets:5, defaultReps:"15-12-10-8-8", video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
-    { id:"p5_sh_7", name:"Side Plank",              target:"OBLIQUES",         type:"core",      sets:3, defaultReps:"30-45s each",  video:"https://www.youtube.com/results?search_query=side+plank+jeff+nippard",               noWeight:true, timedSet:true },
+    { id:"p5_sh_7",  name:"Side Plank Left",          target:"OBLIQUES",         type:"core",      sets:3, defaultReps:"30-45s",       video:"https://www.youtube.com/results?search_query=side+plank+jeff+nippard",               noWeight:true, timedSet:true },
+    { id:"p5_sh_7b", name:"Side Plank Right",          target:"OBLIQUES",         type:"core",      sets:3, defaultReps:"30-45s",       video:"https://www.youtube.com/results?search_query=side+plank+jeff+nippard",               noWeight:true, timedSet:true },
     { id:"p5_sh_8", name:"Ab Wheel Rollout",        target:"CORE",             type:"core",      sets:3, defaultReps:"10-10-10",     video:"https://www.youtube.com/results?search_query=ab+wheel+rollout+jeff+nippard",          noWeight:true },
   ]},
 };
@@ -1036,6 +1037,9 @@ function MansoorPlankTimer({ setIdx, savedSecs, accent, onComplete }) {
           <button onClick={finish} style={{ padding:"13px 20px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
             DONE
           </button>
+          <button onClick={()=>{ setRunning(false); setElapsed(0); }} style={{ padding:"13px 14px", background:"rgba(220,80,80,0.1)", border:"1px solid rgba(220,80,80,0.3)", borderRadius:8, color:"#e57373", fontFamily:'"Bebas Neue",sans-serif', fontSize:14, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            RESET
+          </button>
         </>
       ) : (
         <button onClick={start} style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.05)", border:"1px solid rgba(245,241,232,0.12)", borderRadius:8, color:"rgba(245,241,232,0.5)", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
@@ -1088,13 +1092,24 @@ function MansoorTracker() {
   // ── API Load ───────────────────────────────────────────────────────────────
   useEffect(() => {
     (async () => {
+      // Load localStorage backup first (instant)
+      let localData = {};
+      try { const l = localStorage.getItem('mansoor_logs'); if (l) localData = JSON.parse(l); } catch {}
+
       try {
         const res = await fetch("/api/sync/mansoor");
         const { data } = await res.json();
-        setLogs(data.logs ? { ...mansoorLogs, ...P3_WEEK1_LOGS, ...data.logs } : { ...mansoorLogs, ...P3_WEEK1_LOGS });
-        setExtraSets(data.extraSets || {});
-        setFlexExercises(data.flexExercises || {});
-      } catch { setLogs({ ...mansoorLogs, ...P3_WEEK1_LOGS }); }
+        // Merge: base → P3 week1 → localStorage → API (API wins for any conflict)
+        const apiLogs = data.logs || {};
+        const merged = { ...mansoorLogs, ...P3_WEEK1_LOGS, ...(localData.logs||{}), ...apiLogs };
+        setLogs(merged);
+        setExtraSets({ ...(localData.extraSets||{}), ...(data.extraSets||{}) });
+        setFlexExercises({ ...(localData.flexExercises||{}), ...(data.flexExercises||{}) });
+      } catch {
+        setLogs({ ...mansoorLogs, ...P3_WEEK1_LOGS, ...(localData.logs||{}) });
+        setExtraSets(localData.extraSets || {});
+        setFlexExercises(localData.flexExercises || {});
+      }
       setLoaded(true);
     })();
   }, []);
@@ -1102,6 +1117,8 @@ function MansoorTracker() {
   // ── API Save (debounced) ───────────────────────────────────────────────────
   useEffect(() => {
     if (!loaded) return;
+    // Always write to localStorage immediately as backup
+    try { localStorage.setItem('mansoor_logs', JSON.stringify({ logs, extraSets, flexExercises })); } catch {}
     const t = setTimeout(async () => {
       try {
         await fetch("/api/sync/mansoor", {
