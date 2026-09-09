@@ -1110,9 +1110,23 @@ function MansoorTracker() {
         });
         setSaved(true); setTimeout(()=>setSaved(false),1500);
       } catch {}
-    }, 700);
+    }, 400);
     return () => clearTimeout(t);
   }, [logs, extraSets, loaded]);
+
+  // ── Save on page close / app switch ──────────────────────────────────────
+  useEffect(() => {
+    if (!loaded) return;
+    const saveNow = () => {
+      fetch("/api/sync/mansoor", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        keepalive: true,
+        body: JSON.stringify({ data: { logs, extraSets, flexExercises } }),
+      }).catch(()=>{});
+    };
+    document.addEventListener("visibilitychange", saveNow);
+    return () => document.removeEventListener("visibilitychange", saveNow);
+  }, [logs, extraSets, flexExercises, loaded]);
 
   useEffect(() => { setWarmupDone(false); setActiveEx(null); setRestTimer(null); setWarmupChecked({}); setCalendarDay(null); }, [selectedDay]);
 
