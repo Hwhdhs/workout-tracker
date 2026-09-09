@@ -334,7 +334,7 @@ const P5_PLAN = {
     { id:"p5_ct_6", name:"Straight Bar Pushdown",   target:"TRICEPS",          type:"isolation", sets:4, defaultReps:"15-12-10-8",   video:"https://www.youtube.com/results?search_query=straight+bar+pushdown+jeff+nippard" },
     { id:"p5_ct_7", name:"Skullcrusher Machine",    target:"TRICEPS",          type:"isolation", sets:3, defaultReps:"12-10-8",      video:"https://www.youtube.com/results?search_query=skullcrusher+machine+jeff+nippard" },
     { id:"p5_ct_8", name:"Overhead Cable Extension",target:"TRICEPS LONG HEAD", type:"isolation",sets:3, defaultReps:"12-10-8",      video:"https://www.youtube.com/results?search_query=overhead+cable+extension+jeff+nippard" },
-    { id:"p5_ct_9", name:"Plank",                   target:"CORE",             type:"core",      sets:3, defaultReps:"30-45s",       video:"https://www.youtube.com/results?search_query=plank+jeff+nippard",                   noWeight:true },
+    { id:"p5_ct_9", name:"Plank",                   target:"CORE",             type:"core",      sets:3, defaultReps:"30-45s",       video:"https://www.youtube.com/results?search_query=plank+jeff+nippard",                   noWeight:true, timedSet:true },
     { id:"p5_ct_10",name:"Leg Raises",              target:"LOWER ABS",        type:"core",      sets:3, defaultReps:"10-10-10",     video:"https://www.youtube.com/results?search_query=leg+raises+jeff+nippard",               noWeight:true },
   ]},
   "Legs": { exercises: [
@@ -365,7 +365,7 @@ const P5_PLAN = {
     { id:"p5_sh_4", name:"Upright Row",             target:"DELTS & TRAPS",    type:"compound",  sets:3, defaultReps:"12-10-8",      video:"https://www.youtube.com/results?search_query=upright+row+jeff+nippard",               note:"Cable EZ bar" },
     { id:"p5_sh_5", name:"Rear Pec Deck",           target:"REAR DELTS",       type:"isolation", sets:4, defaultReps:"15-12-10-8",   video:"https://www.youtube.com/results?search_query=reverse+pec+deck+jeff+nippard" },
     { id:"p5_sh_6", name:"Shrugs",                  target:"TRAPS",            type:"isolation", sets:5, defaultReps:"15-12-10-8-8", video:"https://www.youtube.com/results?search_query=shrugs+jeff+nippard" },
-    { id:"p5_sh_7", name:"Side Plank",              target:"OBLIQUES",         type:"core",      sets:3, defaultReps:"30-45s each",  video:"https://www.youtube.com/results?search_query=side+plank+jeff+nippard",               noWeight:true },
+    { id:"p5_sh_7", name:"Side Plank",              target:"OBLIQUES",         type:"core",      sets:3, defaultReps:"30-45s each",  video:"https://www.youtube.com/results?search_query=side+plank+jeff+nippard",               noWeight:true, timedSet:true },
     { id:"p5_sh_8", name:"Ab Wheel Rollout",        target:"CORE",             type:"core",      sets:3, defaultReps:"10-10-10",     video:"https://www.youtube.com/results?search_query=ab+wheel+rollout+jeff+nippard",          noWeight:true },
   ]},
 };
@@ -1000,6 +1000,52 @@ function RestDayView({ accent, dim, border, plan }) {
 }
 
 // ─── MANSOOR TRACKER ─────────────────────────────────────────────────────────
+
+// ─── PLANK TIMER (Mansoor) ────────────────────────────────────────────────────
+function MansoorPlankTimer({ setIdx, savedSecs, accent, onComplete }) {
+  const startRef = useRef(null);
+  const [running,  setRunning]  = useState(false);
+  const [elapsed,  setElapsed]  = useState(0);
+  const done = !!savedSecs;
+
+  useEffect(() => {
+    if (!running) return;
+    const tick = () => setElapsed(Math.floor((Date.now() - startRef.current) / 1000));
+    tick();
+    const t = setInterval(tick, 500);
+    return () => clearInterval(t);
+  }, [running]);
+
+  const start = () => { startRef.current = Date.now(); setElapsed(0); setRunning(true); };
+  const finish = () => { setRunning(false); onComplete(String(Math.floor((Date.now() - startRef.current) / 1000))); };
+
+  return (
+    <div style={{ display:"flex", gap:8, marginBottom:8, alignItems:"center" }}>
+      <div style={{ width:32, textAlign:"center", fontSize:12, fontFamily:'"JetBrains Mono",monospace', fontWeight:600, color:done?accent:"rgba(245,241,232,0.3)", flexShrink:0 }}>
+        {done?"✓":setIdx+1}
+      </div>
+      {done ? (
+        <div style={{ flex:1, padding:"13px", background:accent+"18", border:`1px solid ${accent}55`, borderRadius:8, textAlign:"center", color:accent, fontFamily:'"JetBrains Mono",monospace', fontSize:15, fontWeight:700 }}>
+          ✓ {savedSecs}s HELD
+        </div>
+      ) : running ? (
+        <>
+          <div style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.06)", borderRadius:8, textAlign:"center", color:"#f5f1e8", fontFamily:'"JetBrains Mono",monospace', fontSize:28, fontWeight:700 }}>
+            {elapsed}s
+          </div>
+          <button onClick={finish} style={{ padding:"13px 20px", background:accent, color:"#0a0a0a", border:"none", borderRadius:8, fontFamily:'"Bebas Neue",sans-serif', fontSize:16, letterSpacing:1, cursor:"pointer", flexShrink:0 }}>
+            DONE
+          </button>
+        </>
+      ) : (
+        <button onClick={start} style={{ flex:1, padding:"13px", background:"rgba(245,241,232,0.05)", border:"1px solid rgba(245,241,232,0.12)", borderRadius:8, color:"rgba(245,241,232,0.5)", fontFamily:'"Bebas Neue",sans-serif', fontSize:15, letterSpacing:1, cursor:"pointer" }}>
+          START SET {setIdx+1}
+        </button>
+      )}
+    </div>
+  );
+}
+
 function MansoorTracker() {
   const [selectedWeek,  setSelectedWeek]  = useState("Week 1");
   const [selectedDay,   setSelectedDay]   = useState("Chest + Tri");
@@ -1081,8 +1127,14 @@ function MansoorTracker() {
     const k = gk(selectedWeek,selectedDay,ex.name,si);
     const ready = ex.noWeight ? !!logs[k]?.reps : (logs[k]?.weight && logs[k]?.reps);
     if (ready) {
-      setLogs(p => ({ ...p, [k]: { ...p[k], confirmed:"1" } }));
+      const newLogs = { ...logs, [k]: { ...logs[k], confirmed:"1" } };
+      setLogs(newLogs);
       setRestTimer({ seconds: REST_TIMES[ex.type]||75, color: accent });
+      // Immediate save on LOG press — don't wait for debounce
+      fetch("/api/sync/mansoor", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ data: { logs: newLogs, extraSets, flexExercises } }),
+      }).catch(()=>{});
     }
   };
 
@@ -1143,6 +1195,7 @@ function MansoorTracker() {
 
   // ── Completion ────────────────────────────────────────────────────────────
   const isComplete = (ex) => Array.from({length:getTotalSets(ex)}).every((_,i) => {
+    if (ex.timedSet) return !!getLog(ex.name,i,"reps");
     if (ex.noWeight) return !!getLog(ex.name,i,"confirmed") && !!getLog(ex.name,i,"reps");
     return !!getLog(ex.name,i,"confirmed");
   });
@@ -1498,17 +1551,29 @@ function MansoorTracker() {
                     )}
                   </div>
                   {/* Set rows */}
-                  {!ex.noWeight && (
+                  {ex.timedSet && Array.from({length:totalSets}).map((_,si) => (
+                    <MansoorPlankTimer
+                      key={si}
+                      setIdx={si}
+                      savedSecs={getLog(ex.name,si,"reps")}
+                      accent={accent}
+                      onComplete={secs=>{
+                        updateLog(ex.name,si,"reps",secs);
+                        setRestTimer({ seconds:REST_TIMES[ex.type]||50, color:accent });
+                      }}
+                    />
+                  ))}
+                  {!ex.timedSet && !ex.noWeight && (
                     <div style={{ display:"grid", gridTemplateColumns:"32px 1fr 1fr 80px", gap:8, marginBottom:8 }}>
                       {["SET","KG","REPS",""].map(h=><div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>)}
                     </div>
                   )}
-                  {ex.noWeight && (
+                  {!ex.timedSet && ex.noWeight && (
                     <div style={{ display:"grid", gridTemplateColumns:"32px 1fr 80px", gap:8, marginBottom:8 }}>
                       {["SET","REPS",""].map(h=><div key={h} style={{ fontSize:9, color:"rgba(245,241,232,0.35)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:"0.15em", textAlign:"center" }}>{h}</div>)}
                     </div>
                   )}
-                  {Array.from({length:totalSets}).map((_,si)=>{
+                  {!ex.timedSet && Array.from({length:totalSets}).map((_,si)=>{
                     const w=getLog(ex.name,si,"weight"); const r=getLog(ex.name,si,"reps");
                     const confirmed = ex.noWeight ? !!getLog(ex.name,si,"confirmed") && !!r : !!getLog(ex.name,si,"confirmed");
                     const hasData = ex.noWeight ? !!r : !!(w && r);
@@ -1523,7 +1588,7 @@ function MansoorTracker() {
                             onChange={e=>updateLog(ex.name,si,"weight",e.target.value)}
                             style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                         )}
-                        <input type={ex.noWeight?"text":"number"} placeholder={ex.noWeight?"reps / secs":"reps"} value={r}
+                        <input type={ex.noWeight?"text":"number"} placeholder={ex.timedSet?"secs":"reps"} value={r}
                           onChange={e=>updateLog(ex.name,si,"reps",e.target.value)}
                           style={{ background:"rgba(245,241,232,0.05)", border:`1px solid ${confirmed?accent+"66":isExtra?"rgba(245,241,232,0.05)":"rgba(245,241,232,0.1)"}`, borderRadius:7, color:"#f5f1e8", padding:"10px", fontSize:15, fontFamily:'"JetBrains Mono",monospace', textAlign:"center", outline:"none", width:"100%" }}/>
                         <button onClick={()=>handleLogSet(ex,si)}
