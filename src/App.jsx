@@ -3,10 +3,11 @@ import { ChevronDown, ChevronUp, ExternalLink, Zap, Calendar, SkipForward, Penci
 
 // ─── MANSOOR ACCENT / STYLE ───────────────────────────────────────────────────
 const ACCENT = {
-  "Chest + Tri": { accent:"#E8735A", dim:"rgba(232,115,90,0.12)",  border:"rgba(232,115,90,0.3)"  },
-  "Legs":        { accent:"#6BA57A", dim:"rgba(107,165,122,0.12)", border:"rgba(107,165,122,0.3)" },
-  "Back + Bi":   { accent:"#7AB3E0", dim:"rgba(122,179,224,0.12)", border:"rgba(122,179,224,0.3)" },
-  "Shoulders":   { accent:"#9B8FD4", dim:"rgba(155,143,212,0.12)", border:"rgba(155,143,212,0.3)" },
+  "Upper A": { accent:"#C9A96E", dim:"rgba(201,169,110,0.12)", border:"rgba(201,169,110,0.3)" },
+  "Lower A": { accent:"#6BA57A", dim:"rgba(107,165,122,0.12)", border:"rgba(107,165,122,0.3)" },
+  "Upper B": { accent:"#D4D4D4", dim:"rgba(212,212,212,0.12)", border:"rgba(212,212,212,0.3)" },
+  "Lower B": { accent:"#7BB5D4", dim:"rgba(123,181,212,0.12)", border:"rgba(123,181,212,0.3)" },
+  "Upper C": { accent:"#E8C85A", dim:"rgba(232,200,90,0.12)",  border:"rgba(232,200,90,0.3)"  },
 };
 
 const PARI_ACCENT = {
@@ -37,7 +38,7 @@ const TYPE_COLOR = {
   core:      { bg:"rgba(155,143,212,0.15)", text:"#9B8FD4", label:"CORE"      },
 };
 
-const REST_TIMES  = { compound:150, isolation:75, warmup:50, finisher:50, core:50 };
+const REST_TIMES  = { compound:150, isolation:75, warmup:60, finisher:50, core:50 };
 const REST_LABELS = { compound:"2-3 MIN", isolation:"60-90 SEC", warmup:"45-60 SEC", finisher:"45-60 SEC", core:"45-60 SEC" };
 
 // ─── DAY-SPECIFIC WARMUPS ─────────────────────────────────────────────────────
@@ -815,10 +816,10 @@ const pariWeekDates = {
 };
 
 const WEEKS    = ["Week 1","Week 2","Week 3","Week 4"];
-const ALL_DAYS = ["Chest + Tri","Legs","Back + Bi","Shoulders"];
+const ALL_DAYS = ["Upper A","Lower A","Upper B","Lower B","Upper C"];
 const ARCHIVE_DAYS = ["Push 1","Pull 1","Push 2","Pull 2"];
 const ARCHIVE_DAYS_P3 = ["Push","Pull","Legs","Flex Day"];
-const ARCHIVE_DAYS_P4 = ["Upper A","Lower A","Upper B","Lower B","Upper C"];
+const ARCHIVE_DAYS_P4 = ["Chest + Tri","Legs","Back + Bi","Shoulders"];
 
 const FLEX_DEFAULTS = [
   { id:"fd_1", name:"Chest Press",              target:"CHEST",          type:"compound",  sets:3, defaultReps:"10-15", poDefault:65,   video:"https://www.youtube.com/results?search_query=chest+press+jeff+nippard" },
@@ -829,6 +830,99 @@ const FLEX_DEFAULTS = [
   { id:"fd_6", name:"Preacher Curl",           target:"BICEPS",         type:"isolation", sets:3, defaultReps:"10-12", poDefault:30,   video:"https://www.youtube.com/results?search_query=preacher+curl+jeff+nippard" },
   { id:"fd_7", name:"Bent Over Cable Kickback", target:"TRICEPS",        type:"isolation", sets:3, defaultReps:"12-15",                  video:"https://www.youtube.com/results?search_query=bent+over+cable+kickback+jeff+nippard", note:"Wrist strap" },
   { id:"fd_8", name:"Seated Calf Raise",       target:"CALVES",         type:"finisher",  sets:3, defaultReps:"15-20", poDefault:65,   video:"https://www.youtube.com/results?search_query=seated+calf+raise+jeff+nippard" },
+];
+
+// ─── P6 PROGRAM ──────────────────────────────────────────────────────────────
+const P6_PLAN = {
+  "Upper A": { day:"Monday", exercises: [
+    { id:"p6_ua_1", name:"Machine Chest Press", target:"CHEST", secondary:"Triceps, Front Delts", type:"compound", sets:4, defaultReps:"12-10-8-8", video:"https://www.youtube.com/results?search_query=machine+chest+press" },
+    { id:"p6_ua_2", name:"Incline Press", target:"UPPER CHEST", secondary:"Front Delts, Triceps", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=incline+chest+press" },
+    { id:"p6_ua_3", name:"DB Flye", target:"CHEST", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=dumbbell+flye" },
+    { id:"p6_ua_4", name:"Reverse Pullover", target:"LATS", secondary:"Chest", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=reverse+pullover" },
+    { id:"p6_ua_5", name:"Lat Pulldown", target:"LATS", secondary:"Biceps, Rear Delts", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=lat+pulldown" },
+    { id:"p6_ua_6", name:"ISO Lateral Row", target:"MID BACK", secondary:"Biceps", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=iso+lateral+row" },
+    { id:"p6_ua_7a", name:"Machine Lateral Raise", target:"SIDE DELTS", type:"isolation", sets:3, defaultReps:"15-12-10", supersetGroup:"ss_ua_7", video:"https://www.youtube.com/results?search_query=machine+lateral+raise" },
+    { id:"p6_ua_7b", name:"Shrugs", target:"TRAPS", type:"isolation", sets:3, defaultReps:"15-12-10", supersetGroup:"ss_ua_7", video:"https://www.youtube.com/results?search_query=shrugs" },
+    { id:"p6_ua_8a", name:"Cable Pushdown (rope)", target:"TRICEPS", type:"isolation", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_ua_8", video:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+rope" },
+    { id:"p6_ua_8b", name:"Bayesian Curl", target:"BICEPS", type:"isolation", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_ua_8", video:"https://www.youtube.com/results?search_query=bayesian+cable+curl" },
+    { id:"p6_ua_9", name:"Plank", target:"CORE", type:"finisher", sets:2, defaultReps:"30-45 secs", timedSet:true, noWeight:true, video:"https://www.youtube.com/results?search_query=plank+form" },
+  ]},
+  "Lower A": { day:"Tuesday", exercises: [
+    { id:"p6_la_1", name:"Leg Extension (warm up)", target:"QUADS", type:"warmup", sets:3, defaultReps:"15-15-15", video:"https://www.youtube.com/results?search_query=leg+extension" },
+    { id:"p6_la_2", name:"Pendulum Squat", target:"QUADS & GLUTES", secondary:"Hamstrings", type:"compound", sets:4, defaultReps:"12-10-8-8", video:"https://www.youtube.com/results?search_query=pendulum+squat" },
+    { id:"p6_la_3", name:"Leg Press", target:"QUADS & GLUTES", secondary:"Hamstrings, Calves", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=leg+press" },
+    { id:"p6_la_4", name:"Lying Leg Curl", target:"HAMSTRINGS", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=lying+leg+curl" },
+    { id:"p6_la_5", name:"Hip Adductor", target:"INNER THIGH", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=hip+adductor+machine" },
+    { id:"p6_la_6", name:"Standing Calf Raise", target:"CALVES", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=standing+calf+raise" },
+    { id:"p6_la_7", name:"Cable Crunch", target:"ABS", type:"finisher", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=cable+crunch" },
+    { id:"p6_la_8", name:"Leg Raises", target:"LOWER ABS", type:"finisher", sets:3, defaultReps:"15-12-10", noWeight:true, video:"https://www.youtube.com/results?search_query=leg+raises" },
+  ]},
+  "Upper B": { day:"Thursday", exercises: [
+    { id:"p6_ub_1", name:"Assisted Pull Up", target:"LATS", secondary:"Biceps, Rear Delts", type:"compound", sets:4, defaultReps:"10-10-10-10", video:"https://www.youtube.com/results?search_query=assisted+pull+up" },
+    { id:"p6_ub_2", name:"Low Cable Row Machine", target:"MID BACK", secondary:"Biceps", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=low+cable+row" },
+    { id:"p6_ub_3", name:"Lat Pulldown (narrow grip)", target:"LATS", secondary:"Biceps", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=lat+pulldown+narrow+grip" },
+    { id:"p6_ub_4", name:"Lat Pullover", target:"LATS", secondary:"Chest", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=lat+pullover" },
+    { id:"p6_ub_5", name:"Machine Chest Press", target:"CHEST", secondary:"Triceps, Front Delts", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=machine+chest+press" },
+    { id:"p6_ub_6", name:"Pec Flye", target:"CHEST", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=pec+deck+flye" },
+    { id:"p6_ub_7", name:"Rear Pec Deck", target:"REAR DELTS", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=reverse+pec+deck" },
+    { id:"p6_ub_8a", name:"Overhead Extension (rope)", target:"TRICEPS LONG HEAD", type:"isolation", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_ub_8", video:"https://www.youtube.com/results?search_query=cable+overhead+tricep+extension+rope" },
+    { id:"p6_ub_8b", name:"Hammer Curl", target:"BRACHIALIS", type:"isolation", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_ub_8", video:"https://www.youtube.com/results?search_query=hammer+curl" },
+    { id:"p6_ub_9", name:"Russian Twist", target:"OBLIQUES", type:"finisher", sets:2, defaultReps:"15-15", noWeight:true, video:"https://www.youtube.com/results?search_query=russian+twist" },
+  ]},
+  "Lower B": { day:"Friday", exercises: [
+    { id:"p6_lb_1", name:"Seated Leg Curl (warm up)", target:"HAMSTRINGS", type:"warmup", sets:3, defaultReps:"15-15-15", video:"https://www.youtube.com/results?search_query=seated+leg+curl" },
+    { id:"p6_lb_2", name:"Good Morning", target:"HAMSTRINGS", secondary:"Lower Back, Glutes", type:"compound", sets:4, defaultReps:"12-10-8-8", video:"https://www.youtube.com/results?search_query=good+morning+exercise" },
+    { id:"p6_lb_3", name:"Nordic Ham", target:"HAMSTRINGS", type:"compound", sets:3, defaultReps:"10-8-8", video:"https://www.youtube.com/results?search_query=nordic+hamstring+curl" },
+    { id:"p6_lb_4", name:"Leg Extension", target:"QUADS", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=leg+extension" },
+    { id:"p6_lb_5", name:"Hip Thrust", target:"GLUTES", secondary:"Hamstrings", type:"compound", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=hip+thrust" },
+    { id:"p6_lb_6", name:"Hip Abductor", target:"OUTER THIGH", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=hip+abductor+machine" },
+    { id:"p6_lb_7", name:"Seated Calf Raise", target:"CALVES", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=seated+calf+raise" },
+    { id:"p6_lb_8", name:"Ab Wheel Rollout", target:"CORE", type:"finisher", sets:3, defaultReps:"10-10-10", noWeight:true, video:"https://www.youtube.com/results?search_query=ab+wheel+rollout" },
+    { id:"p6_lb_9", name:"Hanging Leg Raises", target:"LOWER ABS", type:"finisher", sets:3, defaultReps:"15-12-10", noWeight:true, video:"https://www.youtube.com/results?search_query=hanging+leg+raises" },
+  ]},
+  "Upper C": { day:"Saturday", exercises: [
+    { id:"p6_uc_1", name:"Arnold Press", target:"SHOULDERS", secondary:"Front Delts, Triceps", type:"compound", sets:4, defaultReps:"12-10-8-8", video:"https://www.youtube.com/results?search_query=arnold+press" },
+    { id:"p6_uc_2", name:"Cable Lateral Raise (one arm)", target:"SIDE DELTS", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=cable+lateral+raise+one+arm" },
+    { id:"p6_uc_3", name:"Face Pull", target:"REAR DELTS", secondary:"Traps", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=face+pull" },
+    { id:"p6_uc_4", name:"Upright Row", target:"TRAPS", secondary:"Side Delts", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=upright+row" },
+    { id:"p6_uc_5", name:"Preacher Curl", target:"BICEPS PEAK", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=preacher+curl" },
+    { id:"p6_uc_6", name:"Reverse Cable Curl", target:"BRACHIALIS", type:"isolation", sets:3, defaultReps:"12-10-8", video:"https://www.youtube.com/results?search_query=reverse+cable+curl" },
+    { id:"p6_uc_7a", name:"Tricep Dips", target:"TRICEPS", secondary:"Chest, Shoulders", type:"compound", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_uc_7", video:"https://www.youtube.com/results?search_query=tricep+dips" },
+    { id:"p6_uc_7b", name:"Overhead Extension", target:"TRICEPS LONG HEAD", type:"isolation", sets:3, defaultReps:"12-10-8", supersetGroup:"ss_uc_7", video:"https://www.youtube.com/results?search_query=overhead+tricep+extension" },
+    { id:"p6_uc_8", name:"Hyperextension", target:"LOWER BACK", secondary:"Glutes, Hamstrings", type:"isolation", sets:3, defaultReps:"15-12-10", video:"https://www.youtube.com/results?search_query=hyperextension" },
+    { id:"p6_uc_9", name:"Side Plank Left", target:"OBLIQUES", type:"finisher", sets:2, defaultReps:"30-45 secs", timedSet:true, noWeight:true, video:"https://www.youtube.com/results?search_query=side+plank" },
+    { id:"p6_uc_10", name:"Side Plank Right", target:"OBLIQUES", type:"finisher", sets:2, defaultReps:"30-45 secs", timedSet:true, noWeight:true, video:"https://www.youtube.com/results?search_query=side+plank" },
+  ]},
+};
+
+const M5_ARCHIVE_PLAN = P5_PLAN; // P5 logs stored under P5| prefix
+
+const UPPER_WARMUP = [
+  { label:"Treadmill incline 10", detail:"5 mins" },
+  { label:"Arm circles", detail:"1 min", video:"https://www.youtube.com/results?search_query=arm+circles+warmup" },
+  { label:"Wrist flexor stretch", detail:"1 min", video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
+  { label:"Light set on first exercise", detail:"50% weight · 1 set" },
+];
+const LOWER_WARMUP = [
+  { label:"Treadmill incline 10", detail:"5 mins" },
+  { label:"Hip flexor stretch", detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=hip+flexor+stretch" },
+  { label:"Quad stretch", detail:"30 secs each side", video:"https://www.youtube.com/results?search_query=quad+stretch" },
+  { label:"Forward fold", detail:"30 secs", video:"https://www.youtube.com/results?search_query=seated+forward+fold" },
+];
+const UPPER_STRETCHES_P6 = [
+  { muscle:"Chest",        duration:"30 secs",      video:"https://www.youtube.com/results?search_query=chest+stretch" },
+  { muscle:"Shoulders",    duration:"30 secs each", video:"https://www.youtube.com/results?search_query=shoulder+stretch" },
+  { muscle:"Triceps",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=tricep+stretch" },
+  { muscle:"Lats",         duration:"30 secs each", video:"https://www.youtube.com/results?search_query=lat+stretch" },
+  { muscle:"Biceps",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=bicep+stretch" },
+  { muscle:"Wrist Flexor", duration:"30 secs each", video:"https://www.youtube.com/results?search_query=wrist+flexor+stretch" },
+];
+const LOWER_STRETCHES_P6 = [
+  { muscle:"Quads",       duration:"30 secs each", video:"https://www.youtube.com/results?search_query=quad+stretch" },
+  { muscle:"Hamstrings",  duration:"30 secs",      video:"https://www.youtube.com/results?search_query=hamstring+stretch" },
+  { muscle:"Glutes",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=glute+stretch" },
+  { muscle:"Hip Flexors", duration:"30 secs each", video:"https://www.youtube.com/results?search_query=hip+flexor+stretch" },
+  { muscle:"Calves",      duration:"30 secs each", video:"https://www.youtube.com/results?search_query=calf+stretch" },
 ];
 
 // ─── CSS ──────────────────────────────────────────────────────────────────────
@@ -892,11 +986,27 @@ function RestTimer({ seconds, color, onDone }) {
   const [remaining, setRemaining] = useState(seconds);
   const fmt = s => `${Math.floor(Math.max(0,s)/60)}:${String(Math.max(0,s)%60).padStart(2,"0")}`;
 
+  const playBeep = () => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [0, 0.3, 0.6].forEach(delay => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = 880;
+        gain.gain.setValueAtTime(0.3, ctx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.2);
+        osc.start(ctx.currentTime + delay);
+        osc.stop(ctx.currentTime + delay + 0.2);
+      });
+    } catch {}
+  };
+
   useEffect(() => {
     const tick = () => {
       const elapsed = Math.floor((Date.now() - startRef.current) / 1000);
       const left = seconds + adjustRef.current - elapsed;
-      if (left <= 0) { setRemaining(0); onDone(); return; }
+      if (left <= 0) { setRemaining(0); playBeep(); onDone(); return; }
       setRemaining(left);
     };
     tick();
@@ -1059,7 +1169,7 @@ function MansoorPlankTimer({ setIdx, savedSecs, accent, onComplete }) {
 
 function MansoorTracker() {
   const [selectedWeek,  setSelectedWeek]  = useState("Week 1");
-  const [selectedDay,   setSelectedDay]   = useState("Chest + Tri");
+  const [selectedDay,   setSelectedDay]   = useState("Upper A");
   const [logs,          setLogs]          = useState({});
   const [extraSets,     setExtraSets]     = useState({});
   const [activeEx,      setActiveEx]      = useState(null);
@@ -1074,27 +1184,15 @@ function MansoorTracker() {
   const [copied,        setCopied]        = useState(false);
   const [archiveMode,   setArchiveMode]   = useState(false);
   const [archiveDay,    setArchiveDay]    = useState("Push 1");
-  const [archiveProg,   setArchiveProg]   = useState(2);
-  const [flexExercises, setFlexExercises] = useState({});
-  const [showAddEx,     setShowAddEx]     = useState(false);
-  const [newExName,     setNewExName]     = useState("");
-  const [newExTarget,   setNewExTarget]   = useState("");
+  const [archiveProg,   setArchiveProg]   = useState(5);
 
-  const isChestTri = selectedDay === "Chest + Tri";
-  const isLegs    = selectedDay === "Legs";
-  const isBackBi  = selectedDay === "Back + Bi";
-  const isShoulders = selectedDay === "Shoulders";
-  const flexWeekKey = selectedWeek;
-  const flexList = flexExercises[flexWeekKey] ?? [];
+  const isUpperDay = selectedDay.startsWith("Upper");
+  const isLowerDay = selectedDay.startsWith("Lower");
   const { accent, dim, border } = ACCENT[selectedDay];
 
-  const getWorkout = () => {
-    if (archiveMode) return null;
-    return P5_PLAN[selectedDay] || null;
-  };
-  const workout = getWorkout();
-  const warmupItems = isLegs ? LEGS_WARMUP : isBackBi ? BACK_WARMUP : PUSH_WARMUP;
-  const stretchItems = isLegs ? LOWER_STRETCHES : isChestTri ? CHEST_TRI_STRETCHES : isBackBi ? BACK_BI_STRETCHES : SHOULDERS_STRETCHES;
+  const workout = P6_PLAN[selectedDay] || null;
+  const warmupItems = isUpperDay ? UPPER_WARMUP : LOWER_WARMUP;
+  const stretchItems = isUpperDay ? UPPER_STRETCHES_P6 : LOWER_STRETCHES_P6;
 
   // ── API Load ───────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -1111,11 +1209,9 @@ function MansoorTracker() {
         const merged = { ...mansoorLogs, ...P3_WEEK1_LOGS, ...(localData.logs||{}), ...apiLogs };
         setLogs(merged);
         setExtraSets({ ...(localData.extraSets||{}), ...(data.extraSets||{}) });
-        setFlexExercises({ ...(localData.flexExercises||{}), ...(data.flexExercises||{}) });
       } catch {
         setLogs({ ...mansoorLogs, ...P3_WEEK1_LOGS, ...(localData.logs||{}) });
         setExtraSets(localData.extraSets || {});
-        setFlexExercises(localData.flexExercises || {});
       }
       setLoaded(true);
     })();
@@ -1125,12 +1221,12 @@ function MansoorTracker() {
   useEffect(() => {
     if (!loaded) return;
     // Always write to localStorage immediately as backup
-    try { localStorage.setItem('mansoor_logs', JSON.stringify({ logs, extraSets, flexExercises })); } catch {}
+    try { localStorage.setItem('mansoor_logs', JSON.stringify({ logs, extraSets })); } catch {}
     const t = setTimeout(async () => {
       try {
         await fetch("/api/sync/mansoor", {
           method:"POST", headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ data: { logs, extraSets, flexExercises } }),
+          body: JSON.stringify({ data: { logs, extraSets } }),
         });
         setSaved(true); setTimeout(()=>setSaved(false),1500);
       } catch {}
@@ -1145,17 +1241,17 @@ function MansoorTracker() {
       fetch("/api/sync/mansoor", {
         method:"POST", headers:{"Content-Type":"application/json"},
         keepalive: true,
-        body: JSON.stringify({ data: { logs, extraSets, flexExercises } }),
+        body: JSON.stringify({ data: { logs, extraSets } }),
       }).catch(()=>{});
     };
     document.addEventListener("visibilitychange", saveNow);
     return () => document.removeEventListener("visibilitychange", saveNow);
-  }, [logs, extraSets, flexExercises, loaded]);
+  }, [logs, extraSets, loaded]);
 
   useEffect(() => { setWarmupDone(false); setActiveEx(null); setRestTimer(null); setWarmupChecked({}); setCalendarDay(null); }, [selectedDay]);
 
   // ── Log helpers ───────────────────────────────────────────────────────────
-  const gk = (w,d,e,s) => `P5|${w}|${d}|${e}|${s}`;
+  const gk = (w,d,e,s) => `P6|${w}|${d}|${e}|${s}`;
   const getLog = (e,s,f) => logs[gk(selectedWeek,selectedDay,e,s)]?.[f] || "";
   const updateLog = (exName,si,field,value) => {
     const k = gk(selectedWeek,selectedDay,exName,si);
@@ -1171,7 +1267,7 @@ function MansoorTracker() {
       // Immediate save on LOG press — don't wait for debounce
       fetch("/api/sync/mansoor", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ data: { logs: newLogs, extraSets, flexExercises } }),
+        body: JSON.stringify({ data: { logs: newLogs, extraSets } }),
       }).catch(()=>{});
     }
   };
@@ -1222,12 +1318,12 @@ function MansoorTracker() {
   const saveExName = (orig) => { setLogs(p=>({...p,[`__exname|${selectedDay}|${orig}`]:tempName.trim()||orig})); setEditingName(null); };
 
   // ── Per-exercise notes ────────────────────────────────────────────────────
-  const getNoteKey = (exName) => `P5|__note|${selectedWeek}|${selectedDay}|${exName}`;
+  const getNoteKey = (exName) => `P6|__note|${selectedWeek}|${selectedDay}|${exName}`;
   const getNote = (exName) => logs[getNoteKey(exName)] || "";
   const saveNote = (exName, text) => setLogs(p => ({ ...p, [getNoteKey(exName)]: text }));
 
   // ── Stretch state (persisted in logs) ─────────────────────────────────────
-  const getStretchKey = (i) => `P5|__stretch|${selectedWeek}|${selectedDay}|${i}`;
+  const getStretchKey = (i) => `P6|__stretch|${selectedWeek}|${selectedDay}|${i}`;
   const stretchChecked = stretchItems.reduce((acc,_,i) => ({...acc,[i]:!!logs[getStretchKey(i)]}), {});
   const toggleStretch = (i) => setLogs(p=>({...p,[getStretchKey(i)]:p[getStretchKey(i)]?"":"1"}));
 
@@ -1254,7 +1350,7 @@ function MansoorTracker() {
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
           <div style={{ fontFamily:'"JetBrains Mono",monospace', fontSize:10, letterSpacing:"0.2em", color:accent, marginBottom:4 }}>
-            THEOGLUMI · WELLFIT{saved?" · SAVED ✓":""}
+            THEOGLUMI · WELLFIT · 5 DAYS{saved?" · SAVED ✓":""}
           </div>
           <div style={{ fontFamily:'"Bebas Neue",sans-serif', fontSize:28, letterSpacing:"0.02em", lineHeight:1, color:"#f5f1e8" }}>{archiveMode?"ARCHIVE":selectedDay}</div>
         </div>
@@ -1326,7 +1422,8 @@ function MansoorTracker() {
     const prog2Days = ["Push 1","Pull 1","Legs","Push 2","Pull 2","Flex Day"];
     const prog3Days = ["Push","Pull","Legs","Flex Day"];
     const prog4Days = ["Upper A","Lower A","Upper B","Lower B","Upper C"];
-    const currentArchiveDays = archiveProg === 1 ? prog1Days : archiveProg === 2 ? prog2Days : archiveProg === 3 ? prog3Days : prog4Days;
+    const prog5Days = ["Chest + Tri","Legs","Back + Bi","Shoulders"];
+    const currentArchiveDays = archiveProg === 1 ? prog1Days : archiveProg === 2 ? prog2Days : archiveProg === 3 ? prog3Days : archiveProg === 4 ? prog4Days : prog5Days;
     const validArchiveDay = currentArchiveDays.includes(archiveDay) ? archiveDay : currentArchiveDays[0];
 
     const getArchiveWorkout = () => {
@@ -1346,13 +1443,17 @@ function MansoorTracker() {
         return ARCHIVE_PLAN_3[validArchiveDay] || null;
       }
       // Month 4
-      const wkNum = parseInt(selectedWeek.split(" ")[1]);
-      if (wkNum === 4) return P4_PLAN_W4[validArchiveDay] || null;
-      if (wkNum === 3) return P4_PLAN_W34[validArchiveDay] || null;
-      return P4_PLAN_W12[validArchiveDay] || null;
+      if (archiveProg === 4) {
+        const wkNum = parseInt(selectedWeek.split(" ")[1]);
+        if (wkNum === 4) return P4_PLAN_W4[validArchiveDay] || null;
+        if (wkNum === 3) return P4_PLAN_W34[validArchiveDay] || null;
+        return P4_PLAN_W12[validArchiveDay] || null;
+      }
+      // Month 5
+      return P5_PLAN[validArchiveDay] || null;
     };
     const archiveWorkout = getArchiveWorkout();
-    const archivePrefix = archiveProg === 1 ? "" : archiveProg === 2 ? "P2|" : archiveProg === 3 ? "P3|" : "P4|";
+    const archivePrefix = archiveProg === 1 ? "" : archiveProg === 2 ? "P2|" : archiveProg === 3 ? "P3|" : archiveProg === 4 ? "P4|" : "P5|";
 
     return (
       <div style={{ minHeight:"100vh", background:"#0a0a0a", color:"#f5f1e8", fontFamily:'"Inter",sans-serif', paddingBottom:80 }}>
@@ -1361,8 +1462,8 @@ function MansoorTracker() {
         <div style={{ padding:"10px 16px 0" }}>
           {/* Program selector */}
           <div style={{ display:"flex", gap:6, marginBottom:10 }}>
-            {[1,2,3,4].map(p => (
-              <button key={p} onClick={()=>{setArchiveProg(p); setArchiveDay(p===3?"Push":p===4?"Upper A":"Push 1");}}
+            {[1,2,3,4,5].map(p => (
+              <button key={p} onClick={()=>{setArchiveProg(p); setArchiveDay(p===3?"Push":p===4?"Upper A":p===5?"Chest + Tri":"Push 1");}}
                 style={{ flex:1, padding:"6px", background:archiveProg===p?archiveAccent:"rgba(245,241,232,0.06)", color:archiveProg===p?"#0a0a0a":"rgba(245,241,232,0.4)", border:`1px solid ${archiveProg===p?archiveAccent:"rgba(245,241,232,0.15)"}`, borderRadius:8, fontSize:9, fontFamily:'"JetBrains Mono",monospace', letterSpacing:2, cursor:"pointer" }}>
                 M{p}
               </button>
@@ -1377,7 +1478,7 @@ function MansoorTracker() {
               </button>
             ))}
           </div>
-          <div style={{ marginTop:8, fontSize:10, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:2 }}>READ-ONLY · {archiveProg === 1 ? "MONTH 1" : archiveProg === 2 ? "MONTH 2" : archiveProg === 3 ? "MONTH 3" : "MONTH 4"}</div>
+          <div style={{ marginTop:8, fontSize:10, color:"rgba(245,241,232,0.3)", fontFamily:'"JetBrains Mono",monospace', letterSpacing:2 }}>READ-ONLY · MONTH {archiveProg} DATA</div>
         </div>
         <div style={{ padding:"12px 16px 0" }}>
           {!archiveWorkout ? (
@@ -1473,7 +1574,7 @@ function MansoorTracker() {
       if (note) text += `    Note: ${note}\n`;
       text += "\n";
     });
-    text += `─────────────────────────────\nTHEOGLUMI · WELLFIT`;
+    text += `─────────────────────────────\nTHEOGLUMI · WELLFIT · 5 DAYS`;
 
     const done = () => { setCopied(true); setTimeout(()=>setCopied(false), 2000); };
 
@@ -1513,8 +1614,16 @@ function MansoorTracker() {
           const displayName = getExName(ex.name);
           const po = getPo(ex);
           const totalSets = getTotalSets(ex);
+          const prevEx = idx > 0 ? workout.exercises[idx-1] : null;
+          const showSupersetDivider = prevEx?.supersetGroup && prevEx.supersetGroup === ex.supersetGroup;
           return (
-            <div key={ex.id} style={{ marginBottom:10, border:`1px solid ${done?accent:isOpen?border:"rgba(245,241,232,0.07)"}`, borderRadius:14, overflow:"hidden", background:done?dim:"rgba(245,241,232,0.02)" }}>
+            <div key={ex.id}>
+            {showSupersetDivider && (
+              <div style={{ textAlign:"center", fontSize:9, color:accent, fontFamily:'"JetBrains Mono",monospace', letterSpacing:3, padding:"4px 0 8px", opacity:0.7 }}>
+                ⇅ SUPERSET WITH ↓
+              </div>
+            )}
+            <div style={{ marginBottom:10, border:`1px solid ${done?accent:isOpen?border:"rgba(245,241,232,0.07)"}`, borderRadius:14, overflow:"hidden", background:done?dim:"rgba(245,241,232,0.02)" }}>
               {/* Card header */}
               <div onClick={()=>setActiveEx(isOpen?null:ex.id)} style={{ padding:"14px 16px", cursor:"pointer" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
@@ -1670,6 +1779,7 @@ function MansoorTracker() {
                 </div>
               )}
             </div>
+            </div>
           );
         })}
       </div>
@@ -1685,10 +1795,8 @@ function MansoorTracker() {
       )}
 
       <div style={{ margin:"16px 16px 0", padding:"12px 16px", background:"rgba(201,169,110,0.06)", border:"1px solid rgba(201,169,110,0.2)", borderRadius:10, fontSize:10, color:"#C9A96E", fontFamily:'"JetBrains Mono",monospace', letterSpacing:1, lineHeight:1.8 }}>
-        {isBackBi && "TENNIS ELBOW · HOOKS ON PULLS · WRIST STRAP ON KICKBACK · STOP IF SHARP PAIN"}
-        {isChestTri && "TENNIS ELBOW · WRIST STRAP ON KICKBACK · STOP IF SHARP PAIN"}
-        {isShoulders && "TENNIS ELBOW · STOP IF SHARP PAIN"}
-        {isLegs && "BELT ON BARBELL SQUAT · STOP IF SHARP PAIN"}
+        {isUpperDay && "TENNIS ELBOW · HOOKS ON PULLS · ROPE ON CABLE TRICEP WORK · STOP IF SHARP PAIN"}
+        {isLowerDay && "BELT ON HEAVY COMPOUNDS · STOP IF SHARP PAIN"}
       </div>
 
       {restTimer && <RestTimer seconds={restTimer.seconds} color={restTimer.color} onDone={()=>setRestTimer(null)}/>}
@@ -2161,7 +2269,7 @@ export default function App() {
           onMouseLeave={e=>e.currentTarget.style.border="1px solid #C9A96E44"}>
           <div style={{ width:64, height:64, borderRadius:"50%", background:"#C9A96E22", border:"2px solid #C9A96E", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 16px", fontSize:24, color:"#C9A96E" }}>M</div>
           <div style={{ fontSize:22, letterSpacing:2, color:"#C9A96E" }}>MANSOOR</div>
-          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>WELLFIT • 4 DAYS</div>
+          <div style={{ fontSize:9, fontFamily:"monospace", color:"#555", letterSpacing:2, marginTop:6 }}>WELLFIT • 5 DAYS</div>
         </div>
         <div onClick={()=>setProfile("Pari")} style={{ cursor:"pointer", width:150, padding:"32px 20px", background:"#111", border:"1px solid #E879A044", borderRadius:16, textAlign:"center" }}
           onMouseEnter={e=>e.currentTarget.style.border="1px solid #E879A0"}
